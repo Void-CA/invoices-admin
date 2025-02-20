@@ -35,3 +35,6 @@ def eliminar_factura(request, id):
     factura = get_object_or_404(Factura, id=id)
     factura.delete()
     return redirect('lista_facturas')
+
+def test(request):
+    return render(request, 'facturas/testing.html')
