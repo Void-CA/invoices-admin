@@ -19,6 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('facturas/', include('facturas.urls')),  # Enlace a nuestra app
+    path('facturas/', include('facturas.urls')),
 ]
+
 
