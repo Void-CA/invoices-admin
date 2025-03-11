@@ -1,0 +1,13 @@
+{% extends 'facturas/base.html' %}
+
+{% block title %}Detalle de Factura{% endblock %}
+
+{% block content %}
+<h2>Factura #{{ invoice.id }}</h2>
+<p><strong>Cliente:</strong> {{ invoice.client }}</p>
+<p><strong>Monto:</strong> ${{ invoice.total }}</p>
+<p><strong>Fecha:</strong> {{ invoice.date }}</p>
+
+<a href="{% url 'invoice_list' %}" class="btn btn-secondary">Volver</a>
+<a href="{% url 'edit_invoice' invoice.id %}" class="btn btn-warning">Editar</a>
+{% endblock %}

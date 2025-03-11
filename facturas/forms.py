@@ -1,10 +1,10 @@
 from django import forms
-from .models import Factura
+from .models import Invoice
 
-class FacturaForm(forms.ModelForm):
+class InvoiceForm(forms.ModelForm):
     class Meta:
-        model = Factura
-        fields = ['cliente', 'fecha', 'total']
+        model = Invoice
+        fields = ['client', 'date', 'total']
         widgets = {
-            'fecha': forms.DateInput(attrs={'type': 'date'})  # 📅 Activa el calendario
+            'date': forms.DateInput(attrs={'type': 'date'})  # 📅 Activa el calendario
         }

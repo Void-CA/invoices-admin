@@ -1,41 +1,47 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Factura  # Asegúrate de definir este modelo
-from .forms import FacturaForm  # Asegúrate de definir este formulario
+from .models import Invoice  # Asegúrate de definir este modelo
+from .forms import InvoiceForm  # Asegúrate de definir este formulario
 
-def lista_facturas(request):
-    facturas = Factura.objects.all()
-    return render(request, 'facturas/lista_facturas.html', {'facturas': facturas})
+def invoice_list(request):
+    facturas = Invoice.objects.all()
+    return render(request, 'facturas/invoices_list.html', {'invoices': facturas})
 
-def detalle_factura(request, factura_id):  
-    factura = get_object_or_404(Factura, id=factura_id)
-    return render(request, 'facturas/detalle_factura.html', {'factura': factura})
+def invoice_detail(request, factura_id):  
+    factura = get_object_or_404(Invoice, id=factura_id)
+    return render(request, 'facturas/invoice_detail.html', {'invoice': factura})
 
 
-def crear_factura(request):
+def create_invoice(request):
     if request.method == "POST":
-        form = FacturaForm(request.POST)
+        form = InvoiceForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('lista_facturas')
+            return redirect('invoice_list')
     else:
-        form = FacturaForm()
-    return render(request, 'facturas/formulario_factura.html', {'form': form})
+        form = InvoiceForm()
+    return render(request, 'facturas/invoice_form.html', {'form': form})
 
-def editar_factura(request, factura_id):
-    factura = get_object_or_404(Factura, id=factura_id)
+def edit_invoice(request, factura_id):
+    factura = get_object_or_404(Invoice, id=factura_id)
     if request.method == "POST":
-        form = FacturaForm(request.POST, instance=factura)
+        form = InvoiceForm(request.POST, instance=factura)
         if form.is_valid():
             form.save()
-            return redirect('lista_facturas')
+            return redirect('invoice_list')
     else:
-        form = FacturaForm(instance=factura)
+        form = InvoiceForm(instance=factura)
     return render(request, 'facturas/formulario_factura.html', {'form': form})
 
-def eliminar_factura(request, factura_id):
-    factura = get_object_or_404(Factura, id=factura_id)
+def delete_invoice(request, factura_id):
+    factura = get_object_or_404(Invoice, id=factura_id)
     factura.delete()
-    return redirect('lista_facturas')
+    return redirect('invoice_list')
 
 def test(request):
     return render(request, 'facturas/testing.html')
+
+def clients(request):
+    return render(request, 'facturas/clients.html')
+
+def add_client(request):
+    return render(request, 'facturas/add_client.html')

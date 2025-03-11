@@ -2,10 +2,12 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.lista_facturas, name='lista_facturas'),
-    path('crear/', views.crear_factura, name='crear_factura'),
-    path('editar/<int:factura_id>/', views.editar_factura, name='editar_factura'),
-    path('eliminar/<int:factura_id>/', views.eliminar_factura, name='eliminar_factura'),
-    path('<int:factura_id>/', views.detalle_factura, name='detalle_factura'),
+    path('', views.invoice_list, name='invoice_list'),
+    path('create/', views.create_invoice, name='create_invoice'),
+    path('clients/', views.clients, name='clients'),
+    path('add_client/', views.add_client, name='add_client'),
+    path('edit/<int:invoice_id>/', views.edit_invoice, name='edit_invoice'),
+    path('delete/<int:invoice_id>/', views.delete_invoice, name='delete_invoice'),
+    path('<int:invoice_id>/', views.invoice_detail, name='invoice_detail'),
     path('test/', views.test, name='test'),
 ]

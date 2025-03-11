@@ -1,32 +1,32 @@
 from django.db import models
 
-class Cliente(models.Model):
-    nombre = models.CharField(max_length=100)
-    correo = models.EmailField(unique=True)
-    telefono = models.CharField(max_length=15, blank=True, null=True)
+class Client(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=15, blank=True, null=True)
 
     def __str__(self):
-        return self.nombre
+        return self.name
 
-class Producto(models.Model):
-    nombre = models.CharField(max_length=100)
-    descripcion = models.TextField(blank=True, null=True)
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return self.nombre
+        return self.name
 
-class Factura(models.Model):
+class Invoice(models.Model):
     ESTADOS_FACTURA = [
         ('pendiente', 'Pendiente'),
         ('pagado', 'Pagado'),
         ('cancelado', 'Cancelado'),
     ]
 
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    fecha = models.DateField()
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    date = models.DateField()
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    estado = models.CharField(max_length=10, choices=ESTADOS_FACTURA, default='pendiente')
+    state = models.CharField(max_length=10, choices=ESTADOS_FACTURA, default='pendiente')
 
     def calcular_total(self):
         total = sum(item.subtotal() for item in self.detalles.all())
@@ -34,15 +34,15 @@ class Factura(models.Model):
         self.save()
     
     def __str__(self):
-        return f"Factura {self.id} - {self.cliente.nombre}"
+        return f"Factura {self.id} - {self.client.name}"
 
-class DetalleFactura(models.Model):
-    factura = models.ForeignKey(Factura, related_name="detalles", on_delete=models.CASCADE)
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    cantidad = models.PositiveIntegerField()
+class InvoiceDetail(models.Model):
+    invoice = models.ForeignKey(Invoice, related_name="detalles", on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
     
     def subtotal(self):
-        return self.cantidad * self.producto.precio
+        return self.quantity * self.product.price
 
     def __str__(self):
-        return f"{self.cantidad} x {self.producto.nombre} en Factura {self.factura.id}"
+        return f"{self.quantity} x {self.product.name} en Factura {self.invoice.id}"
