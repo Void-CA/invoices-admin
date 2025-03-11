@@ -6,9 +6,10 @@ def lista_facturas(request):
     facturas = Factura.objects.all()
     return render(request, 'facturas/lista_facturas.html', {'facturas': facturas})
 
-def detalle_factura(request, id):
-    factura = get_object_or_404(Factura, id=id)
+def detalle_factura(request, factura_id):  
+    factura = get_object_or_404(Factura, id=factura_id)
     return render(request, 'facturas/detalle_factura.html', {'factura': factura})
+
 
 def crear_factura(request):
     if request.method == "POST":
@@ -20,8 +21,8 @@ def crear_factura(request):
         form = FacturaForm()
     return render(request, 'facturas/formulario_factura.html', {'form': form})
 
-def editar_factura(request, id):
-    factura = get_object_or_404(Factura, id=id)
+def editar_factura(request, factura_id):
+    factura = get_object_or_404(Factura, id=factura_id)
     if request.method == "POST":
         form = FacturaForm(request.POST, instance=factura)
         if form.is_valid():
@@ -31,8 +32,8 @@ def editar_factura(request, id):
         form = FacturaForm(instance=factura)
     return render(request, 'facturas/formulario_factura.html', {'form': form})
 
-def eliminar_factura(request, id):
-    factura = get_object_or_404(Factura, id=id)
+def eliminar_factura(request, factura_id):
+    factura = get_object_or_404(Factura, id=factura_id)
     factura.delete()
     return redirect('lista_facturas')
 
