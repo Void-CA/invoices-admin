@@ -3,9 +3,12 @@
 {% block title %}Clientes{% endblock %}
 
 {% block content %}
-<h1 class="text-2xl font-bold mb-4">Clientes</h1>
+<h2 class="text-4xl font-semibold text-gray-800 border-b-2 border-gray-300 pb-2 mb-4">
+    Clientes
+</h2>
 
-<a href="{% url 'add_client' %}" 
+
+<a href="{% url 'client_create' %}" 
    class="fixed bottom-4 right-4 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition flex items-center justify-center">
    <span class="material-symbols-outlined" style="font-size: 6rem;">add</span>
 </a>

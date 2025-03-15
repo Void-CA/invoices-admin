@@ -3,13 +3,7 @@
 {% block title %}Lista de Facturas{% endblock %}
 
 {% block content %}
-<h1 class="text-2xl font-bold mb-4">Facturas</h1>
-
-<a href="{% url 'create_invoice' %}" 
-   class="fixed bottom-4 right-4 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition flex items-center justify-center">
-   <span class="material-symbols-outlined" style="font-size: 6rem;">add</span>
-</a>
-
+<h1 class="text-4xl font-semibold text-gray-800 border-b-2 border-gray-300 pb-2">Facturas</h1>
 
 
 <table class="table-auto border-collapse border border-gray-300 w-full mt-4">
@@ -36,4 +30,8 @@
         {% endfor %}
     </tbody>
 </table>
+<a href="{% url 'create_invoice' %}" 
+   class="fixed bottom-4 right-4 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition flex items-center justify-center">
+   <span class="material-symbols-outlined" style="font-size: 6rem;">add</span>
+</a>
 {% endblock %}
