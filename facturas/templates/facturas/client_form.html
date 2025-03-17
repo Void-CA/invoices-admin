@@ -1,14 +1,16 @@
-{% extends 'facturas/base.html' %}
+{% extends "facturas/form_base.html" %}
 
 {% block title %}Agregar Cliente{% endblock %}
+{% block form_title %}Agregar Cliente{% endblock %}
 
-{% block content %}
-<h2>{% if form.instance.id %}Editar{% else %}Agregar{% endif %} Cliente</h2>
+{% block form_content %}
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Guardar</button>
-    <a href="{% url 'clients' %}" class="btn btn-secondary">Cancelar</a>
-</form>
+        {{ form.as_p }}
+
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+            Guardar Cliente
+        </button>
+    </form>
 {% endblock %}

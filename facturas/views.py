@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Invoice, Client
-from .forms import InvoiceForm, ClientForm  
+from django.forms import modelformset_factory, inlineformset_factory
+from .models import Invoice, Client, Service, InvoiceService
+from .forms import InvoiceForm, ClientForm, ServiceForm, InvoiceServiceFormSet
 
 def invoice_list(request):
     facturas = Invoice.objects.all()
@@ -12,29 +13,53 @@ def invoice_detail(request, invoice_id):
 
 
 def create_invoice(request):
+    ServiceFormSet = modelformset_factory(Service, form=ServiceForm, extra=1)
+
     if request.method == "POST":
-        form = InvoiceForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('invoice_list')
+        invoice_form = InvoiceForm(request.POST)
+        formset = ServiceFormSet(request.POST)
+
+        if invoice_form.is_valid() and formset.is_valid():
+            invoice = invoice_form.save()  # Guarda la factura en la BD
+            for form in formset:
+                service = form.save(commit=False)
+                service.invoice = invoice  # Relaciona con la factura
+                service.save()
+
+            return redirect('invoice_list')  # Redirigir a la lista de facturas
+
     else:
-        form = InvoiceForm()
-    return render(request, 'facturas/invoice_form.html', {'form': form})
+        invoice_form = InvoiceForm()
+        formset = ServiceFormSet(queryset=Service.objects.none())
+
+    return render(request, 'facturas/invoice_form.html', {
+        'invoice_form': invoice_form,
+        'formset': formset
+    })
 
 def edit_invoice(request, invoice_id):
-    factura = get_object_or_404(Invoice, id=invoice_id)
-    if request.method == "POST":
-        form = InvoiceForm(request.POST, instance=factura)
-        if form.is_valid():
-            form.save()
-            return redirect('invoice_list')
-    else:
-        form = InvoiceForm(instance=factura)
-    return render(request, 'facturas/invoice_form.html', {'form': form})
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+    form = InvoiceForm(instance=invoice)
+    formset = InvoiceServiceFormSet(instance=invoice)
 
-def delete_invoice(request, factura_id):
-    factura = get_object_or_404(Invoice, id=factura_id)
-    factura.delete()
+    if request.method == "POST":
+        form = InvoiceForm(request.POST, instance=invoice)
+        formset = InvoiceServiceFormSet(request.POST, instance=invoice)
+
+        if form.is_valid() and formset.is_valid():
+            form.save()
+            formset.save()
+            return redirect('invoice_list')
+
+    return render(request, 'facturas/invoice_form.html', {
+        'invoice_form': form,
+        'formset': formset,
+        'invoice': invoice,
+    })
+
+def delete_invoice(request, invoice_id):
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+    invoice.delete()
     return redirect('invoice_list')
 
 def test(request):

@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Client, Product, Invoice, InvoiceDetail
+from .models import Client, Service, Invoice
 
 admin.site.register(Client)
-admin.site.register(Product)
+admin.site.register(Service)
 admin.site.register(Invoice)
-admin.site.register(InvoiceDetail)
