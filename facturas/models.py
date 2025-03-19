@@ -40,23 +40,15 @@ class Invoice(models.Model):
     emitted_date = models.DateField(default=now)
     expire_date = models.DateField(null=True, blank=True)
     service = models.ManyToManyField(Service, related_name="invoices")
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     state = models.CharField(max_length=10, choices=ESTADOS_FACTURA, default='pagado')
     invoice_type = models.CharField(max_length=10, choices=INVOICE_TYPES, default='Ingreso')
     print_number = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True, null=True)
 
-    def save(self, *args, **kwargs):
-        """Calcula el total de la factura basado en los servicios seleccionados"""
-        super().save(*args, **kwargs)  # Primero guarda la factura para obtener un ID
-        
-        self.total = sum(service.price for service in self.service.all())  # Sumar precios
-        super().save(*args, **kwargs)  # Guardar nuevamente con el total actualizado
+    @property
+    def calc_total(self):
+        return sum(service.price for service in self.service.all())
 
     def __str__(self):
         return f"Factura {self.id} - {self.client.name}"
-
-class InvoiceService(models.Model):  # Relación entre Invoice y Service
-    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)

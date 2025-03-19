@@ -7,10 +7,17 @@
 <p><strong>Cliente:</strong> {{ invoice.client }}</p>
 <p><strong>Fecha de emision:</strong> {{ invoice.emitted_date }}</p>
 <p><strong>Fecha de vencimiento:</strong> {{invoice.expire_date}}</p>
-<p><strong>Total:</strong> ${{ invoice.total }}</p>
+<p><strong>Total:</strong> ${{ invoice.calc_total }}</p>
 <p><strong>Estado:</strong> {{ invoice.state }}</p>
 <p><strong>Tipo de factura:</strong> {{invoice.invoice_type}}</p>
-
+<h3>Servicios:</h3>
+<ul>
+    {% for servicio in invoice.service.all %}
+        <li>{{ servicio.specification }} - ${{ servicio.price }}</li>
+    {% empty %}
+        <li>No hay servicios registrados.</li>
+    {% endfor %}
+</ul>
 
 <a href="{% url 'invoice_list' %}" class="btn btn-secondary">Volver</a>
 <a href="{% url 'edit_invoice' invoice.id %}" class="btn btn-warning">Editar</a>
