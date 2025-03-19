@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.forms import modelformset_factory, inlineformset_factory, formset_factory
-from .models import Invoice, Client, Service
-from .forms import InvoiceForm, ClientForm, ServiceForm
+from .models import Invoice, Service
+from .forms import InvoiceForm, ServiceForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -69,22 +69,6 @@ def delete_invoice(request, invoice_id):
 def test(request):
     return render(request, 'facturas/testing.html')
 
-def clients(request):
-    return render(request, 'facturas/clients.html')
 
-def client_form(request, client_id=None):
-    if client_id: 
-        client = get_object_or_404(Client, id=client_id)
-    else:  
-        client = None
-    
-    if request.method == "POST":
-        form = ClientForm(request.POST, instance=client)
-        if form.is_valid():
-            form.save()
-            return redirect('clients') 
-    else:
-        form = ClientForm(instance=client)
 
-    return render(request, 'facturas/client_form.html', {'form': form})
     
