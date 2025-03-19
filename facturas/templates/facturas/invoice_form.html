@@ -39,8 +39,6 @@
                 {% endfor %}
             </div>
 
-            <!-- Input oculto que Django usa para controlar el número de formularios -->
-            {{ formset.management_form }}
 
             <button id="add-service" type="button" class="bg-blue-500 text-white px-4 py-2 rounded">
                 + Agregar Servicio
@@ -65,37 +63,40 @@
 
 {% block scripts %}
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
     const addServiceBtn = document.getElementById("add-service");
-    const serviciosContainer = document.getElementById("servicios"); // Se corrigió el ID
-    const totalFormsInput = document.getElementById("id_form-TOTAL_FORMS"); // Campo oculto del formset
-    let totalForms = parseInt(totalFormsInput.value); // Número actual de formularios
+    const serviciosContainer = document.getElementById("servicios");
+    const totalFormsInput = document.getElementById("id_services-TOTAL_FORMS");  // 💡 Usamos el ID correcto
+
+    if (!totalFormsInput) {
+        console.error("❌ No se encontró el input de TOTAL_FORMS.");
+        return;
+    }
 
     addServiceBtn.addEventListener("click", function () {
         console.log("✅ Botón presionado");
 
-        // Clonar el último formulario en la lista para mantener la estructura
+        let totalForms = parseInt(totalFormsInput.value);
         const lastForm = serviciosContainer.querySelector(".service-item:last-child");
-        const newForm = lastForm.cloneNode(true);
 
-        // Actualizar los índices del nuevo formulario
-        newForm.innerHTML = newForm.innerHTML.replace(/form-(\d+)-/g, `form-${totalForms}-`);
-
-        // Agregar el formulario actualizado
-        serviciosContainer.appendChild(newForm);
-
-        // Incrementar el número total de formularios
-        totalForms += 1;
-        totalFormsInput.value = totalForms;
-    });
-
-    // Eliminar servicio
-    document.addEventListener("click", function (event) {
-        if (event.target.classList.contains("remove-service")) {
-            event.target.closest(".service-item").remove();
+        if (!lastForm) {
+            console.error("❌ No se encontró ningún formulario para clonar.");
+            return;
         }
+
+        const newForm = lastForm.cloneNode(true);
+        newForm.innerHTML = newForm.innerHTML.replace(/services-(\d+)-/g, `services-${totalForms}-`);  // ⚡ Ajustamos el prefijo
+
+        newForm.querySelectorAll("input, select, textarea").forEach(input => {
+            input.value = "";
+        });
+
+        serviciosContainer.appendChild(newForm);
+        totalFormsInput.value = totalForms + 1;
     });
 });
-</script>
+
+    </script>
+    
 {% endblock %}
 

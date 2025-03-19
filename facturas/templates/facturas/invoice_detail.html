@@ -12,7 +12,7 @@
 <p><strong>Tipo de factura:</strong> {{invoice.invoice_type}}</p>
 <h3>Servicios:</h3>
 <ul>
-    {% for servicio in invoice.service.all %}
+    {% for servicio in invoice.services.all %}
         <li>{{ servicio.specification }} - ${{ servicio.price }}</li>
     {% empty %}
         <li>No hay servicios registrados.</li>

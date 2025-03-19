@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.forms import modelformset_factory, inlineformset_factory, formset_factory
 from .models import Invoice, Client, Service
 from .forms import InvoiceForm, ClientForm, ServiceForm
+from django.shortcuts import render, redirect
+from django.contrib import messages
 
 def invoice_list(request):
     facturas = Invoice.objects.all()
@@ -13,38 +15,35 @@ def invoice_detail(request, invoice_id):
 
 
 def create_invoice(request):
-    ServiceFormSet = formset_factory(ServiceForm, extra=1)  # Formset basado en formulario
+    if request.method == 'POST':
+        form = InvoiceForm(request.POST)
+        formset = ServiceFormSet(request.POST)  # Asegurar que se crea correctamente
 
-    if request.method == "POST":
-        invoice_form = InvoiceForm(request.POST)
-        formset = ServiceFormSet(request.POST)
+        if form.is_valid() and formset.is_valid():
+            invoice = form.save()
+            services = formset.save(commit=False)
 
-        if invoice_form.is_valid() and formset.is_valid():
-            invoice = invoice_form.save()  # Guarda la factura primero
+            for service in services:
+                service.invoice = invoice
+                service.save()
 
-            services = []
-            for form in formset:
-                if form.cleaned_data:  # Evitar formularios vacíos
-                    service = form.save()
-                    services.append(service)
-
-            # Asignar los servicios a la factura
-            invoice.service.set(services)
-
-            return redirect('invoice_list')  # Redirigir tras guardar
-
+            messages.success(request, "Factura creada con éxito.")
+            return redirect('invoice_list')
+        else:
+            messages.error(request, "Hubo un error al crear la factura.")
     else:
-        invoice_form = InvoiceForm()
-        formset = ServiceFormSet()
+        form = InvoiceForm()
+        formset = ServiceFormSet()  # ✅ Esto debe estar presente
 
     return render(request, 'facturas/invoice_form.html', {
-        'invoice_form': invoice_form,
-        'formset': formset,
+        'invoice_form': form,
+        'formset': formset  # ✅ Se pasa el formset correctamente
     })
 
 
 
-ServiceFormSet = formset_factory(ServiceForm, extra=1)
+
+ServiceFormSet = inlineformset_factory(Invoice, Service, fields=['specification', 'price'], extra=1, can_delete=True)
 
 def edit_invoice(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)

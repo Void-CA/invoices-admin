@@ -56,11 +56,14 @@ class InvoiceForm(forms.ModelForm):
         
         return expire_date
     
-
+ServiceFormSet = inlineformset_factory(Invoice, Service, 
+                                       fields=['specification', 'price'], 
+                                       extra=1,  # Número de formularios vacíos adicionales
+                                       can_delete=True)  # Permite eliminar servicios
 class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
-        fields = ['specification', 'price']
+        fields = ['invoice', 'specification', 'price']
         widgets = {
             'specification': forms.Textarea(attrs={
             'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 resize-none',
