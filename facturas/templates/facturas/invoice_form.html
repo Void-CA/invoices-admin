@@ -116,39 +116,72 @@
 {% block scripts %}
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-    const addServiceBtn = document.getElementById("add-service");
-    const serviciosContainer = document.getElementById("servicios");
-    const totalFormsInput = document.getElementById("id_services-TOTAL_FORMS");  // 💡 Usamos el ID correcto
+        const addServiceBtn = document.getElementById("add-service");
+        const serviciosContainer = document.getElementById("servicios");
+        const totalFormsInput = document.getElementById("id_services-TOTAL_FORMS");  // 💡 Usamos el ID correcto
+        const totalElement = document.getElementById("total"); // Elemento para mostrar el total
 
-    if (!totalFormsInput) {
-        console.error("❌ No se encontró el input de TOTAL_FORMS.");
-        return;
-    }
-
-    addServiceBtn.addEventListener("click", function () {
-        console.log("✅ Botón presionado");
-
-        let totalForms = parseInt(totalFormsInput.value);
-        const lastForm = serviciosContainer.querySelector(".service-item:last-child");
-
-        if (!lastForm) {
-            console.error("❌ No se encontró ningún formulario para clonar.");
+        if (!totalFormsInput) {
+            console.error("❌ No se encontró el input de TOTAL_FORMS.");
             return;
         }
 
-        const newForm = lastForm.cloneNode(true);
-        newForm.innerHTML = newForm.innerHTML.replace(/services-(\d+)-/g, `services-${totalForms}-`);  // ⚡ Ajustamos el prefijo
+        addServiceBtn.addEventListener("click", function () {
+            let totalForms = parseInt(totalFormsInput.value);
+            const lastForm = serviciosContainer.querySelector(".service-item:last-child");
 
-        newForm.querySelectorAll("input, select, textarea").forEach(input => {
-            input.value = "";
+            if (!lastForm) {
+                console.error("❌ No se encontró ningún formulario para clonar.");
+                return;
+            }
+
+            const newForm = lastForm.cloneNode(true);
+            newForm.innerHTML = newForm.innerHTML.replace(/services-(\d+)-/g, `services-${totalForms}-`);  // ⚡ Ajustamos el prefijo
+
+            newForm.querySelectorAll("input, select, textarea").forEach(input => {
+                input.value = "";
+            });
+
+            // Añadir el nuevo formulario a la lista de servicios
+            serviciosContainer.appendChild(newForm);
+            totalFormsInput.value = totalForms + 1;
+
+            // Inicializar los listeners para los nuevos campos
+            updateTotals();
         });
 
-        serviciosContainer.appendChild(newForm);
-        totalFormsInput.value = totalForms + 1;
-    });
-});
+        // Función para actualizar los subtotales y el total
+        function updateTotals() {
+            let grandTotal = 0;
+            const serviceItems = serviciosContainer.querySelectorAll(".service-item");
 
-    </script>
-    
+            serviceItems.forEach(item => {
+                const priceInput = item.querySelector("input[name*='price']");
+                const subtotalElement = item.querySelector(".subtotal");
+
+                if (priceInput && subtotalElement) {
+                    const price = parseFloat(priceInput.value) || 0; // Aseguramos que sea un número
+                    const subtotal = price; // Subtotal por servicio es igual al precio por ahora
+                    subtotalElement.textContent = subtotal.toFixed(2); // Mostrar el subtotal con 2 decimales
+                    grandTotal += subtotal; // Acumulamos el total
+                }
+            });
+
+            // Actualizar el total general
+            totalElement.textContent = grandTotal.toFixed(2);
+        }
+
+        // Agregar listeners a los inputs de precio para recalcular el total cada vez que cambie un valor
+        serviciosContainer.addEventListener("input", function (event) {
+            if (event.target.name.includes("price")) {
+                updateTotals(); // Actualizar el total cuando cambie el precio
+            }
+        });
+
+        // Llamar a la función para actualizar el total al cargar la página
+        updateTotals();
+    });
+</script>
 {% endblock %}
+
 
