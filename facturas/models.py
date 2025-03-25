@@ -17,6 +17,7 @@ class Invoice(models.Model):
     ]
 
     client = models.ForeignKey(Client, related_name="invoices", on_delete=models.CASCADE)
+    provider = models.CharField(max_length=100, blank=True, null=True)
     emitted_date = models.DateField(default=now)
     expire_date = models.DateField(null=True, blank=True)
     state = models.CharField(max_length=10, choices=ESTADOS_FACTURA, default='pagado')

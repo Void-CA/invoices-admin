@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.forms import modelformset_factory, inlineformset_factory, formset_factory
-from .models import Invoice, Service
-from .forms import InvoiceForm, ServiceForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.http import JsonResponse
+from django.db.models import Q
+from .models import Invoice, Service
+from clientes.models import Client
+from .forms import InvoiceForm, ServiceForm
 
 def invoice_list(request):
     facturas = Invoice.objects.all()
@@ -33,7 +36,10 @@ def create_invoice(request):
             messages.error(request, "Hubo un error al crear la factura.")
     else:
         form = InvoiceForm()
-        formset = ServiceFormSet()  # ✅ Esto debe estar presente
+        formset = ServiceFormSet() 
+        for form_i in formset:
+            form_i.fields['specification'].widget.attrs.update({'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full', 'rows': 1,'placeholder': 'Nombre del servicio'})
+            form_i.fields['price'].widget.attrs.update({'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full', 'start': 0, 'step': 100, 'placeholder': 'C$'})
 
     return render(request, 'facturas/invoice_form.html', {
         'invoice_form': form,
@@ -71,4 +77,4 @@ def test(request):
 
 
 
-    
+

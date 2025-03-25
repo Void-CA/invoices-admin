@@ -9,11 +9,15 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-<div class="w-full max-w-6xl p-6 bg-white shadow-xl rounded-lg">
-    <!-- Botón para volver atrás -->
-    <a href="javascript:history.back()" class="inline-flex items-center text-gray-600 hover:text-gray-800 mb-4">
-        ← Volver atrás
-    </a>
+<div class="w-full max-w-none p-6 bg-white shadow-xl rounded-lg">
+    <!-- Botón para volver atrás con icono -->
+<a href="javascript:history.back()" class="inline-flex items-center text-gray-600 hover:text-white hover:bg-gray-600 px-4 py-2 rounded-lg border border-gray-300 hover:border-transparent focus:outline-none transition-all duration-300">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 19l-7-7 7-7"></path>
+    </svg>
+    Volver atrás
+</a>
+
 
     <h2 class="text-center text-2xl font-semibold text-gray-800 mb-4">
         {% block form_title %}Formulario{% endblock %}

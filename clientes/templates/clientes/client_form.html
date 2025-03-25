@@ -1,16 +1,66 @@
 {% extends "form_base.html" %}
 
 {% block title %}Agregar Cliente{% endblock %}
+
 {% block form_title %}Agregar Cliente{% endblock %}
 
 {% block form_content %}
-    <form method="POST" class="space-y-4">
+<div class="max-w-xl mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">{{ form_title }}</h2>
+
+    <form method="POST" class="space-y-6">
         {% csrf_token %}
+        
+        <div class="space-y-4">
+            {% for field in form %}
+                <div class="flex flex-col">
+                    <label for="{{ field.id_for_label }}" class="text-gray-600 font-medium mb-2">{{ field.label }}</label>
+                    <div class="relative">
+                        <div class="rounded-md border border-gray-300 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500">
+                            {{ field }}
+                        </div>
+                        {% if field.errors %}
+                            <div class="absolute text-red-500 text-sm mt-1">
+                                {% for error in field.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
 
-        {{ form.as_p }}
-
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
-            Guardar Cliente
-        </button>
+        <div class="mt-6">
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
+                Guardar Cliente
+            </button>
+        </div>
     </form>
+</div>
+
+<style>
+    /* Estilizar el placeholder */
+    input::placeholder,
+    textarea::placeholder {
+        color: #A0AEC0; /* Gris claro */
+    }
+
+    /* Cambiar color de fondo de los inputs */
+    input, textarea {
+        background-color: #F7FAFC; /* Fondo gris muy claro */
+        padding: 0.75rem 1rem;
+        border-radius: 0.375rem; /* Bordes redondeados */
+        border: 1px solid #E2E8F0; /* Borde gris claro */
+        width: 100%; /* Asegura que el input ocupe el 100% del ancho disponible */
+        box-sizing: border-box; /* Ajuste el ancho del input incluyendo el padding y border */
+    }
+
+    /* Mejorar el enfoque (focus) */
+    input:focus, textarea:focus {
+        outline: none;
+        border-color: #63B3ED; /* Borde azul al enfocar */
+    }
+</style>
+
 {% endblock %}

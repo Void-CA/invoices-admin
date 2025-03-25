@@ -8,7 +8,7 @@ from .models import Invoice, Service, Client
 class InvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
-        fields = ['client', 'emitted_date', 'expire_date', 'state', 
+        fields = ['client', 'provider', 'emitted_date', 'expire_date', 'state', 
                   'invoice_type', 'print_number', 'description']
         widgets = {
     'client': forms.Select(attrs={
@@ -16,6 +16,10 @@ class InvoiceForm(forms.ModelForm):
     }),
     'service': forms.SelectMultiple(attrs={
         'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400',
+    }),
+    'provider': forms.TextInput(attrs={
+        'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400',
+        'placeholder': 'Nombre del proveedor',
     }),
     'emitted_date': forms.DateInput(attrs={
         'type': 'date',
@@ -37,7 +41,7 @@ class InvoiceForm(forms.ModelForm):
     }),
     'description': forms.Textarea(attrs={
         'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 resize-none',
-        'rows': 4,
+        'rows': 3,
         'placeholder': 'Agrega detalles adicionales aquí...',
     }),
 }
