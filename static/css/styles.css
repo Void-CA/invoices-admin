@@ -1,4 +1,25 @@
-/* Importing Google font - Poppins */
+/* Paleta de colores */
+/*
+:root {
+  --color-fondo-body: #F0F4FF;
+  --color-fondo-sidebar: #31333e;
+  --color-acento: #4f52ba;
+  --color-texto-principal: #fff;
+  --color-texto-secundario: #161a2d;
+}
+*/
+
+
+:root {
+  --color-fondo-body: #fcf3ee;;
+  --color-fondo-sidebar: #1d1d1d;
+  --color-acento: #ffb300;
+  --color-texto-principal:#ffad6c;
+  --color-texto-secundario: #161a2d;
+}
+
+
+/* Importando la fuente de Google - Poppins */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 * {
@@ -8,7 +29,7 @@
 
 body {
   min-height: 100vh;
-  background: #F0F4FF;
+  background: var(--color-fondo-body);
 }
 
 .sidebar {
@@ -20,7 +41,7 @@ body {
   display: flex;
   overflow-x: hidden;
   flex-direction: column;
-  background: #161a2d;
+  background: var(--color-fondo-sidebar);
   padding: 25px 20px;
   transition: all 0.4s ease;
 }
@@ -40,7 +61,7 @@ body {
 }
 
 .sidebar .sidebar-header h2 {
-  color: #fff;
+  color: var(--color-texto-principal);
   font-size: 1.25rem;
   font-weight: 600;
   white-space: nowrap;
@@ -48,7 +69,7 @@ body {
 }
 
 .sidebar-links h4 {
-  color: #fff;
+  color: var(--color-texto-principal);
   font-weight: 500;
   white-space: nowrap;
   margin: 10px 0;
@@ -71,7 +92,7 @@ body {
   height: 1px;
   transform: scaleX(1);
   transform: translateY(-50%);
-  background: #4f52ba;
+  background: var(--color-acento);
   transform-origin: right;
   transition-delay: 0.2s;
 }
@@ -97,7 +118,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0 20px;
-  color: #fff;
+  color: var(--color-texto-principal);
   font-weight: 500;
   white-space: nowrap;
   padding: 15px 10px;
@@ -106,8 +127,8 @@ body {
 }
 
 .sidebar-links li a:hover {
-  color: #161a2d;
-  background: #fff;
+  color: var(--color-texto-secundario);
+  background: var(--color-texto-principal);
   border-radius: 4px;
 }
 
@@ -120,13 +141,13 @@ body {
 .user-profile {
   display: flex;
   align-items: center;
-  color: #161a2d;
+  color: var(--color-texto-secundario);
 }
 
 .user-profile img {
   width: 42px;
   border-radius: 50%;
-  border: 2px solid #fff;
+  border: 2px solid var(--color-texto-principal);
 }
 
 .user-profile h3 {
@@ -145,7 +166,7 @@ body {
 }
 
 .sidebar:hover .user-account {
-  background: #fff;
+  background: var(--color-texto-principal);
   border-radius: 4px;
 }
 
@@ -156,6 +177,5 @@ main.content {
 }
 
 .sidebar:hover ~ .content {
-  margin-left: 260px /* Sidebar expandido */;
+  margin-left: 260px; /* Sidebar expandido */
 }
-

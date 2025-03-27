@@ -3,24 +3,41 @@
 {% block title %}Lista de Facturas{% endblock %}
 
 {% block content %}
-<h1 class="text-4xl font-semibold text-gray-800 border-b-2 border-gray-300 pb-2">Facturas</h1>
+<div class="flex items-center justify-between gap-4 border-b-2 border-gray-500 pb-2">
+    <h2 class="text-4xl font-semibold text-gray-800">
+        Facturas
+    </h2>
+    <div class="relative w-full max-w-md bg-white">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            search
+        </span>
+        <input type="text" id="invoice-search" 
+            placeholder="Buscar factura..."
+            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:border-blue-600 focus:ring-blue-600 text-gray-700 placeholder-gray-400">
+    </div>
+</div>
 
-<table class="table-auto border-collapse border border-gray-300 w-full mt-4">
+
+<table class="table-auto border-collapse border border-gray-500 w-full mt-4">
     <thead>
-        <tr class="bg-gray-200">
-            <th class="border border-gray-400 px-4 py-2">ID</th>
+        <tr class="bg-orange-200">
+            <th class="border border-gray-400 px-4 py-2"># Factura</th>
             <th class="border border-gray-400 px-4 py-2">Cliente</th>
+            <th class="border border-gray-400 px-4 py-2">Fecha de Emision</th>
+            <th class="border border-gray-400 px-4 py-2">Fecha de Vencimiento</th>
             <th class="border border-gray-400 px-4 py-2">Monto</th>
             <th class="border border-gray-400 px-4 py-2">Acciones</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="invoice-body">
         {% for invoice in invoices %}
         <tr class="hover:bg-gray-100">
-            <td class="border border-gray-400 px-4 py-2 text-center bg-white">{{ invoice.id }}</td>
-            <td class="border border-gray-400 px-4 py-2 bg-white">{{ invoice.client }}</td>
-            <td class="border border-gray-400 px-4 py-2 text-center bg-white">${{ invoice.calc_total }}</td>
-            <td class="border border-gray-400 px-4 py-2 text-center bg-white">
+            <td class="border border-gray-400 px-4 py-2 text-center bg-gray-100">{{ invoice.print_number }}</td>
+            <td class="border border-gray-400 px-4 py-2 bg-gray-100">{{ invoice.client }}</td>
+            <td class="border border-gray-400 px-4 py-2 bg-gray-100">{{ invoice.emitted_date }}</td>
+            <td class="border border-gray-400 px-4 py-2 bg-gray-100">{{ invoice.expire_date|default:"Sin vencimiento" }}</td>
+            <td class="border border-gray-400 px-4 py-2 text-center bg-gray-100">${{ invoice.calc_total }}</td>
+            <td class="border border-gray-400 px-4 py-2 text-center bg-gray-100">
                 <div class="flex justify-center space-x-2">
                     <a href="{% url 'invoice_detail' invoice.id %}" 
                        class="bg-blue-100 text-blue-600 hover:bg-blue-200 p-2 rounded-full transition flex items-center justify-center w-10 h-10">
@@ -44,5 +61,50 @@
    class="fixed bottom-4 right-4 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition flex items-center justify-center">
    <span class="material-symbols-outlined" style="font-size: 6rem;">add</span>
 </a>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchBox = document.getElementById("invoice-search");
+        const tableBody = document.getElementById("invoice-body");
+
+        searchBox.addEventListener("input", async function() {
+            const query = searchBox.value.trim();
+
+            const response = await fetch(`/facturas/search-invoices/?q=${query}`);
+            const data = await response.json();
+
+            tableBody.innerHTML = ""; // Limpiar la tabla antes de insertar nuevas filas
+
+            data.forEach(invoice => {
+                const row = `<tr class="hover:bg-gray-100">
+                    <td class="border border-gray-400 px-4 py-2 text-center bg-white">${invoice.print_number}</td>
+                    <td class="border border-gray-400 px-4 py-2 bg-white">${invoice.client}</td>
+                    <td class="border border-gray-400 px-4 py-2 bg-white">${invoice.emitted_date}</td>
+                    <td class="border border-gray-400 px-4 py-2 bg-white">${invoice.expire_date ? invoice.expire_date : 'Sin vencimiento'}</td>
+                    <td class="border border-gray-400 px-4 py-2 text-center bg-white">$${invoice.calc_total}</td>
+                    <td class="border border-gray-400 px-4 py-2 text-center bg-white">
+                        <div class="flex justify-center space-x-2">
+                            <a href="/facturas/${invoice.id}/" 
+                               class="bg-blue-100 text-blue-600 hover:bg-blue-200 p-2 rounded-full transition flex items-center justify-center w-10 h-10">
+                                <span class="material-symbols-outlined text-lg">visibility</span>
+                            </a>
+                            <a href="/facturas/editar/${invoice.id}" 
+                               class="bg-yellow-100 text-yellow-600 hover:bg-yellow-200 p-2 rounded-full transition flex items-center justify-center w-10 h-10">
+                                <span class="material-symbols-outlined text-lg">edit</span>
+                            </a>
+                            <a href="/facturas/eliminar/${invoice.id}" 
+                               class="bg-red-100 text-red-600 hover:bg-red-200 p-2 rounded-full transition flex items-center justify-center w-10 h-10">
+                                <span class="material-symbols-outlined text-lg">delete</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        });
+    });
+</script>
 {% endblock %}
 

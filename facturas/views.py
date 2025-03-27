@@ -12,6 +12,33 @@ def invoice_list(request):
     facturas = Invoice.objects.all()
     return render(request, 'facturas/invoices_list.html', {'invoices': facturas})
 
+from django.http import JsonResponse
+from .models import Invoice
+
+def search_invoices(request):
+    query = request.GET.get('q', '')
+
+    invoices = Invoice.objects.filter(
+        Q(client__name__icontains=query) |
+        Q(print_number__icontains=query)
+    ).distinct()
+
+    # Convertir los datos en JSON incluyendo `calc_total`
+    data = [
+        {
+            "id": invoice.id,
+            "print_number": invoice.print_number,
+            "client": invoice.client.name,  # Accede correctamente al nombre del cliente
+            "calc_total": invoice.calc_total,  # Accede a la propiedad
+            "emitted_date": invoice.emitted_date,
+            "expire_date": invoice.expire_date
+        }
+        for invoice in invoices
+    ]
+
+    return JsonResponse(data, safe=False)
+
+
 def invoice_detail(request, invoice_id):  
     factura = get_object_or_404(Invoice, id=invoice_id)
     return render(request, 'facturas/invoice_detail.html', {'invoice': factura})
