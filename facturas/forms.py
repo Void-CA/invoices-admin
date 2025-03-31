@@ -1,8 +1,5 @@
 from django import forms
-from django.core.exceptions import ValidationError
-
-from django import forms
-from django.forms import inlineformset_factory, formset_factory
+from django.forms import inlineformset_factory
 from .models import Invoice, Service, Client
 
 class InvoiceForm(forms.ModelForm):
@@ -11,45 +8,44 @@ class InvoiceForm(forms.ModelForm):
         fields = ['client', 'provider', 'emitted_date', 'expire_date', 'state', 
                   'invoice_type', 'print_number', 'description']
         widgets = {
-    'client': forms.Select(attrs={
-        'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400',
-    }),
-    'service': forms.SelectMultiple(attrs={
-        'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400',
-    }),
-    'provider': forms.TextInput(attrs={
-        'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400',
-        'placeholder': 'Nombre del proveedor',
-    }),
-    'emitted_date': forms.DateInput(attrs={
-        'type': 'date',
-        'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400',
-    }),
-    'expire_date': forms.DateInput(attrs={
-        'type': 'date',
-        'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400',
-    }),
-    'state': forms.Select(attrs={
-        'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400',
-    }),
-    'invoice_type': forms.Select(attrs={
-        'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400',
-    }),
-    'print_number': forms.TextInput(attrs={
-        'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400',
-        'placeholder': 'Ejemplo: 123456789',
-    }),
-    'description': forms.Textarea(attrs={
-        'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 resize-none',
-        'rows': 3,
-        'placeholder': 'Agrega detalles adicionales aquí...',
-    }),
-}
-
+            'client': forms.Select(attrs={
+                'class': 'w-full p-3 border border-gray-500 rounded-lg shadow-sm focus:ring-2 focus:ring-orange-400 bg-gray-700 text-gray-200',
+            }),
+            'service': forms.SelectMultiple(attrs={
+                'class': 'w-full p-3 border border-gray-500 rounded-lg shadow-sm focus:ring-2 focus:ring-orange-400 bg-gray-700 text-gray-200',
+            }),
+            'provider': forms.TextInput(attrs={
+                'class': 'w-full p-3 border border-gray-500 rounded-lg shadow-sm focus:ring-2 focus:ring-orange-400 bg-gray-700 text-gray-200',
+                'placeholder': 'Nombre del proveedor',
+            }),
+            'emitted_date': forms.DateInput(attrs={
+                'type': 'date',
+                'class': 'w-full p-3 border border-gray-500 rounded-lg shadow-sm focus:ring-2 focus:ring-orange-400 bg-gray-700 text-gray-200',
+            }),
+            'expire_date': forms.DateInput(attrs={
+                'type': 'date',
+                'class': 'w-full p-3 border border-gray-500 rounded-lg shadow-sm focus:ring-2 focus:ring-orange-400 bg-gray-700 text-gray-200',
+            }),
+            'state': forms.Select(attrs={
+                'class': 'w-full p-3 border border-gray-500 rounded-lg shadow-sm focus:ring-2 focus:ring-orange-400 bg-gray-700 text-gray-200',
+            }),
+            'invoice_type': forms.Select(attrs={
+                'class': 'w-full p-3 border border-gray-500 rounded-lg shadow-sm focus:ring-2 focus:ring-orange-400 bg-gray-700 text-gray-200',
+            }),
+            'print_number': forms.TextInput(attrs={
+                'class': 'w-full p-3 border border-gray-500 rounded-lg shadow-sm focus:ring-2 focus:ring-orange-400 bg-gray-700 text-gray-200',
+                'placeholder': 'Ejemplo: 123456789',
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'w-full p-3 border border-gray-500 rounded-lg shadow-sm focus:ring-2 focus:ring-orange-400 bg-gray-700 text-gray-200 resize-none',
+                'rows': 3,
+                'placeholder': 'Agrega detalles adicionales aquí...',
+            }),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['expire_date'].required = False  
+        self.fields['expire_date'].required = False
 
     def clean_expire_date(self):
         emitted_date = self.cleaned_data.get('emitted_date')
@@ -64,17 +60,19 @@ ServiceFormSet = inlineformset_factory(Invoice, Service,
                                        fields=['specification', 'price'], 
                                        extra=1,  # Número de formularios vacíos adicionales
                                        can_delete=True)  # Permite eliminar servicios
+
 class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
         fields = ['invoice', 'specification', 'price']
         widgets = {
             'specification': forms.Textarea(attrs={
-            'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 resize-none',
-            'rows': 2,
-            'placeholder': 'Agrega especificaciones del servicio aquí...',
-        }),
-            'price': forms.TextInput(attrs={'class': 'form-control'}),
+                'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-orange-400 bg-gray-700 text-gray-200 resize-none',
+                'rows': 2,
+                'placeholder': 'Agrega especificaciones del servicio aquí...',
+            }),
+            'price': forms.TextInput(attrs={
+                'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-orange-400 bg-gray-700 text-gray-200',
+                'placeholder': 'Precio',
+            }),
         }
-
-

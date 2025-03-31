@@ -3,112 +3,111 @@
 {% block title %}Clientes{% endblock %}
 
 {% block content %}
-<div class="flex items-center justify-between gap-4 border-b-2 border-gray-300 pb-2">
-    <h2 class="text-4xl font-semibold text-gray-800  border-gray-300">
+<div class="flex items-center justify-between gap-4 border-b-2 border-[#e67a39] pb-2">
+    <h2 class="text-4xl font-semibold text-white border-gray-300">
         Clientes
     </h2>
-    <div class="relative w-full max-w-md bg-white">
+    <div class="relative w-full max-w-md">
         <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
             search
         </span>
         <input type="text" id="busqueda" 
             placeholder="Buscar cliente..."
-            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:border-blue-600 focus:ring-blue-600 text-gray-700 placeholder-gray-400">
+            class="w-full pl-10 pr-4 py-2 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:border-orange-400 focus:ring-orange-400 text-gray-400 placeholder-gray-400
+            bg-[#282c36]">
     </div>
 </div>
 
 <ul id="resultados"></ul>
-<!-- Grid de Cards -->
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
     {% for client in clients %}
-    <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between border border-gray-200">
+    <div class="bg-[#1e1e2e] rounded-xl shadow-lg p-6 flex flex-col justify-between border border-gray-600">
         <div>
-            <h3 class="text-xl font-semibold text-gray-800">{{ client.name }}</h3>
-            <p class="text-gray-500"><strong>RUC:</strong> {{ client.ruc }}</p>
-            <p class="text-gray-500"><strong>Dirección:</strong> {{ client.address }}</p>
-            <p class="text-gray-500"><strong>Teléfono:</strong> {{ client.phone }}</p>
+            <h3 class="text-xl font-semibold text-gray-300">{{ client.name }}</h3>
+            <p class="text-gray-400"><strong>RUC:</strong> {{ client.ruc }}</p>
+            <p class="text-gray-400"><strong>Dirección:</strong> {{ client.address }}</p>
+            <p class="text-gray-400"><strong>Teléfono:</strong> {{ client.phone }}</p>
         </div>
         <div class="mt-4 flex items-center justify-center gap-2">
             <a href="" 
-               class="bg-blue-100 text-blue-600 hover:bg-blue-200 p-2 rounded-full transition flex items-center justify-center w-10 h-10">
+               class="bg-gray-700 text-orange-400 hover:bg-orange-600 hover:text-white p-2 rounded-full transition flex items-center justify-center w-10 h-10">
                 <span class="material-symbols-outlined text-lg">visibility</span>
             </a>
             <a href="{% url 'client_edit' client.id %}" 
-               class="bg-yellow-100 text-yellow-600 hover:bg-yellow-200 p-2 rounded-full transition flex items-center justify-center w-10 h-10">
+               class="bg-gray-700 text-yellow-400 hover:bg-yellow-600 hover:text-white p-2 rounded-full transition flex items-center justify-center w-10 h-10">
                 <span class="material-symbols-outlined text-lg">edit</span>
             </a>
             <a href="{% url 'client_delete' client.id %}" 
-               class="bg-red-100 text-red-600 hover:bg-red-200 p-2 rounded-full transition flex items-center justify-center w-10 h-10">
+               class="bg-gray-700 text-red-400 hover:bg-red-600 hover:text-white p-2 rounded-full transition flex items-center justify-center w-10 h-10">
                 <span class="material-symbols-outlined text-lg">delete</span>
             </a>
         </div>              
-        
     </div>
     {% empty %}
     <p class="col-span-full text-center text-gray-500">No hay clientes registrados.</p>
     {% endfor %}
 </div>
+    
 
 <!-- Botón para agregar nuevo cliente -->
 <a href="{% url 'client_create' %}" 
-   class="fixed bottom-4 right-4 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition flex items-center justify-center">
+   class="fixed bottom-4 right-4 bg-gray-800 text-orange-300 p-4 rounded-full shadow-lg hover:bg-orange-600 transition flex items-center justify-center border border-gray-600">
    <span class="material-symbols-outlined" style="font-size: 6rem;">add</span>
 </a>
 
 {% endblock %}
 
 {% block scripts %}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
         let searchInput = document.getElementById("busqueda");
         let resultsContainer = document.querySelector(".grid"); // Contenedor de las cards
-
+    
         async function fetchClientes(query = "") {
             let response = await fetch(`/clientes/buscar/?q=${query}`);
             let data = await response.json();
-
+    
             resultsContainer.innerHTML = ""; // Limpia los resultados previos
-
+    
             data.resultados.forEach(cliente => {
                 let card = document.createElement("div");
-                card.className = "bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between border border-gray-200";
-
+                card.className = "bg-[#282c36] rounded-xl shadow-lg p-6 flex flex-col justify-between border border-gray-600";
+    
                 card.innerHTML = `
                     <div>
-                        <h3 class="text-xl font-semibold text-gray-800">${cliente.name}</h3>
-                        <p class="text-gray-500"><strong>RUC:</strong> ${cliente.ruc}</p>
-                        <p class="text-gray-500"><strong>Dirección:</strong> ${cliente.address}</p>
-                        <p class="text-gray-500"><strong>Teléfono:</strong> ${cliente.phone}</p>
+                        <h3 class="text-xl font-semibold text-gray-300">${cliente.name}</h3>
+                        <p class="text-gray-400"><strong>RUC:</strong> ${cliente.ruc}</p>
+                        <p class="text-gray-400"><strong>Dirección:</strong> ${cliente.address}</p>
+                        <p class="text-gray-400"><strong>Teléfono:</strong> ${cliente.phone}</p>
                     </div>
-                    <div class="mt-4 flex items-center justify-center gap-2">
+                    <div class="mt-4 flex justify-center space-x-2">
                         <a href="/clientes/${cliente.id}/" 
-                        class="bg-blue-100 text-blue-600 hover:bg-blue-200 p-2 rounded-full transition flex items-center justify-center w-10 h-10">
+                           class="bg-[#e2926f] text-[#282c36] hover:bg-[#ff9b67] w-10 h-10 flex items-center justify-center rounded-full transition duration-300 ease-in-out">
                             <span class="material-symbols-outlined text-lg">visibility</span>
                         </a>
                         <a href="/clientes/edit/${cliente.id}/" 
-                            class="bg-yellow-100 text-yellow-600 hover:bg-yellow-200 p-2 rounded-full transition flex items-center justify-center w-10 h-10">
+                           class="bg-[#f4c542] text-[#282c36] hover:bg-[#f6d161] w-10 h-10 flex items-center justify-center rounded-full transition duration-300 ease-in-out">
                             <span class="material-symbols-outlined text-lg">edit</span>
                         </a>
                         <a href="/clientes/delete/${cliente.id}/" 
-                            class="bg-red-100 text-red-600 hover:bg-red-200 p-2 rounded-full transition flex items-center justify-center w-10 h-10">
+                           class="bg-[#e74c3c] text-white hover:bg-[#ff6b5c] w-10 h-10 flex items-center justify-center rounded-full transition duration-300 ease-in-out">
                             <span class="material-symbols-outlined text-lg">delete</span>
                         </a>
                     </div>              
                 `;
-
+    
                 resultsContainer.appendChild(card);
             });
         }
-
-        // Llamar a la función al cargar la página para mostrar todos los clientes
+    
+        // Cargar todos los clientes al inicio
         fetchClientes();
-
-        // Llamar a la función cada vez que el usuario escribe en el input
+    
+        // Buscar clientes en tiempo real
         searchInput.addEventListener("input", function() {
             let query = searchInput.value.trim();
             fetchClientes(query);
         });
-    });
-    </script>
-        
+    });        
+</script>
 {% endblock %}

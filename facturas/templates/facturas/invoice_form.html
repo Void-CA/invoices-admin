@@ -5,113 +5,110 @@
 {% block form_title %}Crear Factura{% endblock %}
 
 {% block form_content %}
-<div class="bg-gray-100 p-6 rounded-lg shadow-md max-w-3xl mx-auto">
+<div class="bg-gray-800 p-6 rounded-lg shadow-md max-w-3xl mx-auto">
     <form method="POST" class="space-y-6" x-data="invoiceForm()">
         {% csrf_token %}
 
        <!-- Sección: Información del Cliente y Detalles Opcionales -->
-<!-- Sección: Información del Cliente y Detalles Opcionales -->
-    <!-- Información del Cliente -->
-    <div class="bg-white p-4 rounded-lg shadow-sm">
-        <h2 class="text-lg font-semibold text-gray-800 mb-2">Información del Cliente</h2>
+    <div class="bg-gray-700 p-4 rounded-lg shadow-sm">
+        <h2 class="text-lg font-semibold text-orange-500 mb-2">Información del Cliente</h2>
         <div class="form-group">
-            <label for="id_client_name" class="text-sm text-gray-700">Nombre del Cliente</label>
+            <label for="id_client_name" class="text-sm text-gray-300">Nombre del Cliente</label>
             {{ invoice_form.client }}
         </div>
     </div>
 
-<!-- Sección: Fechas -->
-<div class="bg-white p-4 rounded-lg shadow-sm mt-4">
-    <h2 class="text-lg font-semibold text-gray-800 mb-2">Fechas</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="form-group">
-            <label for="id_emitted_date" class="text-sm text-gray-700">Fecha de Emisión</label>
-            {{ invoice_form.emitted_date }}
-        </div>
-        <div class="form-group">
-            <label for="id_expire_date" class="text-sm text-gray-700">Fecha de Expiración</label>
-            {{ invoice_form.expire_date }}
-        </div>
-    </div>
-</div>
-
-<!-- Sección: Tipo de Factura y Número de Impresión -->
-<div class="bg-white p-4 rounded-lg shadow-sm mt-4">
-    <h2 class="text-lg font-semibold text-gray-800 mb-2">Detalles de la Factura</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="form-group">
-            <label for="id_print_number" class="text-sm text-gray-700">Número de Impresión</label>
-            {{ invoice_form.print_number }}
-        </div>
-        <div class="form-group">
-            <label for="id_invoice_type" class="text-sm text-gray-700">Tipo de Factura</label>
-            {{ invoice_form.invoice_type }}
-        </div>
-        <div class="form-group">
-            <label for="id_state" class="text-sm text-gray-700">Estado</label>
-            {{ invoice_form.state }}
-        </div>
-    </div>
-</div>
-
-<!-- Detalles Opcionales (Proveedor y Descripción) -->
-<div class="bg-white p-4 rounded-lg shadow-sm">
-    <h2 class="text-lg font-semibold text-gray-800 mb-2">Detalles Opcionales</h2>
-    <div class="form-group">
-        <label for="id_provider" class="text-sm text-gray-700">Proveedor</label>
-        {{ invoice_form.provider }}
-    </div>
-    <div class="form-group">
-        <label for="id_description" class="text-sm text-gray-700">Descripción</label>
-        {{ invoice_form.description }}
-    </div>
-</div>
-
-        <!-- Gestión del formset -->
-        {{ formset.management_form }}
-
-        <!-- Lista de Servicios -->
-        <div class="bg-white p-4 rounded-lg shadow">
-            <h2 class="text-lg font-semibold mb-2">Servicios</h2>
-            <!-- Agregar servicios usando el formset de Django -->
-            <div id="servicios" class="space-y-2">
-                {% for form in formset %}
-                    <div class="service-item flex items-center space-x-4 p-3 border rounded-lg shadow-md bg-gray-50">
-                        <div class="flex-1">
-                            <label class="text-sm text-gray-700">Descripción</label>
-                            {{ form.specification }}
-                        </div>
-                        <div class="w-24">
-                            <label class="text-sm text-gray-700">Precio</label>
-                            {{ form.price }}
-                        </div>
-                        <div class="w-24 text-center text-lg font-semibold subtotal">0.00</div>
-                        <button type="button" class="remove-service text-red-500 hover:text-red-700">✖</button>
-                    </div>
-                {% endfor %}
+    <!-- Sección: Fechas -->
+    <div class="bg-gray-700 p-4 rounded-lg shadow-sm mt-4">
+        <h2 class="text-lg font-semibold text-orange-500 mb-2">Fechas</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="form-group">
+                <label for="id_emitted_date" class="text-sm text-gray-300">Fecha de Emisión</label>
+                {{ invoice_form.emitted_date }}
             </div>
+            <div class="form-group">
+                <label for="id_expire_date" class="text-sm text-gray-300">Fecha de Expiración</label>
+                {{ invoice_form.expire_date }}
+            </div>
+        </div>
+    </div>
 
+    <!-- Sección: Tipo de Factura y Número de Impresión -->
+    <div class="bg-gray-700 p-4 rounded-lg shadow-sm mt-4">
+        <h2 class="text-lg font-semibold text-orange-500 mb-2">Detalles de la Factura</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="form-group">
+                <label for="id_print_number" class="text-sm text-gray-300">Número de Impresión</label>
+                {{ invoice_form.print_number }}
+            </div>
+            <div class="form-group">
+                <label for="id_invoice_type" class="text-sm text-gray-300">Tipo de Factura</label>
+                {{ invoice_form.invoice_type }}
+            </div>
+            <div class="form-group">
+                <label for="id_state" class="text-sm text-gray-300">Estado</label>
+                {{ invoice_form.state }}
+            </div>
+        </div>
+    </div>
 
-            <button id="add-service" type="button" class="bg-blue-500 text-white px-4 py-2 rounded mt-2">
-                + Agregar Servicio
-            </button>
-                    
+    <!-- Detalles Opcionales (Proveedor y Descripción) -->
+    <div class="bg-gray-700 p-4 rounded-lg shadow-sm">
+        <h2 class="text-lg font-semibold text-orange-500 mb-2">Detalles Opcionales</h2>
+        <div class="form-group">
+            <label for="id_provider" class="text-sm text-gray-300">Proveedor</label>
+            {{ invoice_form.provider }}
+        </div>
+        <div class="form-group">
+            <label for="id_description" class="text-sm text-gray-300">Descripción</label>
+            {{ invoice_form.description }}
+        </div>
+    </div>
+
+    <!-- Gestión del formset -->
+    {{ formset.management_form }}
+
+    <!-- Lista de Servicios -->
+    <div class="bg-gray-700 p-4 rounded-lg shadow">
+        <h2 class="text-lg font-semibold text-orange-500 mb-2">Servicios</h2>
+        <!-- Agregar servicios usando el formset de Django -->
+        <div id="servicios" class="space-y-2">
+            {% for form in formset %}
+                <div class="service-item flex items-center space-x-4 p-3 border rounded-lg shadow-md bg-gray-600">
+                    <div class="flex-1">
+                        <label class="text-sm text-gray-300">Descripción</label>
+                        {{ form.specification }}
+                    </div>
+                    <div class="w-24">
+                        <label class="text-sm text-gray-300">Precio</label>
+                        {{ form.price }}
+                    </div>
+                    <div class="w-24 text-center text-lg font-semibold subtotal text-orange-400">0.00</div>
+                    <button type="button" class="remove-service text-red-500 hover:text-red-700">✖</button>
+                </div>
+            {% endfor %}
         </div>
 
-        <!-- Sección de Total -->
-        <div class="bg-white p-4 rounded-lg shadow text-right">
-            <p class="text-lg font-semibold">Total: <span id="total">0.00</span></p>
-        </div>
+        <button id="add-service" type="button" class="bg-orange-500 text-white px-4 py-2 rounded mt-2 hover:bg-orange-600">
+            + Agregar Servicio
+        </button>
+    </div>
 
-        <!-- Botones -->
-        <div class="flex justify-between">
-            <a href="{% url 'invoice_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded shadow">Cancelar</a>
-            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded shadow">Guardar Factura</button>
-        </div>
-    </form>
+    <!-- Sección de Total -->
+    <div class="bg-gray-700 p-4 rounded-lg shadow text-right">
+        <p class="text-lg font-semibold text-orange-500">Total: <span id="total">0.00</span></p>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex justify-between">
+        <a href="{% url 'invoice_list' %}" class="bg-gray-600 text-white px-4 py-2 rounded shadow hover:bg-gray-500">Cancelar</a>
+        <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-600">Guardar Factura</button>
+    </div>
+</form>
 </div>
 
 {% endblock %}
+
 
 {% block scripts %}
 <script>

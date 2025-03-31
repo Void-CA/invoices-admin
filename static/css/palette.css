@@ -1,3 +1,11 @@
+:root {
+    --primary-bg: #393743;
+    --primary-text: #ff884c;
+    --secondary-text: #e07b39;
+    --border-color: #gray-400;
+    --hover-bg: #ff9966;
+}
+
 /* Colores de fondo */
 .bg-primary {
     background-color: #282c36;
@@ -45,7 +53,7 @@
 
 /* Colores de texto */
 .text-primary {
-    color: #f5f5f5;
+    color: #ffefe4;
 }
 
 .text-secondary {
