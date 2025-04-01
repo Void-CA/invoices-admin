@@ -12,8 +12,7 @@
     <!-- CSS File -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}?v=2">
     <link rel="stylesheet" href="{% static 'css/palette.css' %}">
-    <!-- Tailwind CSS -->
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
     <aside class="sidebar">
@@ -26,7 +25,7 @@
           <span>Menu Principal</span>
           <div class="menu-separator"></div>
         </h4>
-        <li><a href="#"><span class="material-symbols-outlined"> home </span>Inicio</a></li>
+        <li><a href="{% url 'home'%}"><span class="material-symbols-outlined"> home </span>Inicio</a></li>
         <li><a href="{% url 'invoice_list' %}"><span class="material-symbols-outlined"> description </span>Facturas</a></li>
         <li><a href="#"><span class="material-symbols-outlined"> monitoring </span>Estadisticas</a></li>
 

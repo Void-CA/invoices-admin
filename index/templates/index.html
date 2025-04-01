@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+    <h2 class="title">Análisis de Facturación</h2>
+
+    <div class="charts-container">
+        <div class="chart-box">
+            <h3>Distribución de Facturas por Estado</h3>
+            <div id="graph_status"></div>
+        </div>
+
+        <div class="chart-box">
+            <h3>Top 5 Clientes con Mayor Facturación</h3>
+            <div id="graph_top_clients"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var pie_graph = {{ graph_status_json | safe }};
+            if (pie_graph) {
+                Plotly.newPlot('graph_status', pie_graph.data, pie_graph.layout);
+            }
+
+            var bar_graph = {{ graph_top_clients_json | safe }};
+            if (bar_graph) {
+                Plotly.newPlot('graph_top_clients', bar_graph.data, bar_graph.layout);
+            }
+        });
+    </script>
+
+    <style>
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .chart-box {
+            background: #2c2a34;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+{% endblock %}
