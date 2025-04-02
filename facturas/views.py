@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.forms import modelformset_factory, inlineformset_factory, formset_factory
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
+from django.utils.dateparse import parse_date
 from django.db.models import Q
 from .models import Invoice, Service
 from clientes.models import Client
@@ -101,7 +101,3 @@ def delete_invoice(request, invoice_id):
 
 def test(request):
     return render(request, 'facturas/testing.html')
-
-
-
-
