@@ -1,191 +1,193 @@
-{% extends "form_base.html" %}
+    {% extends "form_base.html" %}
 
-{% block title %}Crear Factura{% endblock %}
+    {% block title %}Crear Factura{% endblock %}
 
-{% block form_title %}Crear Factura{% endblock %}
+    {% block form_title %}Crear Factura{% endblock %}
 
-{% block form_content %}
-<div class="bg-gray-800 p-6 rounded-lg shadow-md max-w-8xl mx-auto">
-    <form method="POST" class="space-y-6" x-data="invoiceForm()">
-        {% csrf_token %}
+    {% block form_content %}
+    <div class="bg-gray-800 p-6 rounded-lg shadow-md max-w-8xl mx-auto">
+        <form method="POST" class="space-y-6" x-data="invoiceForm()">
+            {% csrf_token %}
 
-        <div class="grid grid-cols-3 gap-4 mb-6">
-            <!-- Sección: Información del Cliente -->
-            <div class="bg-gray-700 p-4 rounded-lg shadow-sm h-full min-h-[180px]">
-                <h2 class="text-lg font-semibold text-orange-500 mb-2">Información del Cliente</h2>
-                <div class="form-group">
-                    <label for="id_client_name" class="text-sm text-gray-300">Nombre del Cliente</label>
-                    {{ invoice_form.client }}
-                </div>
-            </div>
-        
-            <!-- Sección: Fechas -->
-            <div class="bg-gray-700 p-4 rounded-lg shadow-sm h-full min-h-[180px]">
-                <h2 class="text-lg font-semibold text-orange-500 mb-2">Fechas</h2>
-                <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <!-- Sección: Información del Cliente -->
+                <div class="bg-gray-700 p-4 rounded-lg shadow-sm h-full min-h-[180px]">
+                    <h2 class="text-lg font-semibold text-orange-500 mb-2">Información del Cliente</h2>
                     <div class="form-group">
-                        <label for="id_emitted_date" class="text-sm text-gray-300">Fecha de Emisión</label>
-                        {{ invoice_form.emitted_date }}
-                    </div>
-                    <div class="form-group">
-                        <label for="id_expire_date" class="text-sm text-gray-300">Fecha de Expiración</label>
-                        {{ invoice_form.expire_date }}
+                        <label for="id_client_name" class="text-sm text-gray-300">Nombre del Cliente</label>
+                        {{ invoice_form.client }}
                     </div>
                 </div>
-            </div>
-        
-            <!-- Sección: Detalles de Factura -->
-            <div class="bg-gray-700 p-4 rounded-lg shadow-sm h-full min-h-[180px]">
-                <h2 class="text-lg font-semibold text-orange-500 mb-2">Detalles de la Factura</h2>
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="form-group">
-                        <label for="id_print_number" class="text-sm text-gray-300">Número de Impresión</label>
-                        {{ invoice_form.print_number }}
-                    </div>
-                    <div class="form-group">
-                        <label for="id_invoice_type" class="text-sm text-gray-300">Tipo de Factura</label>
-                        {{ invoice_form.invoice_type }}
-                    </div>
-                    <div class="form-group">
-                        <label for="id_state" class="text-sm text-gray-300">Estado</label>
-                        {{ invoice_form.state }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-
-        <div class="grid grid-cols-2 gap-4">
-            <!-- Servicios -->
-            <div class="bg-gray-700 p-4 rounded-lg shadow h-full min-h-[250px]">
-                <h2 class="text-lg font-semibold text-orange-500 mb-2">Servicios</h2>
-                <div id="servicios" class="space-y-2 max-h-[300px] overflow-y-auto p-2 border border-gray-600 rounded">
-                    {% for form in formset %}
-                        <div class="service-item grid grid-cols-3 gap-4 p-3 border rounded-lg shadow-md bg-gray-600">
-                            <div>
-                                <label class="text-sm text-gray-300">Descripción</label>
-                                {{ form.specification }}
-                            </div>
-                            <div>
-                                <label class="text-sm text-gray-300">Precio</label>
-                                {{ form.price }}
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-lg font-semibold subtotal text-orange-400">0.00</span>
-                                <button type="button" class="remove-service text-red-500 hover:text-red-700">✖</button>
-                            </div>
+            
+                <!-- Sección: Fechas -->
+                <div class="bg-gray-700 p-4 rounded-lg shadow-sm h-full min-h-[180px]">
+                    <h2 class="text-lg font-semibold text-orange-500 mb-2">Fechas</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label for="id_emitted_date" class="text-sm text-gray-300">Fecha de Emisión</label>
+                            {{ invoice_form.emitted_date }}
                         </div>
-                    {% endfor %}
+                        <div class="form-group">
+                            <label for="id_expire_date" class="text-sm text-gray-300">Fecha de Expiración</label>
+                            {{ invoice_form.expire_date }}
+                        </div>
+                    </div>
                 </div>
-                <button id="add-service" type="button" class="bg-orange-500 text-white px-4 py-2 rounded mt-2 hover:bg-orange-600">
-                    + Agregar Servicio
-                </button>
+            
+                <!-- Sección: Detalles de Factura -->
+                <div class="bg-gray-700 p-4 rounded-lg shadow-sm h-full min-h-[180px]">
+                    <h2 class="text-lg font-semibold text-orange-500 mb-2">Detalles de la Factura</h2>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="form-group">
+                            <label for="id_print_number" class="text-sm text-gray-300">Número de Impresión</label>
+                            {{ invoice_form.print_number }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_invoice_type" class="text-sm text-gray-300">Tipo de Factura</label>
+                            {{ invoice_form.invoice_type }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_state" class="text-sm text-gray-300">Estado</label>
+                            {{ invoice_form.state }}
+                        </div>
+                    </div>
+                </div>
             </div>
+            
+
+            <div class="grid grid-cols-2 gap-4">
+                <!-- Servicios -->
+                <div class="bg-gray-700 p-4 rounded-lg shadow h-full min-h-[250px]">
+                    <h2 class="text-lg font-semibold text-orange-500 mb-2">Servicios</h2>
+                    <div id="servicios" class="space-y-2 max-h-[300px] overflow-y-auto p-2 border border-gray-600 rounded">
+                        {% for form in formset %}
+                            <div class="service-item grid grid-cols-3 gap-4 p-3 border rounded-lg shadow-md bg-gray-600">
+                                <div>
+                                    <label class="text-sm text-gray-300">Descripción</label>
+                                    {{ form.specification }}
+                                </div>
+                                <div>
+                                    <label class="text-sm text-gray-300">Precio</label>
+                                    {{ form.price }}
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-lg font-semibold subtotal text-orange-400">0.00</span>
+                                    <button type="button" class="remove-service text-red-500 hover:text-red-700">✖</button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button id="add-service" type="button" class="bg-orange-500 text-white px-4 py-2 rounded mt-2 hover:bg-orange-600">
+                        + Agregar Servicio
+                    </button>
+                </div>
+            
+                <!-- Detalles Opcionales -->
+                <div class="bg-gray-700 p-4 rounded-lg shadow-sm h-full min-h-[250px]">
+                    <h2 class="text-lg font-semibold text-orange-500 mb-2">Detalles Opcionales</h2>
+                    <div class="form-group">
+                        <label for="id_provider" class="text-sm text-gray-300">Proveedor</label>
+                        {{ invoice_form.provider }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_description" class="text-sm text-gray-300">Descripción</label>
+                        {{ invoice_form.description }}
+                    </div>
+                </div>
+            </div>
+            
+
         
-            <!-- Detalles Opcionales -->
-            <div class="bg-gray-700 p-4 rounded-lg shadow-sm h-full min-h-[250px]">
-                <h2 class="text-lg font-semibold text-orange-500 mb-2">Detalles Opcionales</h2>
-                <div class="form-group">
-                    <label for="id_provider" class="text-sm text-gray-300">Proveedor</label>
-                    {{ invoice_form.provider }}
-                </div>
-                <div class="form-group">
-                    <label for="id_description" class="text-sm text-gray-300">Descripción</label>
-                    {{ invoice_form.description }}
-                </div>
-            </div>
+        
+        
+
+        <!-- Sección de Total -->
+        <div class="bg-gray-700 p-4 rounded-lg shadow text-right">
+            <p class="text-lg font-semibold text-orange-500">Total: <span id="total">0.00</span></p>
         </div>
-        
 
-    
-    
-    
+        <!-- Botones -->
+        <div class="flex justify-between">
+            <a href="{% url 'invoice_list' %}" class="bg-gray-600 text-white px-4 py-2 rounded shadow hover:bg-gray-500">Cancelar</a>
+            <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-600">Guardar Factura</button>
+        </div>
+        <pre>{{ formset.management_form }}</pre>
 
-    <!-- Sección de Total -->
-    <div class="bg-gray-700 p-4 rounded-lg shadow text-right">
-        <p class="text-lg font-semibold text-orange-500">Total: <span id="total">0.00</span></p>
+    </form>
     </div>
 
-    <!-- Botones -->
-    <div class="flex justify-between">
-        <a href="{% url 'invoice_list' %}" class="bg-gray-600 text-white px-4 py-2 rounded shadow hover:bg-gray-500">Cancelar</a>
-        <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-600">Guardar Factura</button>
-    </div>
-</form>
-</div>
-
-{% endblock %}
+    {% endblock %}
 
 
-{% block scripts %}
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const addServiceBtn = document.getElementById("add-service");
-        const serviciosContainer = document.getElementById("servicios");
-        const totalFormsInput = document.getElementById("id_services-TOTAL_FORMS");  // 💡 Usamos el ID correcto
-        const totalElement = document.getElementById("total"); // Elemento para mostrar el total
+    {% block scripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const addServiceBtn = document.getElementById("add-service");
+            const serviciosContainer = document.getElementById("servicios");
+            const totalFormsInput = document.getElementById("id_services-TOTAL_FORMS");  // 💡 Usamos el ID correcto
+            const totalElement = document.getElementById("total"); // Elemento para mostrar el total
 
-        if (!totalFormsInput) {
-            console.error("❌ No se encontró el input de TOTAL_FORMS.");
-            return;
-        }
-
-        addServiceBtn.addEventListener("click", function () {
-            let totalForms = parseInt(totalFormsInput.value);
-            const lastForm = serviciosContainer.querySelector(".service-item:last-child");
-
-            if (!lastForm) {
-                console.error("❌ No se encontró ningún formulario para clonar.");
+            if (!totalFormsInput) {
+                console.error("❌ No se encontró el input de TOTAL_FORMS.");
                 return;
             }
 
-            const newForm = lastForm.cloneNode(true);
-            newForm.innerHTML = newForm.innerHTML.replace(/services-(\d+)-/g, `services-${totalForms}-`);  // ⚡ Ajustamos el prefijo
+            addServiceBtn.addEventListener("click", function () {
+                let totalForms = parseInt(totalFormsInput.value);
+                const lastForm = serviciosContainer.querySelector(".service-item:last-child");
 
-            newForm.querySelectorAll("input, select, textarea").forEach(input => {
-                input.value = "";
+                if (!lastForm) {
+                    console.error("❌ No se encontró ningún formulario para clonar.");
+                    return;
+                }
+
+                const newForm = lastForm.cloneNode(true);
+                newForm.innerHTML = newForm.innerHTML.replace(/services-(\d+)-/g, `services-${totalForms}-`);  // ⚡ Ajustamos el prefijo
+
+                newForm.querySelectorAll("input, select, textarea").forEach(input => {
+                    input.value = "";
+                });
+
+                // Añadir el nuevo formulario a la lista de servicios
+                serviciosContainer.appendChild(newForm);
+                totalFormsInput.value = totalForms + 1;
+
+                // Inicializar los listeners para los nuevos campos
+                updateTotals();
             });
 
-            // Añadir el nuevo formulario a la lista de servicios
-            serviciosContainer.appendChild(newForm);
-            totalFormsInput.value = totalForms + 1;
+            // Función para actualizar los subtotales y el total
+            function updateTotals() {
+                let grandTotal = 0;
+                const serviceItems = serviciosContainer.querySelectorAll(".service-item");
 
-            // Inicializar los listeners para los nuevos campos
-            updateTotals();
-        });
+                serviceItems.forEach(item => {
+                    const priceInput = item.querySelector("input[name*='price']");
+                    const subtotalElement = item.querySelector(".subtotal");
 
-        // Función para actualizar los subtotales y el total
-        function updateTotals() {
-            let grandTotal = 0;
-            const serviceItems = serviciosContainer.querySelectorAll(".service-item");
+                    if (priceInput && subtotalElement) {
+                        const price = parseFloat(priceInput.value) || 0; // Aseguramos que sea un número
+                        const subtotal = price; // Subtotal por servicio es igual al precio por ahora
+                        subtotalElement.textContent = subtotal.toFixed(2); // Mostrar el subtotal con 2 decimales
+                        grandTotal += subtotal; // Acumulamos el total
+                    }
+                });
 
-            serviceItems.forEach(item => {
-                const priceInput = item.querySelector("input[name*='price']");
-                const subtotalElement = item.querySelector(".subtotal");
+                // Actualizar el total general
+                totalElement.textContent = grandTotal.toFixed(2);
+            }
 
-                if (priceInput && subtotalElement) {
-                    const price = parseFloat(priceInput.value) || 0; // Aseguramos que sea un número
-                    const subtotal = price; // Subtotal por servicio es igual al precio por ahora
-                    subtotalElement.textContent = subtotal.toFixed(2); // Mostrar el subtotal con 2 decimales
-                    grandTotal += subtotal; // Acumulamos el total
+            // Agregar listeners a los inputs de precio para recalcular el total cada vez que cambie un valor
+            serviciosContainer.addEventListener("input", function (event) {
+                if (event.target.name.includes("price")) {
+                    updateTotals(); // Actualizar el total cuando cambie el precio
                 }
             });
 
-            // Actualizar el total general
-            totalElement.textContent = grandTotal.toFixed(2);
-        }
-
-        // Agregar listeners a los inputs de precio para recalcular el total cada vez que cambie un valor
-        serviciosContainer.addEventListener("input", function (event) {
-            if (event.target.name.includes("price")) {
-                updateTotals(); // Actualizar el total cuando cambie el precio
-            }
+            // Llamar a la función para actualizar el total al cargar la página
+            updateTotals();
         });
-
-        // Llamar a la función para actualizar el total al cargar la página
-        updateTotals();
-    });
-</script>
-{% endblock %}
+    </script>
+    {% endblock %}
 
 
