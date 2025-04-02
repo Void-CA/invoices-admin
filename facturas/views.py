@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator
 from django.forms import modelformset_factory, inlineformset_factory, formset_factory
 from django.contrib import messages
 from django.http import JsonResponse
@@ -9,11 +10,11 @@ from clientes.models import Client
 from .forms import InvoiceForm, ServiceForm
 
 def invoice_list(request):
-    facturas = Invoice.objects.all()
-    return render(request, 'facturas/invoices_list.html', {'invoices': facturas})
-
-from django.http import JsonResponse
-from .models import Invoice
+    invoice_list = Invoice.objects.all()  # O cualquier filtro que estés utilizando
+    paginator = Paginator(invoice_list, 10)  # 10 facturas por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'facturas/invoices_list.html', {'page_obj': page_obj})
 
 def search_invoices(request):
     query = request.GET.get('q', '')

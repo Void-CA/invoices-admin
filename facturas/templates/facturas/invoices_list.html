@@ -29,7 +29,7 @@
         </tr>
     </thead>
     <tbody id="invoice-body">
-        {% for invoice in invoices %}
+        {% for invoice in page_obj %}
         <tr class="hover:bg-[#2c2a34] {% if forloop.counter|divisibleby:2 %}bg-[#393743]{% else %}bg-[#2c2a34]{% endif %}">
             <td class="border border-gray-400 px-4 py-2 text-center text-primary">{{ invoice.print_number }}</td>
             <td class="border border-gray-400 px-4 py-2 text-center text-primary">{{ invoice.client }}</td>
@@ -48,11 +48,43 @@
                         <span class="material-symbols-outlined text-lg">delete</span>
                     </a>                                    
                 </div>
-            </td>                          
+            </td>                           
         </tr>
         {% endfor %}
     </tbody>    
 </table>
+<!-- Paginación -->
+<div class="flex justify-center mt-4">
+    <div class="flex space-x-2">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2">
+                <span class="material-symbols-outlined">first_page</span>
+                <span>Primera</span>
+            </a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2">
+                <span class="material-symbols-outlined">navigate_before</span>
+                <span>Anterior</span>
+            </a>
+        {% endif %}
+        <span class="px-4 py-2 text-[#e67a39] font-semibold">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+        </span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2">
+                <span class="material-symbols-outlined">navigate_next</span>
+                <span>Siguiente</span>
+            </a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2">
+                <span class="material-symbols-outlined">last_page</span>
+                <span>Última</span>
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
 
 <a href="{% url 'create_invoice' %}" 
    class="fixed bottom-4 right-4 bg-gray-800 text-orange-300 p-4 rounded-full shadow-lg hover:bg-orange-600 transition flex items-center justify-center border border-gray-600">
@@ -77,31 +109,32 @@
             
             data.forEach((invoice, index) => {
                 if (index % 2 === 0) {
-                    bg_color = "bg-gray-100";
+                    bg_color = "bg-[#393743]";
                 } else {
-                    bg_color = "bg-gray-200";
+                    bg_color = "bg-[#2c2a34]";
                 }
                 const row = `<tr class="hover:bg-gray-100">
-                    <td class="border border-gray-400 px-4 py-2 text-center ${bg_color}">${invoice.print_number}</td>
-                    <td class="border border-gray-400 px-4 py-2 ${bg_color}">${invoice.client}</td>
-                    <td class="border border-gray-400 px-4 py-2 ${bg_color}">${invoice.emitted_date}</td>
-                    <td class="border border-gray-400 px-4 py-2 ${bg_color}">${invoice.expire_date ? invoice.expire_date : 'Sin vencimiento'}</td>
-                    <td class="border border-gray-400 px-4 py-2 text-center ${bg_color}">$${invoice.calc_total}</td>
+                    <td class="border border-gray-400 px-4 py-2 text-center ${bg_color} text-primary text-center">${invoice.print_number}</td>
+                    <td class="border border-gray-400 px-4 py-2 ${bg_color} text-primary text-center">${invoice.client}</td>
+                    <td class="border border-gray-400 px-4 py-2 ${bg_color} text-primary text-center">${invoice.emitted_date}</td>
+                    <td class="border border-gray-400 px-4 py-2 ${bg_color} text-primary text-center">${invoice.expire_date ? invoice.expire_date : 'Sin vencimiento'}</td>
+                    <td class="border border-gray-400 px-4 py-2 text-center ${bg_color} text-primary text-center">$${invoice.calc_total}</td>
                     <td class="border border-gray-400 px-4 py-2 text-center ${bg_color}">
                         <div class="flex justify-center space-x-2">
                             <a href="/facturas/${invoice.id}/" 
-                               class="bg-blue-200 text-blue-800 hover:bg-blue-200 p-2 rounded-full transition flex items-center justify-center w-10 h-10">
+                            class="bg-[#e2926f] text-[#282c36] hover:bg-[#ff9b67] w-10 h-10 flex items-center justify-center rounded-full transition duration-300 ease-in-out">
                                 <span class="material-symbols-outlined text-lg">visibility</span>
                             </a>
                             <a href="/facturas/editar/${invoice.id}" 
-                               class="bg-yellow-200 text-yellow-800 hover:bg-yellow-200 p-2 rounded-full transition flex items-center justify-center w-10 h-10">
+                            class="bg-[#f4c542] text-[#282c36] hover:bg-[#f6d161] w-10 h-10 flex items-center justify-center rounded-full transition duration-300 ease-in-out">
                                 <span class="material-symbols-outlined text-lg">edit</span>
                             </a>
                             <a href="/facturas/eliminar/${invoice.id}" 
-                               class="bg-red-200 text-red-800 hover:bg-red-200 p-2 rounded-full transition flex items-center justify-center w-10 h-10">
+                            class="bg-[#e74c3c] text-white hover:bg-[#ff6b5c] w-10 h-10 flex items-center justify-center rounded-full transition duration-300 ease-in-out">
                                 <span class="material-symbols-outlined text-lg">delete</span>
                             </a>
                         </div>
+
                     </td>
                 </tr>`;
                 tableBody.innerHTML += row;
