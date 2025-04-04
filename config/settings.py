@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'facturas',
     'clientes',
     'exportacion',
-    'index'
+    'index',
+    'stats', 
+    'tailwind',
+    'theme',
 ]
 
 MIDDLEWARE = [
