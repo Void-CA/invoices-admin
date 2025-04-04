@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <span class="text-lg font-semibold subtotal text-orange-400">0.00</span>
-                                    <button type="button" class="remove-service text-red-500 hover:text-red-700">✖</button>
+                                    <button id= "remove-service" type="button" class="remove-service text-red-500 hover:text-red-700">✖</button>
                                 </div>
                             </div>
                         {% endfor %}
@@ -124,69 +124,75 @@
         document.addEventListener("DOMContentLoaded", function () {
             const addServiceBtn = document.getElementById("add-service");
             const serviciosContainer = document.getElementById("servicios");
-            const totalFormsInput = document.getElementById("id_services-TOTAL_FORMS");  // 💡 Usamos el ID correcto
-            const totalElement = document.getElementById("total"); // Elemento para mostrar el total
-
+            const totalFormsInput = document.getElementById("id_services-TOTAL_FORMS");
+            const totalElement = document.getElementById("total");
+        
             if (!totalFormsInput) {
                 console.error("❌ No se encontró el input de TOTAL_FORMS.");
                 return;
             }
-
+        
             addServiceBtn.addEventListener("click", function () {
                 let totalForms = parseInt(totalFormsInput.value);
                 const lastForm = serviciosContainer.querySelector(".service-item:last-child");
-
+        
                 if (!lastForm) {
                     console.error("❌ No se encontró ningún formulario para clonar.");
                     return;
                 }
-
+        
                 const newForm = lastForm.cloneNode(true);
-                newForm.innerHTML = newForm.innerHTML.replace(/services-(\d+)-/g, `services-${totalForms}-`);  // ⚡ Ajustamos el prefijo
-
+                newForm.innerHTML = newForm.innerHTML.replace(/services-(\d+)-/g, `services-${totalForms}-`);
+        
                 newForm.querySelectorAll("input, select, textarea").forEach(input => {
                     input.value = "";
                 });
-
-                // Añadir el nuevo formulario a la lista de servicios
+        
                 serviciosContainer.appendChild(newForm);
                 totalFormsInput.value = totalForms + 1;
-
-                // Inicializar los listeners para los nuevos campos
+        
                 updateTotals();
             });
-
-            // Función para actualizar los subtotales y el total
+        
+            // Manejo de eliminación de servicios
+            serviciosContainer.addEventListener("click", function (event) {
+                if (event.target.classList.contains("remove-service")) {
+                    const serviceItem = event.target.closest(".service-item");
+        
+                    if (serviceItem) {
+                        serviceItem.remove(); // Eliminar el servicio del DOM
+                        updateTotals(); // Recalcular el total
+                        totalFormsInput.value = parseInt(totalFormsInput.value) - 1; // Ajustar el contador
+                    }
+                }
+            });
+        
             function updateTotals() {
                 let grandTotal = 0;
                 const serviceItems = serviciosContainer.querySelectorAll(".service-item");
-
+        
                 serviceItems.forEach(item => {
                     const priceInput = item.querySelector("input[name*='price']");
                     const subtotalElement = item.querySelector(".subtotal");
-
+        
                     if (priceInput && subtotalElement) {
-                        const price = parseFloat(priceInput.value) || 0; // Aseguramos que sea un número
-                        const subtotal = price; // Subtotal por servicio es igual al precio por ahora
-                        subtotalElement.textContent = subtotal.toFixed(2); // Mostrar el subtotal con 2 decimales
-                        grandTotal += subtotal; // Acumulamos el total
+                        const price = parseFloat(priceInput.value) || 0;
+                        subtotalElement.textContent = price.toFixed(2);
+                        grandTotal += price;
                     }
                 });
-
-                // Actualizar el total general
+        
                 totalElement.textContent = grandTotal.toFixed(2);
             }
-
-            // Agregar listeners a los inputs de precio para recalcular el total cada vez que cambie un valor
+        
             serviciosContainer.addEventListener("input", function (event) {
                 if (event.target.name.includes("price")) {
-                    updateTotals(); // Actualizar el total cuando cambie el precio
+                    updateTotals();
                 }
             });
-
-            // Llamar a la función para actualizar el total al cargar la página
+        
             updateTotals();
-        });
+        });        
     </script>
     {% endblock %}
 
