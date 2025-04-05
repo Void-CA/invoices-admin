@@ -5,3 +5,5 @@ services:
       - "8000:8000"
     environment:
       - ALLOWED_HOSTS=*
+    volumes:
+      - ./db.sqlite3:/app/db.sqlite3  # Monta el archivo de la base de datos en el contenedor
