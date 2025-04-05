@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'exportacion',
     'index',
     'stats', 
-    'tailwind',
-    'theme',
 ]
 
 MIDDLEWARE = [

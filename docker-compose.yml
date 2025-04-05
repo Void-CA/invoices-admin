@@ -1,9 +1,7 @@
 services:
   web:
-    build: .
+    image: castilloari/vindell:latest  # Usa tu imagen publicada en DockerHub
     ports:
       - "8000:8000"
     environment:
       - ALLOWED_HOSTS=*
-    volumes:
-      - .:/app

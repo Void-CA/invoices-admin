@@ -1,63 +1,69 @@
 {% extends 'base.html' %}
 
+{% block title %}Inicio{% endblock %}
+
 {% block content %}
-    <div class="bg-gray-900 text-white min-h-screen py-8 px-4">
-        <h1 class="text-3xl font-bold text-orange-400 mb-6">Últimas Facturas</h1>
-        
-        <div class="overflow-x-auto bg-gray-800 rounded-lg shadow-lg">
-            <table class="min-w-full table-auto text-sm">
-                <thead>
-                    <tr class="border-b border-gray-700">
-                        <th class="py-2 px-4 text-left">ID</th>
-                        <th class="py-2 px-4 text-left">Cliente</th>
-                        <th class="py-2 px-4 text-left">Monto Total</th>
-                        <th class="py-2 px-4 text-left">Fecha de Emisión</th>
-                        <th class="py-2 px-4 text-left">Fecha de Vencimiento</th>
-                        <th class="py-2 px-4 text-left">Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for factura in ultimas_facturas %}
-                    <tr class="border-b border-gray-700">
-                        <td class="py-2 px-4">{{ factura.id }}</td>
-                        <td class="py-2 px-4">{{ factura.client.name }}</td>
-                        <td class="py-2 px-4">{{ factura.calc_total }}</td>
-                        <td class="py-2 px-4">{{ factura.emitted_date }}</td>
-                        <td class="py-2 px-4">{{ factura.expire_date }}</td>
-                        <td class="py-2 px-4">{{ factura.get_state_display }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+<div class="bg-[#393743] text-gray-200 py-8 px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Últimas Facturas -->
+        <div class="bg-[#2c2a34] rounded-lg shadow p-6">
+            <h1 class="text-2xl font-semibold text-orange-300 mb-4">Últimas Facturas</h1>
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto text-sm">
+                    <thead>
+                        <tr class="border-b border-gray-600">
+                            <th class="py-2 px-4 text-left">ID</th>
+                            <th class="py-2 px-4 text-left">Cliente</th>
+                            <th class="py-2 px-4 text-left">Monto Total</th>
+                            <th class="py-2 px-4 text-left">Fecha de Emisión</th>
+                            <th class="py-2 px-4 text-left">Fecha de Vencimiento</th>
+                            <th class="py-2 px-4 text-left">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for factura in ultimas_facturas %}
+                        <tr class="border-b border-gray-600 hover:bg-gray-600 transition">
+                            <td class="py-2 px-4">{{ factura.id }}</td>
+                            <td class="py-2 px-4">{{ factura.client.name }}</td>
+                            <td class="py-2 px-4">{{ factura.calc_total }}</td>
+                            <td class="py-2 px-4">{{ factura.emitted_date }}</td>
+                            <td class="py-2 px-4">{{ factura.expire_date }}</td>
+                            <td class="py-2 px-4">{{ factura.get_state_display }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <h1 class="text-3xl font-bold text-orange-400 mt-12 mb-6">Facturas que Vencen Pronto</h1>
-
-        <div class="overflow-x-auto bg-gray-800 rounded-lg shadow-lg">
-            <table class="min-w-full table-auto text-sm">
-                <thead>
-                    <tr class="border-b border-gray-700">
-                        <th class="py-2 px-4 text-left">ID</th>
-                        <th class="py-2 px-4 text-left">Cliente</th>
-                        <th class="py-2 px-4 text-left">Monto Total</th>
-                        <th class="py-2 px-4 text-left">Fecha de Emisión</th>
-                        <th class="py-2 px-4 text-left">Fecha de Vencimiento</th>
-                        <th class="py-2 px-4 text-left">Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for factura in facturas_proximas %}
-                    <tr class="border-b border-gray-700">
-                        <td class="py-2 px-4">{{ factura.id }}</td>
-                        <td class="py-2 px-4">{{ factura.client.name }}</td>
-                        <td class="py-2 px-4">{{ factura.calc_total }}</td>
-                        <td class="py-2 px-4">{{ factura.emitted_date }}</td>
-                        <td class="py-2 px-4">{{ factura.expire_date }}</td>
-                        <td class="py-2 px-4">{{ factura.get_state_display }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <!-- Facturas que Vencen Pronto -->
+        <div class="bg-[#2c2a34] rounded-lg shadow p-6">
+            <h1 class="text-2xl font-semibold text-orange-300 mb-4">Facturas que Vencen Pronto</h1>
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto text-sm">
+                    <thead>
+                        <tr class="border-b border-gray-600">
+                            <th class="py-2 px-4 text-left">ID</th>
+                            <th class="py-2 px-4 text-left">Cliente</th>
+                            <th class="py-2 px-4 text-left">Monto Total</th>
+                            <th class="py-2 px-4 text-left">Fecha de Vencimiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for factura in facturas_proximas %}
+                        <tr class="border-b border-gray-600 hover:bg-gray-600 transition">
+                            <td class="py-2 px-4">{{ factura.print_number }}</td>
+                            <td class="py-2 px-4">{{ factura.client.name }}</td>
+                            <td class="py-2 px-4">{{ factura.calc_total }}</td>
+                            <td class="py-2 px-4">{{ factura.expire_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </div>
+</div>
 {% endblock %}
