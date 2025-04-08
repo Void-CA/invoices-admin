@@ -14,5 +14,6 @@ def notifications(request):
 
     return render(request, 'pending_invoices.html', {
         'page_obj': page_obj,
+        'pending_invoices': pending_invoices,
         'overdue_invoices': overdue_invoices,
     })
