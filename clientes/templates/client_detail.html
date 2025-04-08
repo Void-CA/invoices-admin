@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle del Cliente{% endblock %}
+
+{% block content %}
+<div class="max-w-8xl mx-auto mt-8 p-6 bg-[#393743] shadow-lg rounded-lg">
+    <h2 class="text-4xl font-semibold text-orange-100 mb-4">Detalle del Cliente</h2>
+
+    <div class="grid md:grid-cols-2 gap-x-20 gap-y-4 border-t border-gray-700 pt-4">
+        <div class="flex justify-around items-center">
+            <dt class="text-orange-300 font-medium text-xl">Nombre:</dt>
+            <dd class="text-gray-300 text-xl">{{ client.name }}</dd>
+        </div>
+        <div class="flex justify-around items-center">
+            <dt class="text-orange-300 font-medium text-xl">RUC:</dt>
+            <dd class="text-gray-300 text-xl">{{ client.ruc }}</dd>
+        </div>
+        <div class="flex justify-around items-center">
+            <dt class="text-orange-300 font-medium text-xl">Dirección:</dt>
+            <dd class="text-gray-300 text-xl">{{ client.address }}</dd>
+        </div>
+        <div class="flex justify-around items-center">
+            <dt class="text-orange-300 font-medium text-xl">Teléfono:</dt>
+            <dd class="text-gray-300 text-xl">{{ client.phone }}</dd>
+        </div>        
+    </div>
+</div>
+
+<h2 class="text-4xl font-semibold text-orange-100 mt-8">Facturas Asociadas</h2>
+
+<ul class="mt-3 space-y-2">
+    {% for invoice in page_obj %}
+        <li class="flex justify-between bg-[#393743] px-4 py-3 rounded-md shadow-sm text-lg">
+            <div>
+                <span class="text-orange-300 font-semibold">#{{ invoice.print_number }}</span>
+                <span class="text-gray-300 ml-2">{{ invoice.emitted_date }}</span>
+            </div>
+            <div class="flex gap-2">
+                <span class="text-white font-semibold">C${{ invoice.calc_total }}</span>
+                <a href="{% url 'invoice_detail' invoice.id %}" class="text-orange-400 hover:underline ml-2">
+                    Ver
+                </a>
+            </div>
+        </li>
+    {% empty %}
+        <li class="text-gray-500 italic text-lg">Este cliente no tiene facturas registradas.</li>
+    {% endfor %}
+</ul>
+
+<!-- Paginación -->
+<div class="mt-4 flex justify-center">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 bg-gray-700 text-white rounded-l hover:bg-gray-600">Anterior</a>
+    {% else %}
+        <span class="px-3 py-1 bg-gray-800 text-gray-500 rounded-l">Anterior</span>
+    {% endif %}
+
+    <span class="px-4 py-1 bg-gray-800 text-white">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 bg-gray-700 text-white rounded-r hover:bg-gray-600">Siguiente</a>
+    {% else %}
+        <span class="px-3 py-1 bg-gray-800 text-gray-500 rounded-r">Siguiente</span>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Aquí puedes agregar interactividad con JavaScript si es necesario
+</script>
+{% endblock %}

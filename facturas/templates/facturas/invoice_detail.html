@@ -4,7 +4,27 @@
 
 {% block content %}
 <div class="max-w-3xl mx-auto mt-8 p-6 bg-gray-900 shadow-lg rounded-lg">
-    <h2 class="text-2xl font-semibold text-orange-100 mb-4">Factura #{{ invoice.id }}</h2>
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-semibold text-orange-100">Factura #{{ invoice.print_number }}</h2>
+        
+        <div class="flex space-x-3">
+            <!-- Botón para imprimir -->
+            <a href="{% url 'print_invoice' invoice.id %}" target="_blank" class="text-orange-300 hover:text-white transition" title="Imprimir factura">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M6 9V4h12v5M6 18H5a2 2 0 01-2-2v-5a2 2 0 012-2h14a2 2 0 012 2v5a2 2 0 01-2 2h-1m-4 0h-4" />
+                </svg>
+            </a>
+    
+            <!-- Botón para factura digital -->
+            <a href="URL_FACTURA_DIGITAL" target="_blank" class="text-orange-300 hover:text-white transition" title="Crear factura digital">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M9 12h6m2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h10a2 2 0 012 2v7a2 2 0 01-2 2zM9 16h6m-6 4h6" />
+                </svg>
+            </a>
+        </div>
+    </div>    
 
     <div class="border-t border-gray-700 mt-2">
         <dl class="divide-y divide-gray-700">

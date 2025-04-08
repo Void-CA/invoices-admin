@@ -100,5 +100,17 @@ def delete_invoice(request, invoice_id):
     invoice.delete()
     return redirect('invoice_list')
 
+def print_invoice(request, invoice_id):
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+    if request.method == 'POST':
+        # Aquí puedes agregar la lógica para generar el PDF de la factura
+        # Por ejemplo, utilizando una biblioteca como WeasyPrint o ReportLab
+        pass
+
+def download_invoice(request, invoice_id):
+    return render(request, 'facturas/invoice_list.html')
+    
+    # response.write(pdf)
+    return response
 def test(request):
     return render(request, 'facturas/testing.html')
