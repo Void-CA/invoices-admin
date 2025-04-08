@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'exportacion',
     'index',
     'stats', 
+    'notifications',
 ]
 
 MIDDLEWARE = [

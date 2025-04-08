@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-8xl mx-auto mt-8 p-6 bg-gray-900 shadow-lg rounded-lg">
+    <h2 class="text-2xl font-semibold text-orange-100 mb-4">Notificaciones de Facturas Pendientes</h2>
+
+    {% if pending_invoices %}
+        <h3 class="text-xl text-orange-300 mb-2">Facturas Pendientes</h3>
+        <ul class="mt-3 space-y-2">
+            {% for invoice in pending_invoices %}
+                <li class="flex justify-between bg-[#393743] px-4 py-2 rounded-md shadow-sm">
+                    <div>
+                        <span class="text-orange-300 font-medium">#{{ invoice.print_number }}</span>
+                        <span class="text-gray-300 ml-2">{{ invoice.expire_date }}</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="text-white font-semibold">C${{ invoice.calc_total }}</span>
+                        <a href="{% url 'invoice_detail' invoice.id %}" class="text-orange-400 hover:underline ml-2">
+                            Ver
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-gray-500 italic">No hay facturas pendientes.</p>
+    {% endif %}
+
+    {% if overdue_invoices %}
+        <h3 class="text-xl text-red-500 mb-2 mt-6">Facturas Vencidas</h3>
+        <ul class="mt-3 space-y-2">
+            {% for invoice in overdue_invoices %}
+                <li class="flex justify-between bg-[#393743] px-4 py-2 rounded-md shadow-sm border-2 border-red-500">
+                    <div>
+                        <span class="text-red-300 font-medium">#{{ invoice.print_number }}</span>
+                        <span class="text-gray-300 ml-2">{{ invoice.expire_date }}</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="text-white font-semibold">C${{ invoice.calc_total }}</span>
+                        <a href="{% url 'invoice_detail' invoice.id %}" class="text-red-400 hover:underline ml-2">
+                            Ver
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-gray-500 italic">No hay facturas vencidas.</p>
+    {% endif %}
+</div>
+<!-- Paginación -->
+<div class="mt-4 flex justify-center">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 bg-gray-700 text-white rounded-l hover:bg-gray-600">Anterior</a>
+    {% else %}
+        <span class="px-3 py-1 bg-gray-800 text-gray-500 rounded-l">Anterior</span>
+    {% endif %}
+
+    <span class="px-4 py-1 bg-gray-800 text-white">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 bg-gray-700 text-white rounded-r hover:bg-gray-600">Siguiente</a>
+    {% else %}
+        <span class="px-3 py-1 bg-gray-800 text-gray-500 rounded-r">Siguiente</span>
+    {% endif %}
+</div>
+
+{% endblock %}
