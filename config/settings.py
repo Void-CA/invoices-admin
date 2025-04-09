@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'index',
     'stats', 
     'notifications',
+    'login',
 ]
 
 MIDDLEWARE = [
