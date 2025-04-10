@@ -58,3 +58,8 @@ def buscar_clientes(request):
 
     data = [{"id": c.id ,"name": c.name, "ruc": c.ruc, "phone": c.phone, "address": c.address} for c in clientes]
     return JsonResponse({"resultados": data})
+
+def get_clients(request):
+    clients = Client.objects.all()
+    data = [{"id": c.id, "name": c.name} for c in clients]
+    return JsonResponse({"resultados": data})

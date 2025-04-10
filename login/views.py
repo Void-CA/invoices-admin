@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout as django_logout
 from django.contrib import messages
 
 def login_view(request):
@@ -18,5 +18,6 @@ def login_view(request):
     
     return render(request, "login.html")
 
-def logout(request):
-    return
+def logout_view(request):
+    django_logout(request)
+    return redirect('login')  # Cambia a la vista que corresponda para tu app

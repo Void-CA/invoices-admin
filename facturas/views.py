@@ -8,9 +8,10 @@ from django.db.models import Q
 from .models import Invoice, Service
 from clientes.models import Client
 from .forms import InvoiceForm, ServiceForm
+from datetime import datetime
+from .utils import filter_invoices, paginate_invoices
 
-def invoice_list(request):
-    invoice_list = Invoice.objects.all()  # O cualquier filtro que estés utilizando
+def invoice_list(request, invoice_list = Invoice.objects.all()):
     paginator = Paginator(invoice_list, 10)  # 10 facturas por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -18,23 +19,33 @@ def invoice_list(request):
 
 def search_invoices(request):
     query = request.GET.get('q', '')
+    fecha_inicio = request.GET.get('fecha_inicio', '')
+    fecha_fin = request.GET.get('fecha_fin', '')
+    estado = request.GET.get('estado', '')
+    tipo_factura = request.GET.get('tipo_factura', '')
+    cliente = request.GET.get('cliente', '')
+    monto_min = request.GET.get('monto_min', '')
+    monto_max = request.GET.get('monto_max', '')
+    page = request.GET.get('page', 1)
+    per_page = request.GET.get('per_page', 10)
 
-    invoices = Invoice.objects.filter(
-        Q(client__name__icontains=query) |
-        Q(print_number__icontains=query)
-    ).distinct()
+    # Filtrar las facturas
+    invoices = filter_invoices(query, fecha_inicio, fecha_fin, estado, tipo_factura, cliente, monto_min, monto_max)
 
-    # Convertir los datos en JSON incluyendo `calc_total`
+    # Paginación de las facturas
+    page_obj, paginator = paginate_invoices(invoices, page, per_page)
+
+    # Convertir los datos en JSON
     data = [
         {
             "id": invoice.id,
             "print_number": invoice.print_number,
-            "client": invoice.client.name,  # Accede correctamente al nombre del cliente
-            "calc_total": invoice.calc_total,  # Accede a la propiedad
+            "client": invoice.client.name,
+            "calc_total": invoice.calc_total,
             "emitted_date": invoice.emitted_date,
             "expire_date": invoice.expire_date
         }
-        for invoice in invoices
+        for invoice in page_obj
     ]
 
     return JsonResponse(data, safe=False)
@@ -110,7 +121,5 @@ def print_invoice(request, invoice_id):
 def download_invoice(request, invoice_id):
     return render(request, 'facturas/invoice_list.html')
     
-    # response.write(pdf)
-    return response
 def test(request):
     return render(request, 'facturas/testing.html')

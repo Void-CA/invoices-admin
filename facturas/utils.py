@@ -1,36 +1,56 @@
-# facturas/utils.py
+from datetime import datetime
+from django.db.models import Q
+from .models import Invoice 
+from django.core.paginator import Paginator
 
-from facturas.models import Invoice
-from django.utils.dateparse import parse_date
+def filter_invoices(query, fecha_inicio, fecha_fin, estado, tipo_factura, cliente, monto_min, monto_max):
+    # Crear un filtro básico para la búsqueda por query
+    filters = Q(client__name__icontains=query) | Q(print_number__icontains=query)
 
-def filter_invoices(request):
-    """Filtrar facturas según los parámetros recibidos y devolver el queryset filtrado en formato JSON."""
-    
-    # Comenzamos con todas las facturas
-    invoices = Invoice.objects.all()
+    # Filtrar por fecha de inicio
+    if fecha_inicio:
+        try:
+            fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d')
+            filters &= Q(emitted_date__gte=fecha_inicio)
+        except ValueError:
+            pass
 
-    # Filtrar por fecha (rango)
-    fecha_inicio = request.GET.get('fecha_inicio', '')
-    fecha_fin = request.GET.get('fecha_fin', '')
-    if fecha_inicio and fecha_fin:
-        fecha_inicio = parse_date(fecha_inicio)
-        fecha_fin = parse_date(fecha_fin)
-        if fecha_inicio and fecha_fin:
-            invoices = invoices.filter(emitted_date__gte=fecha_inicio, emitted_date__lte=fecha_fin)
+    # Filtrar por fecha de fin
+    if fecha_fin:
+        try:
+            fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d')
+            filters &= Q(emitted_date__lte=fecha_fin)
+        except ValueError:
+            pass
 
     # Filtrar por estado
-    estado = request.GET.get('estado', '')
     if estado:
-        invoices = invoices.filter(state=estado)
+        filters &= Q(state=estado)
+
+    # Filtrar por tipo de factura
+    if tipo_factura:
+        filters &= Q(invoice_type=tipo_factura)
 
     # Filtrar por cliente
-    cliente = request.GET.get('cliente', '')
     if cliente:
-        invoices = invoices.filter(client__name__icontains=cliente)
+        filters &= Q(client__id=cliente)
 
-    # Filtros adicionales si se necesitan, como rango de total
-    total_min = request.GET.get('total_min', None)
-    if total_min:
-        invoices = invoices.filter(total__gte=total_min)
+    # Obtener las facturas que coinciden con los filtros
+    invoices = Invoice.objects.filter(filters).distinct()
+
+    # Filtrar por monto
+    if monto_min:
+        invoices = [invoice for invoice in invoices if invoice.calc_total >= float(monto_min)]
+
+    if monto_max:
+        invoices = [invoice for invoice in invoices if invoice.calc_total <= float(monto_max)]
 
     return invoices
+
+
+
+def paginate_invoices(invoices, page, per_page):
+    paginator = Paginator(invoices, per_page)
+    page_obj = paginator.get_page(page)
+
+    return page_obj, paginator

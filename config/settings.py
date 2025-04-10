@@ -31,6 +31,10 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
+LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/index/'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

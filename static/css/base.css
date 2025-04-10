@@ -1,13 +1,5 @@
-/* Paleta de colores */
-/*
-:root {
-  --color-fondo-body: #F0F4FF;
-  --color-fondo-sidebar: #31333e;
-  --color-acento: #4f52ba;
-  --color-texto-principal: #fff;
-  --color-texto-secundario: #161a2d;
-}
-*/
+/* Importando Merriweather, Work Sans e IBM Plex Mono desde Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300..700&family=Work+Sans:wght@300..700&family=IBM+Plex+Mono:wght@100..700&display=swap");
 
 
 :root {
@@ -19,8 +11,6 @@
 }
 
 
-/* Importando Merriweather, Work Sans e IBM Plex Mono desde Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300..700&family=Work+Sans:wght@300..700&family=IBM+Plex+Mono:wght@100..700&display=swap");
 
 * {
   box-sizing: border-box;
