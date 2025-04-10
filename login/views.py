@@ -4,7 +4,7 @@ from django.contrib import messages
 
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect('index')
+        return redirect('home')
     if request.method == "POST":
         username = request.POST['usuario']
         password = request.POST['password']
@@ -12,8 +12,11 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('index')  # Cambia a donde quieras redirigir
+            return redirect('home')  # Cambia a donde quieras redirigir
         else:
             messages.error(request, "Usuario o contraseña incorrectos.")
     
     return render(request, "login.html")
+
+def logout(request):
+    return
