@@ -8,15 +8,13 @@
         <h2 class="text-2xl font-semibold text-orange-100">Factura #{{ invoice.print_number }}</h2>
         
         <div class="flex space-x-3">
-            <form action="{% url 'print_invoice' invoice.id %}" method="post" target="_blank" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit" class="text-orange-300 hover:text-white transition" title="Imprimir factura">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 9V4h12v5M6 18H5a2 2 0 01-2-2v-5a2 2 0 012-2h14a2 2 0 012 2v5a2 2 0 01-2 2h-1m-4 0h-4" />
-                    </svg>
-                </button>
-            </form>            
+            <button id="print-button" class="text-orange-300 hover:text-white transition cursor-pointer" title="Imprimir factura">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M6 9V4h12v5M6 18H5a2 2 0 01-2-2v-5a2 2 0 012-2h14a2 2 0 012 2v5a2 2 0 01-2 2h-1m-4 0h-4" />
+                </svg>
+            </button>
+                       
     
             <!-- Botón para factura digital -->
             <a href="URL_FACTURA_DIGITAL" target="_blank" class="text-orange-300 hover:text-white transition" title="Crear factura digital">
@@ -90,4 +88,37 @@
         </a>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $('#print-button').on('click', function (e) {
+    e.preventDefault();
+
+    $.ajax({
+      url: "{% url 'print_invoice' invoice.id %}",
+      method: 'POST',
+      headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+      success: function () {
+        Swal.fire({
+          title: '¡Imprimiendo!',
+          text: 'La factura está siendo enviada a la impresora.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 3000
+        });
+      },
+      error: function () {
+        Swal.fire({
+          title: 'Error',
+          text: 'No se pudo imprimir la factura.',
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
+      }
+    });
+  });
+</script>  
+    
 {% endblock %}

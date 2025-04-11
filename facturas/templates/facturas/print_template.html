@@ -42,15 +42,21 @@
 
     .col-cantidad {
       width: 1.7cm;
+      top: 0.2cm;
       text-align: center;
     }
 
     .col-descripcion {
       width: 11.5cm;
+      left: 0.1cm;
+      top: 0.1cm;
+      text-align: left;
     }
 
     .col-unitario,
     .col-valor {
+      left: 0.1cm;
+      top: 0.1cm;  
       width: 3.1cm;
       text-align: center;
     }
@@ -79,14 +85,14 @@
       <div class="tabla-row">
         <div class="col-cantidad">{{ service.quantity }}</div>
         <div class="col-descripcion">{{ service.description|linebreaksbr }}</div>
-        <div class="col-unitario">{{ service.unit_price }}</div>
-        <div class="col-valor">{{ service.subtotal }}</div>
+        <div class="col-unitario">C${{ service.unit_price }}</div>
+        <div class="col-valor">C${{ service.subtotal }}</div>
       </div>
     {% endfor %}
   </div>
 
   <!-- Total -->
-  <div class="campo total">{{ total }}</div>
+  <div class="campo total">C${{ total }}</div>
 
 </body>
 </html>

@@ -74,7 +74,7 @@ class ServiceForm(forms.ModelForm):
         widgets = {
             'specification': forms.Textarea(attrs={
                 'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-orange-400 bg-gray-700 text-gray-200 resize-none',
-                'rows': 2,
+                'rows': 3,
                 'placeholder': 'Agrega especificaciones del servicio aquí...',
             }),
             'price': forms.TextInput(attrs={

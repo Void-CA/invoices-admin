@@ -77,8 +77,8 @@ def create_invoice(request):
         form = InvoiceForm()
         formset = ServiceFormSet() 
         for form_i in formset:
-            form_i.fields['specification'].widget.attrs.update({'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full', 'rows': 1,'placeholder': 'Nombre del servicio'})
-            form_i.fields['price'].widget.attrs.update({'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full', 'start': 0, 'step': 100, 'placeholder': 'C$'})
+            form_i.fields['specification'].widget.attrs.update({'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full', 'rows': 3,'placeholder': 'Nombre del servicio'})
+            form_i.fields['price'].widget.attrs.update({'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full', 'start': 0, 'step': 0.01, 'placeholder': 'C$'})
 
     return render(request, 'facturas/invoice_form.html', {
         'invoice_form': form,
@@ -112,11 +112,12 @@ def delete_invoice(request, invoice_id):
     return redirect('invoice_list')
 
 def print_invoice(request, invoice_id):
-    invoice = get_object_or_404(Invoice, id=invoice_id)
-
     if request.method == 'POST':
+        invoice = get_object_or_404(Invoice, id=invoice_id)
         print_invoice_to_printer(invoice)
-        return redirect('invoice_list')
+        return JsonResponse({'success': True})
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
 
 
 def download_invoice(request, invoice_id):
