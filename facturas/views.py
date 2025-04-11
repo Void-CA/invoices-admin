@@ -9,7 +9,7 @@ from .models import Invoice, Service
 from clientes.models import Client
 from .forms import InvoiceForm, ServiceForm
 from datetime import datetime
-from .utils import filter_invoices, paginate_invoices
+from .utils import *
 
 def invoice_list(request, invoice_list = Invoice.objects.all()):
     paginator = Paginator(invoice_list, 10)  # 10 facturas por página
@@ -113,10 +113,11 @@ def delete_invoice(request, invoice_id):
 
 def print_invoice(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)
+
     if request.method == 'POST':
-        # Aquí puedes agregar la lógica para generar el PDF de la factura
-        # Por ejemplo, utilizando una biblioteca como WeasyPrint o ReportLab
-        pass
+        print_invoice_to_printer(invoice)
+        return redirect('invoice_list')
+
 
 def download_invoice(request, invoice_id):
     return render(request, 'facturas/invoice_list.html')

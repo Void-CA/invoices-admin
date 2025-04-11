@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import inlineformset_factory
 from .models import Invoice, Service, Client
+from django.db.models import Max
 
 class InvoiceForm(forms.ModelForm):
     class Meta:
@@ -46,10 +47,15 @@ class InvoiceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['expire_date'].required = False
+        if not self.instance.pk:  # Esto SOLO funciona aquí
+            ultimo = Invoice.objects.aggregate(Max('print_number'))['print_number__max'] or 0
+            self.fields['print_number'].initial = ultimo + 1
 
     def clean_expire_date(self):
         emitted_date = self.cleaned_data.get('emitted_date')
         expire_date = self.cleaned_data.get('expire_date')
+    
+    
 
         if expire_date and emitted_date and expire_date < emitted_date:
             raise forms.ValidationError("La fecha de expiración no puede ser anterior a la fecha de emisión.")

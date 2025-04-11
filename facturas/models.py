@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import RegexValidator
 from django.utils.timezone import now
 from clientes.models import Client
+from django.db.models import Max
 
 class Invoice(models.Model):
     ESTADOS_FACTURA = [
@@ -22,7 +23,7 @@ class Invoice(models.Model):
     expire_date = models.DateField(null=True, blank=True)
     state = models.CharField(max_length=10, choices=ESTADOS_FACTURA, default='pagado')
     invoice_type = models.CharField(max_length=10, choices=INVOICE_TYPES, default='Ingreso')
-    print_number = models.PositiveIntegerField(default=0)
+    print_number = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True, null=True)
 
@@ -35,6 +36,7 @@ class Invoice(models.Model):
 
 
 class Service(models.Model):
+    quantity = models.PositiveIntegerField(default=1)
     invoice = models.ForeignKey(Invoice, related_name="services", on_delete=models.CASCADE)
     specification = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)

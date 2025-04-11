@@ -16,10 +16,12 @@
   </head>
   <body>
     <aside class="sidebar">
-      <div class="sidebar-header">
-        <img src="{% static 'images/logo.png' %}" alt="logo" />
-        <h2>ALLIANCE</h2>
-      </div>
+      <a href="{% url 'home' %}">
+        <div class="sidebar-header">
+          <img src="{% static 'images/logo.png' %}" alt="logo" />
+          <h2>ALLIANCE</h2>
+        </div>
+      </a>      
       <ul class="sidebar-links">
         <h4>
           <span>Menu Principal</span>

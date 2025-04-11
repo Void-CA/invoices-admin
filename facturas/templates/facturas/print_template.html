@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Factura precisa</title>
+  <style>
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      width: 21cm;
+      height: 29.7cm;
+      font-family: Arial, sans-serif;
+      position: relative;
+      font-size: 0.4cm;
+    }
+
+    .campo {
+      position: absolute;
+    }
+
+    .cliente { left: 2.2cm; top: 4.3cm; width: 12cm; text-align: center; }
+    .direccion { left: 2.2cm; top: 5cm; width: 12cm; text-align: center; }
+    .ruc { left: 14.8cm; top: 4.3cm; width: 5cm; text-align: center; }
+    .fecha { left: 14.8cm; top: 5cm; width: 5cm; text-align: center; }
+
+    .tabla-content {
+      position: absolute;
+      top: 6.4cm;
+      left: 1cm;
+      width: 18.9cm;
+    }
+
+    .tabla-row {
+      display: flex;
+      margin-bottom: 0.6cm; /* espaciado entre filas */
+    }
+
+    .col-cantidad {
+      width: 1.7cm;
+      text-align: center;
+    }
+
+    .col-descripcion {
+      width: 11.5cm;
+    }
+
+    .col-unitario,
+    .col-valor {
+      width: 3.1cm;
+      text-align: center;
+    }
+
+    .total {
+      position: absolute;
+      top: 15.8cm;
+      left: 17.1cm;
+      width: 3.1cm;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Datos cliente -->
+  <div class="campo cliente">{{ client.name }}</div>
+  <div class="campo direccion">{{ client.address }}</div>
+  <div class="campo ruc">{{ client.ruc }}</div>
+  <div class="campo fecha">{{ client.date }}</div>
+
+  <!-- Contenido de tabla -->
+  <div class="tabla-content">
+    {% for service in services %}
+      <div class="tabla-row">
+        <div class="col-cantidad">{{ service.quantity }}</div>
+        <div class="col-descripcion">{{ service.description|linebreaksbr }}</div>
+        <div class="col-unitario">{{ service.unit_price }}</div>
+        <div class="col-valor">{{ service.subtotal }}</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Total -->
+  <div class="campo total">{{ total }}</div>
+
+</body>
+</html>
