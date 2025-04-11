@@ -1,9 +1,10 @@
 services:
   web:
-    image: castilloari/vindell:latest  # Usa tu imagen publicada en DockerHub
+    image: castilloari/vindell:latest
     ports:
       - "8000:8000"
     environment:
       - ALLOWED_HOSTS=*
     volumes:
-      - ./db.sqlite3:/app/db.sqlite3  # Monta el archivo de la base de datos en el contenedor
+      - ./db.sqlite3:/app/db.sqlite3
+      - ./pdf_output:/app/pdf_output

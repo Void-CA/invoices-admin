@@ -7,6 +7,15 @@ WORKDIR /app
 # Copiar el archivo de requerimientos y luego instalar las dependencias
 COPY requirements.txt .
 
+RUN apt update && apt install -y \
+    ghostscript \
+    cups \
+    cups-client \
+    && apt clean
+
+COPY . /app
+WORKDIR /app
+
 # Instalar las dependencias
 RUN pip install --no-cache-dir -r requirements.txt
 

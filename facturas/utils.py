@@ -91,7 +91,7 @@ def print_invoice_to_printer(invoice, printer_name="EPSON3E2859 (L3250 Series)")
 
     # Ejecutar Ghostscript para imprimir
     gs_command = [
-        "gswin64c",
+        "gs",
         "-dNOPAUSE",
         "-dBATCH",
         "-dPrinted",
