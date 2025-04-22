@@ -7,8 +7,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     ghostscript \
     cups \
-    cups-client && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    cups-client \
+    libcups2-dev \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
