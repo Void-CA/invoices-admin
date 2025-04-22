@@ -1,10 +1,12 @@
 services:
   web:
     image: castilloari/vindell:latest
+    pull_policy: always
     ports:
       - "8000:8000"
     environment:
       - ALLOWED_HOSTS=*
     volumes:
+      - /var/run/cups/cups.sock:/var/run/cups/cups.sock
       - ./db.sqlite3:/app/db.sqlite3
       - ./pdf_output:/app/pdf_output

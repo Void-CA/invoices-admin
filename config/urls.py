@@ -25,6 +25,7 @@ urlpatterns = [
     path("stats/", include("stats.urls")),
     path("notificaciones/", include("notifications.urls")),
     path("index/", include("index.urls")),
+    path("settings/", include("settings.urls")),
     path("", include("login.urls")),
 ]
 
