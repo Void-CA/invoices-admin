@@ -3,9 +3,11 @@ from django.db.models import Q
 from .models import Invoice 
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
 from weasyprint import HTML
 import tempfile
-import subprocess
+import os
+
 
 def filter_invoices(query, fecha_inicio, fecha_fin, estado, tipo_factura, cliente, monto_min, monto_max):
     # Crear un filtro básico para la búsqueda por query
@@ -59,8 +61,7 @@ def paginate_invoices(invoices, page, per_page):
 
     return page_obj, paginator
 
-def print_invoice_to_printer(invoice, printer_name="EPSON3E2859 (L3250 Series)"):
-
+def send_invoice_to_epson(invoice, printer_email):
     context = {
         'client': {
             'name': invoice.client.name,
@@ -80,24 +81,21 @@ def print_invoice_to_printer(invoice, printer_name="EPSON3E2859 (L3250 Series)")
         'total': f"{sum(servicio.quantity * servicio.price for servicio in invoice.services.all()):.2f}"
     }
 
-
-    # Renderizar el HTML con contexto
     html_string = render_to_string("facturas/print_template.html", context)
 
-    # Crear archivo temporal para el PDF
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_pdf:
         HTML(string=html_string).write_pdf(tmp_pdf.name)
-        tmp_pdf_path = tmp_pdf.name
+        pdf_path = tmp_pdf.name
 
-    # Ejecutar Ghostscript para imprimir
-    gs_command = [
-        "gs",
-        "-dNOPAUSE",
-        "-dBATCH",
-        "-dPrinted",
-        "-sDEVICE=mswinpr2",
-        f"-sOutputFile=\\\\{printer_name}",
-        tmp_pdf_path
-    ]
+    email = EmailMessage(
+        subject="Factura Vindell",
+        body="Por favor imprimir el documento adjunto.",
+        from_email="castilloaris73@gmail.com",
+        to=[printer_email],
+    )
 
-    subprocess.run(gs_command)
+    with open(pdf_path, "rb") as pdf_file:
+        email.attach("factura.pdf", pdf_file.read(), "application/pdf")
+
+    email.send()
+    os.remove(pdf_path)

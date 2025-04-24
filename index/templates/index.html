@@ -23,7 +23,6 @@
                             <th class="py-2 px-4 text-left">Monto Total</th>
                             <th class="py-2 px-4 text-left">Fecha de Emisión</th>
                             <th class="py-2 px-4 text-left">Fecha de Vencimiento</th>
-                            <th class="py-2 px-4 text-left">Estado</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,7 +33,6 @@
                             <td class="py-2 px-4">{{ factura.calc_total }}</td>
                             <td class="py-2 px-4">{{ factura.emitted_date }}</td>
                             <td class="py-2 px-4">{{ factura.expire_date }}</td>
-                            <td class="py-2 px-4">{{ factura.get_state_display }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

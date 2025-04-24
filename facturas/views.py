@@ -114,7 +114,7 @@ def delete_invoice(request, invoice_id):
 def print_invoice(request, invoice_id):
     if request.method == 'POST':
         invoice = get_object_or_404(Invoice, id=invoice_id)
-        print_invoice_to_printer(invoice)
+        send_invoice_to_epson(invoice=invoice, printer_email="tnw38240m60ju6@print.epsonconnect.com")
         return JsonResponse({'success': True})
     return JsonResponse({'error': 'Método no permitido'}, status=405)
 
