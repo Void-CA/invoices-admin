@@ -5,5 +5,5 @@ reportlab
 openpyxl
 celery
 gunicorn
-pycups
 weasyprint
+python-decouple
