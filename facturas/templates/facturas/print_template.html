@@ -84,7 +84,7 @@
     {% for service in services %}
       <div class="tabla-row">
         <div class="col-cantidad">{{ service.quantity }}</div>
-        <div class="col-descripcion">{{ service.description|linebreaksbr }}</div>
+        <div class="col-descripcion">{{ service.specification|linebreaksbr }}</div>
         <div class="col-unitario">C${{ service.unit_price }}</div>
         <div class="col-valor">C${{ service.subtotal }}</div>
       </div>

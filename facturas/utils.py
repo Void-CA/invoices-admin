@@ -61,41 +61,27 @@ def paginate_invoices(invoices, page, per_page):
 
     return page_obj, paginator
 
-def send_invoice_to_epson(invoice, printer_email):
-    context = {
-        'client': {
-            'name': invoice.client.name,
-            'address': invoice.client.address,
-            'ruc': invoice.client.ruc,
-            'date': invoice.emitted_date.strftime('%d/%m/%Y')
-        },
-        'services': [
-            {
-                'quantity': servicio.quantity,
-                'description': servicio.specification,
-                'unit_price': f"{servicio.price:.2f}",
-                'subtotal': f"{servicio.quantity * servicio.price:.2f}"
-            }
-            for servicio in invoice.services.all()
-        ],
-        'total': f"{sum(servicio.quantity * servicio.price for servicio in invoice.services.all()):.2f}"
-    }
+import os
+from django.conf import settings
+from django.template.loader import get_template
+from weasyprint import HTML
 
-    html_string = render_to_string("facturas/print_template.html", context)
+def create_pdf(context, filename='factura_generada.pdf'):
+    # Usar el sistema de plantillas de Django para renderizar
+    template = get_template('facturas/print_template.html')
 
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_pdf:
-        HTML(string=html_string).write_pdf(tmp_pdf.name)
-        pdf_path = tmp_pdf.name
+    # Definir ruta absoluta dentro del proyecto
+    output_dir = os.path.join(settings.BASE_DIR, 'pdf_output')
+    os.makedirs(output_dir, exist_ok=True)  # crea la carpeta si no existe
+    output_path = os.path.join(output_dir, filename)
 
-    email = EmailMessage(
-        subject="Factura Vindell",
-        body="Por favor imprimir el documento adjunto.",
-        from_email="castilloaris73@gmail.com",
-        to=[printer_email],
-    )
+    # Renderiza el HTML con el contexto
+    html_rendered = template.render(context)
 
-    with open(pdf_path, "rb") as pdf_file:
-        email.attach("factura.pdf", pdf_file.read(), "application/pdf")
+    # Generar el PDF con WeasyPrint
+    HTML(string=html_rendered).write_pdf(output_path)
 
-    email.send()
-    os.remove(pdf_path)
+    print(f"PDF generado correctamente en: {output_path}")
+    return output_path
+
+    
