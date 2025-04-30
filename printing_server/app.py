@@ -9,6 +9,10 @@ CORS(app)
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+@app.route('/')
+def index():
+    return jsonify({"message": "Servidor de impresión en funcionamiento"}), 200
+
 @app.route('/printing', methods=['POST'])
 def printing():
     if 'file' not in request.files or 'printer_name' not in request.form:

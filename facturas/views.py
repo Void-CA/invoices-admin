@@ -115,13 +115,10 @@ def delete_invoice(request, invoice_id):
 
 @csrf_exempt
 def print_invoice(request, invoice_id):
-    print("Método recibido:", request.method)
     try:
         if request.method == 'POST':
-            print("Obteniendo factura...")
             invoice = get_object_or_404(Invoice, id=invoice_id)
 
-            print("Construyendo contexto...")
             context = {
                 'invoice': invoice,
                 'services': invoice.services.all(),
@@ -134,10 +131,8 @@ def print_invoice(request, invoice_id):
                 'phone': invoice.client.phone,
             }
 
-            filename = f'invoice_{invoice.id}.pdf'
-            print(f"Generando PDF: {filename}")
+            filename = f'generated_invoice.pdf'
             pdf_path = create_pdf(context, filename)
-            print(f"PDF generado en: {pdf_path}")
 
             print("Abriendo archivo PDF...")
             with open(pdf_path, 'rb') as pdf_file:

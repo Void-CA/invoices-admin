@@ -2,18 +2,10 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Instalar dependencias del sistema para WeasyPrint y otras herramientas
+# Instala solo lo esencial (si necesitas compilar alguna dependencia nativa)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    gcc \
-    libpq-dev \
-    libcairo2 libcairo2-dev \
-    libpangocairo-1.0-0 \
-    libpango-1.0-0 \
-    libgdk-pixbuf2.0-0 \
-    libffi-dev \
-    libgobject-2.0-0 \
-    shared-mime-info \
+    libpango-1.0-0 libpangoft2-1.0-0 gir1.2-harfbuzz-0.0 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copia e instala dependencias de Python
