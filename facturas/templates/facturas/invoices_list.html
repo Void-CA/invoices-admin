@@ -1,269 +1,403 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block title %}Lista de Facturas{% endblock %}
+{%block content %}
+<div
+  class="flex items-center justify-between gap-4 border-b-2 border-[#e67a39] pb-2"
+>
+  <h2 class="text-4xl font-semibold text-[#f5f5f5]">Lista de Facturas</h2>
 
-{% block title %}Lista de Facturas{% endblock %}
+  <div class="relative w-full max-w-md flex">
+    <!-- Botón de Filtro con notificación -->
+    <!-- Botón de Filtro -->
+    <button
+      onclick="mostrarDialogoFiltros()"
+      class="ml-2 text-sm bg-[#393743] text-[#e67a39] px-3 py-2 rounded-lg hover:bg-[#e67a39] hover:text-[#282c36] transition cursor-pointer"
+    >
+      <span class="material-symbols-outlined align-middle">filter_alt</span>
+      <!-- Círculo de notificación (inicialmente oculto) -->
+      <span
+        id="filter-notification"
+        class="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full hidden"
+      ></span>
+    </button>
 
-{% block content %}
-<div class="flex items-center justify-between gap-4 border-b-2 border-[#e67a39] pb-2">
-    <h2 class="text-4xl font-semibold text-[#f5f5f5]">
-        Lista de Facturas
-    </h2>
-
-    <div class="relative w-full max-w-md flex">
-        <!-- Botón de Filtro -->
-        <button onclick="mostrarDialogoFiltros()" 
-            class="ml-2 text-sm bg-[#393743] text-[#e67a39] px-3 py-2 rounded-lg hover:bg-[#e67a39] hover:text-[#282c36] transition">
-            <span class="material-symbols-outlined align-middle">filter_alt</span>
-            <!-- Círculo de notificación (inicialmente oculto) -->
-        <span id="filter-notification" class="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full hidden"></span>
-        </button>
-    
-        <!-- Campo de búsqueda con ícono -->
-        <div class="relative w-full">
-            <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
-                search
-            </span>
-            <input type="text" id="invoice-search" 
-                placeholder="Buscar factura..."
-                class="w-full pl-10 pr-4 py-2 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#e67a39] text-primary placeholder-gray bg-[#282c36]">
-        </div>
+    <!-- Campo de búsqueda con ícono -->
+    <div class="relative w-full">
+      <span
+        class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+      >
+        search
+      </span>
+      <input
+        type="text"
+        id="invoice-search"
+        placeholder="Buscar factura..."
+        class="w-full pl-10 pr-4 py-2 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#e67a39] text-primary placeholder-gray bg-[#282c36]"
+      />
     </div>
-    
+  </div>
 </div>
 
 <table class="table-auto border-collapse border border-[#e67a39] w-full mt-4">
-    <thead>
-        <tr class="bg-[#393743]">
-            <th class="border border-gray-400 px-4 py-2 text-[#e67a39] text-center"># Factura</th>
-            <th class="border border-gray-400 px-4 py-2 text-[#e67a39] text-center">Cliente</th>
-            <th class="border border-gray-400 px-4 py-2 text-[#e67a39] text-center">Fecha de Emisión</th>
-            <th class="border border-gray-400 px-4 py-2 text-[#e67a39] text-center">Fecha de Vencimiento</th>
-            <th class="border border-gray-400 px-4 py-2 text-[#e67a39] text-center">Monto</th>
-            <th class="border border-gray-400 px-4 py-2 text-[#e67a39] text-center">Acciones</th>
-        </tr>
-    </thead>
-    <tbody id="invoice-body">
-        {% for invoice in page_obj %}
-        <tr class="hover:bg-[#2c2a34] {% if forloop.counter|divisibleby:2 %}bg-[#393743]{% else %}bg-[#2c2a34]{% endif %}">
-            <td class="border border-gray-400 px-4 py-2 text-center text-primary">{{ invoice.print_number }}</td>
-            <td class="border border-gray-400 px-4 py-2 text-center text-primary">{{ invoice.client }}</td>
-            <td class="border border-gray-400 px-4 py-2 text-center text-primary">{{ invoice.emitted_date }}</td>
-            <td class="border border-gray-400 px-4 py-2 text-center text-primary">{{ invoice.expire_date|default:"Sin vencimiento" }}</td>
-            <td class="border border-gray-400 px-4 py-2 text-center text-primary">${{ invoice.calc_total }}</td>
-            <td class="border border-gray-400 px-4 py-2 text-center">
-                <div class="flex justify-center space-x-2">
-                    <a href="{% url 'invoice_detail' invoice.id %}" class="bg-[#e2926f] text-[#282c36] hover:bg-[#ff9b67] w-10 h-10 flex items-center justify-center rounded-full transition duration-300 ease-in-out">
-                        <span class="material-symbols-outlined text-lg">visibility</span>
-                    </a>
-                    <a href="{% url 'edit_invoice' invoice.id %}" class="bg-[#f4c542] text-[#282c36] hover:bg-[#f6d161] w-10 h-10 flex items-center justify-center rounded-full transition duration-300 ease-in-out">
-                        <span class="material-symbols-outlined text-lg">edit</span>
-                    </a>
-                    <a href="{% url 'delete_invoice' invoice.id %}" class="bg-[#e74c3c] text-white hover:bg-[#ff6b5c] w-10 h-10 flex items-center justify-center rounded-full transition duration-300 ease-in-out">
-                        <span class="material-symbols-outlined text-lg">delete</span>
-                    </a>                                    
-                </div>
-            </td>                           
-        </tr>
-        {% endfor %}
-    </tbody>    
+  <thead>
+    <tr class="bg-[#393743]">
+      <th class="border border-gray-400 px-4 py-2 text-[#e67a39] text-center">
+        # Factura
+      </th>
+      <th class="border border-gray-400 px-4 py-2 text-[#e67a39] text-center">
+        Cliente
+      </th>
+      <th class="border border-gray-400 px-4 py-2 text-[#e67a39] text-center">
+        Fecha de Emisión
+      </th>
+      <th class="border border-gray-400 px-4 py-2 text-[#e67a39] text-center">
+        Fecha de Vencimiento
+      </th>
+      <th class="border border-gray-400 px-4 py-2 text-[#e67a39] text-center">
+        Monto
+      </th>
+      <th class="border border-gray-400 px-4 py-2 text-[#e67a39] text-center">
+        Acciones
+      </th>
+    </tr>
+  </thead>
+  <tbody id="invoice-body">
+    {% for invoice in page_obj %}
+    <tr
+      class="hover:bg-[#2c2a34] {% if forloop.counter|divisibleby:2 %}bg-[#393743]{% else %}bg-[#2c2a34]{% endif %}"
+    >
+      <td class="border border-gray-400 px-4 py-2 text-center text-primary">
+        {{ invoice.print_number }}
+      </td>
+      <td class="border border-gray-400 px-4 py-2 text-center text-primary">
+        {{ invoice.client }}
+      </td>
+      <td class="border border-gray-400 px-4 py-2 text-center text-primary">
+        {{ invoice.emitted_date }}
+      </td>
+      <td class="border border-gray-400 px-4 py-2 text-center text-primary">
+        {{ invoice.expire_date|default:"Sin vencimiento" }}
+      </td>
+      <td class="border border-gray-400 px-4 py-2 text-center text-primary">
+        ${{ invoice.calc_total }}
+      </td>
+      <td class="border border-gray-400 px-4 py-2 text-center">
+        <div class="flex justify-center space-x-2">
+          <a
+            href="{% url 'invoice_detail' invoice.id %}"
+            class="bg-[#e2926f] text-[#282c36] hover:bg-[#ff9b67] w-10 h-10 flex items-center justify-center rounded-full transition duration-300 ease-in-out"
+          >
+            <span class="material-symbols-outlined text-lg">visibility</span>
+          </a>
+          <a
+            href="{% url 'edit_invoice' invoice.id %}"
+            class="bg-[#f4c542] text-[#282c36] hover:bg-[#f6d161] w-10 h-10 flex items-center justify-center rounded-full transition duration-300 ease-in-out"
+          >
+            <span class="material-symbols-outlined text-lg">edit</span>
+          </a>
+          <a
+            href="{% url 'delete_invoice' invoice.id %}"
+            class="bg-[#e74c3c] text-white hover:bg-[#ff6b5c] w-10 h-10 flex items-center justify-center rounded-full transition duration-300 ease-in-out"
+          >
+            <span class="material-symbols-outlined text-lg">delete</span>
+          </a>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
 <!-- Paginación -->
 <div class="flex justify-center mt-4">
-    <div class="flex space-x-2">
-        {% if page_obj.has_previous %}
-            <a href="?page=1" class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2">
-                <span class="material-symbols-outlined">first_page</span>
-                <span>Primera</span>
-            </a>
-            <a href="?page={{ page_obj.previous_page_number }}" class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2">
-                <span class="material-symbols-outlined">navigate_before</span>
-                <span>Anterior</span>
-            </a>
-        {% endif %}
-        <span class="px-4 py-2 text-[#e67a39] font-semibold">
-            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
-        </span>
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}" class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2">
-                <span class="material-symbols-outlined">navigate_next</span>
-                <span>Siguiente</span>
-            </a>
-            <a href="?page={{ page_obj.paginator.num_pages }}" class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2">
-                <span class="material-symbols-outlined">last_page</span>
-                <span>Última</span>
-            </a>
-        {% endif %}
-    </div>
+  <div class="flex space-x-2 paginator">
+    {% if page_obj.has_previous %}
+    <a
+      href="?page=1"
+      class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2"
+    >
+      <span class="material-symbols-outlined">first_page</span>
+      <span>Primera</span>
+    </a>
+    <a
+      href="?page={{ page_obj.previous_page_number }}"
+      class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2"
+    >
+      <span class="material-symbols-outlined">navigate_before</span>
+      <span>Anterior</span>
+    </a>
+    {% endif %}
+    <span class="px-4 py-2 text-[#e67a39] font-semibold">
+      Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+    </span>
+    {% if page_obj.has_next %}
+    <a
+      href="?page={{ page_obj.next_page_number }}"
+      class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2"
+    >
+      <span class="material-symbols-outlined">navigate_next</span>
+      <span>Siguiente</span>
+    </a>
+    <a
+      href="?page={{ page_obj.paginator.num_pages }}"
+      class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2"
+    >
+      <span class="material-symbols-outlined">last_page</span>
+      <span>Última</span>
+    </a>
+    {% endif %}
+  </div>
 </div>
 
-<a href="{% url 'create_invoice' %}" 
-   class="fixed bottom-4 right-4 bg-gray-800 text-orange-300 p-4 rounded-full shadow-lg hover:bg-orange-600 transition flex items-center justify-center border border-gray-600">
-   <span class="material-symbols-outlined" style="font-size: 6rem;">add</span>
+<a
+  href="{% url 'create_invoice' %}"
+  class="fixed bottom-4 right-4 bg-gray-800 text-orange-300 p-4 rounded-full shadow-lg hover:bg-orange-600 transition flex items-center justify-center border border-gray-600"
+>
+  <span class="material-symbols-outlined" style="font-size: 6rem">add</span>
 </a>
 
-<dialog id="dialogo-filtros" class=" mt-20 bg-[#282c36] text-white rounded-lg p-6 shadow-lg w-full max-w-md border border-[#e67a39] ml-auto mr-auto max-h-screen overflow-y-auto">
-    <h3 class="text-xl font-semibold mb-4 text-[#e67a39]">Filtros avanzados</h3>
+<dialog
+  id="dialogo-filtros"
+  class="mt-20 bg-[#282c36] text-white rounded-lg p-6 shadow-lg w-full max-w-md border border-[#e67a39] ml-auto mr-auto max-h-screen overflow-y-auto"
+>
+  <h3 class="text-xl font-semibold mb-4 text-[#e67a39]">Filtros avanzados</h3>
 
+  <label>
+    Cliente:
+    <select
+      id="filtro-cliente"
+      class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1"
+    >
+      <option value="">Todos</option>
+      {% for client in clients %}
+      <option value="{{ client.id }}">{{ client.name }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <label>
-        Cliente:
-        <select id="filtro-cliente" class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1">
-            <option value="">Todos</option>
-            {% for client in clients %}
-                <option value="{{ client.id }}">{{ client.name }}</option>
-            {% endfor %}
-        </select>
+      Fecha de inicio:
+      <input
+        type="date"
+        id="filtro-fecha-inicio"
+        class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1"
+      />
     </label>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <label>
-            Fecha de inicio:
-            <input type="date" id="filtro-fecha-inicio" class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1">
-        </label>
-        <label>
-            Fecha de fin:
-            <input type="date" id="filtro-fecha-fin" class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1">
-        </label>
-        <label>
-            Monto total (mínimo):
-            <input type="number" id="filtro-monto-min" class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1" placeholder="Monto mínimo">
-        </label>
-        <label>
-            Monto total (máximo):
-            <input type="number" id="filtro-monto-max" class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1" placeholder="Monto máximo">
-        </label>
-        <label>
-            Estado:
-            <select id="filtro-estado" class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1">
-                <option value="">Todos</option>
-                <option value="pendiente">Pendiente</option>
-                <option value="pagado">Pagado</option>
-            </select>
-        </label>
-        <label>
-            Tipo de factura:
-            <select id="filtro-tipo-factura" class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1">
-                <option value="">Todos</option>
-                <option value="tipo1">Tipo 1</option>
-                <option value="tipo2">Tipo 2</option>
-                <option value="tipo3">Tipo 3</option>
-            </select>
-        </label>
-    </div>
+    <label>
+      Fecha de fin:
+      <input
+        type="date"
+        id="filtro-fecha-fin"
+        class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1"
+      />
+    </label>
+    <label>
+      Monto total (mínimo):
+      <input
+        type="number"
+        id="filtro-monto-min"
+        class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1"
+        placeholder="Monto mínimo"
+      />
+    </label>
+    <label>
+      Monto total (máximo):
+      <input
+        type="number"
+        id="filtro-monto-max"
+        class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1"
+        placeholder="Monto máximo"
+      />
+    </label>
+    <label>
+      Estado:
+      <select
+        id="filtro-estado"
+        class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1"
+      >
+        <option value="">Todos</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="pagado">Pagado</option>
+      </select>
+    </label>
+    <label>
+      Tipo de factura:
+      <select
+        id="filtro-tipo-factura"
+        class="mt-1 w-full bg-[#393743] border border-gray-600 rounded px-2 py-1"
+      >
+        <option value="">Todos</option>
+        <option value="tipo1">Tipo 1</option>
+        <option value="tipo2">Tipo 2</option>
+        <option value="tipo3">Tipo 3</option>
+      </select>
+    </label>
+  </div>
 
-    <div class="mt-6 flex justify-end gap-4">
-        <button onclick="cerrarDialogoFiltros()" class="px-4 py-2 rounded bg-gray-600 hover:bg-gray-700">Cancelar</button>
-        <button onclick="aplicarFiltrosDesdeDialogo()" class="px-4 py-2 rounded bg-[#e67a39] hover:bg-[#d25f28]">Aplicar</button>
-    </div>
+  <div class="mt-6 flex justify-end gap-4">
+    <button
+      onclick="cerrarDialogoFiltros()"
+      class="px-4 py-2 rounded bg-gray-600 hover:bg-gray-700"
+    >
+      Cancelar
+    </button>
+    <button
+      onclick="aplicarFiltrosDesdeDialogo()"
+      class="px-4 py-2 rounded bg-[#e67a39] hover:bg-[#d25f28]"
+    >
+      Aplicar
+    </button>
+  </div>
 </dialog>
 
-
-
-{% endblock %}
-
-
-{% block scripts %}
+{% endblock %} {% block scripts %}
 <script>
-    function mostrarDialogoFiltros() {
-        document.getElementById("dialogo-filtros").showModal();
+  let currentPage = 1; // Track the current page
+
+  function mostrarDialogoFiltros() {
+    document.getElementById("dialogo-filtros").showModal();
+  }
+
+  function cerrarDialogoFiltros() {
+    document.getElementById("dialogo-filtros").close();
+  }
+
+  function aplicarFiltrosDesdeDialogo() {
+    cerrarDialogoFiltros(); // Cierra el modal
+    aplicarFiltros(); // Ejecuta la búsqueda con los filtros
+  }
+
+  function aplicarFiltros(page = 1) {
+    const searchBox = document.getElementById("invoice-search");
+    const tableBody = document.getElementById("invoice-body");
+    const paginationContainer = document.querySelector(".flex.space-x-2"); // Correct container for pagination
+
+    const query = searchBox.value.trim();
+    const inicio = document.getElementById("filtro-fecha-inicio").value;
+    const fin = document.getElementById("filtro-fecha-fin").value;
+    const estado = document.getElementById("filtro-estado").value;
+    const tipoFactura = document.getElementById("filtro-tipo-factura").value;
+    const cliente = document.getElementById("filtro-cliente").value;
+    const montoMin = document.getElementById("filtro-monto-min").value;
+    const montoMax = document.getElementById("filtro-monto-max").value;
+
+    const params = new URLSearchParams();
+    if (query) params.append("q", query);
+    if (inicio) params.append("fecha_inicio", inicio);
+    if (fin) params.append("fecha_fin", fin);
+    if (estado) params.append("estado", estado);
+    if (tipoFactura) params.append("tipo_factura", tipoFactura);
+    if (cliente) params.append("cliente", cliente);
+    if (montoMin && !isNaN(montoMin)) params.append("monto_min", montoMin);
+    if (montoMax && !isNaN(montoMax)) params.append("monto_max", montoMax);
+    params.append("page", page); // Add the page parameter
+
+    fetch(`/facturas/search-invoices/?${params.toString()}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Clear the table body and pagination container
+        tableBody.innerHTML = ""; // Clear table rows
+        paginationContainer.innerHTML = ""; // Clear pagination controls
+
+        // Populate the table with new rows
+        data.invoices.forEach((invoice, index) => {
+          const bg_color = index % 2 === 0 ? "bg-[#2c2a34]" : "bg-[#393743]";
+          const row = `
+                    <tr class="hover:bg-gray-100">
+                        <td class="border border-gray-400 px-4 py-2 text-center ${bg_color} text-primary">${
+            invoice.print_number
+          }</td>
+                        <td class="border border-gray-400 px-4 py-2 ${bg_color} text-primary text-center">${
+            invoice.client
+          }</td>
+                        <td class="border border-gray-400 px-4 py-2 ${bg_color} text-primary text-center">${
+            invoice.emitted_date
+          }</td>
+                        <td class="border border-gray-400 px-4 py-2 ${bg_color} text-primary text-center">${
+            invoice.expire_date || "Sin vencimiento"
+          }</td>
+                        <td class="border border-gray-400 px-4 py-2 text-center ${bg_color} text-primary">$${
+            invoice.calc_total
+          }</td>
+                        <td class="border border-gray-400 px-4 py-2 text-center ${bg_color}">
+                            <div class="flex justify-center space-x-2">
+                                <a href="/facturas/${
+                                  invoice.id
+                                }/" class="bg-[#e2926f] text-[#282c36] hover:bg-[#ff9b67] w-10 h-10 flex items-center justify-center rounded-full">
+                                    <span class="material-symbols-outlined text-lg">visibility</span>
+                                </a>
+                                <a href="/facturas/editar/${
+                                  invoice.id
+                                }" class="bg-[#f4c542] text-[#282c36] hover:bg-[#f6d161] w-10 h-10 flex items-center justify-center rounded-full">
+                                    <span class="material-symbols-outlined text-lg">edit</span>
+                                </a>
+                                <a href="/facturas/delete/${
+                                  invoice.id
+                                }" class="bg-[#e74c3c] text-white hover:bg-[#ff6b5c] w-10 h-10 flex items-center justify-center rounded-full">
+                                    <span class="material-symbols-outlined text-lg">delete</span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>`;
+          tableBody.innerHTML += row;
+        });
+
+        // Update pagination controls
+        updatePaginationControls(data.pagination);
+      })
+      .catch((error) => {
+        console.error("Error al aplicar los filtros:", error);
+      });
+  }
+
+  function updatePaginationControls(pagination) {
+    const paginationContainer = document.querySelector(".paginator");
+    paginationContainer.innerHTML = ""; // Clear existing pagination controls
+
+    if (pagination.has_previous) {
+      paginationContainer.innerHTML += `
+            <a href="#" onclick="aplicarFiltros(${pagination.previous_page})" class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2">
+                <span class="material-symbols-outlined">navigate_before</span>
+                <span>Anterior</span>
+            </a>`;
     }
 
-    function cerrarDialogoFiltros() {
-        document.getElementById("dialogo-filtros").close();
+    paginationContainer.innerHTML += `
+        <span class="px-4 py-2 text-[#e67a39] font-semibold">
+            Página ${pagination.current_page} de ${pagination.total_pages}
+        </span>`;
+
+    if (pagination.has_next) {
+      paginationContainer.innerHTML += `
+            <a href="#" onclick="aplicarFiltros(${pagination.next_page})" class="bg-[#e67a39] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#d25f28] transition duration-300 ease-in-out flex items-center space-x-2">
+                <span class="material-symbols-outlined">navigate_next</span>
+                <span>Siguiente</span>
+            </a>`;
     }
+  }
 
-    function aplicarFiltrosDesdeDialogo() {
-        cerrarDialogoFiltros(); // Cierra el modal
-        aplicarFiltros();       // Ejecuta la búsqueda con los filtros
-    }
+  document.addEventListener("DOMContentLoaded", function () {
+    document
+      .getElementById("invoice-search")
+      .addEventListener("input", () => aplicarFiltros(1));
+  });
 
-    function aplicarFiltros() {
-        const searchBox = document.getElementById("invoice-search");
-        const tableBody = document.getElementById("invoice-body");
-    
-        const query = searchBox.value.trim();
-        const inicio = document.getElementById("filtro-fecha-inicio").value;
-        const fin = document.getElementById("filtro-fecha-fin").value;
-        const estado = document.getElementById("filtro-estado").value;
-        const tipoFactura = document.getElementById("filtro-tipo-factura").value;  // Filtro tipo de factura
-        const cliente = document.getElementById("filtro-cliente").value;  // Filtro cliente
-        const montoMin = document.getElementById("filtro-monto-min").value;  // Filtro monto mínimo
-        const montoMax = document.getElementById("filtro-monto-max").value;  // Filtro monto máximo
-    
-        // Mostrar el círculo de notificación si hay filtros aplicados
-        const filterNotification = document.getElementById("filter-notification");
-        if (query || inicio || fin || estado || tipoFactura || cliente || montoMin || montoMax) {
-            filterNotification.classList.remove("hidden"); // Muestra el círculo
-        } else {
-            filterNotification.classList.add("hidden"); // Oculta el círculo
-        }
-    
-        const params = new URLSearchParams();
-        if (query) params.append("q", query);
-        if (inicio) params.append("fecha_inicio", inicio);
-        if (fin) params.append("fecha_fin", fin);
-        if (estado) params.append("estado", estado);
-        if (tipoFactura) params.append("tipo_factura", tipoFactura);
-        if (cliente) params.append("cliente", cliente);
-        if (montoMin && !isNaN(montoMin)) params.append("monto_min", montoMin); // Verificación de que montoMin es un número
-        if (montoMax && !isNaN(montoMax)) params.append("monto_max", montoMax); // Verificación de que montoMax es un número
-        
-        console.log("Parámetros de búsqueda:", params.toString()); // Para depuración
-        // Realizar la solicitud fetch con los filtros
-        fetch(`/facturas/search-invoices/?${params.toString()}`)
-            .then(response => response.json())
-            .then(data => {
-                tableBody.innerHTML = ""; // Limpiar las filas actuales de la tabla
-                data.forEach((invoice, index) => {
-                    const bg_color = index % 2 === 0 ? "bg-[#2c2a34]" : "bg-[#393743]";
-                    const row = `
-                        <tr class="hover:bg-gray-100">
-                            <td class="border border-gray-400 px-4 py-2 text-center ${bg_color} text-primary">${invoice.print_number}</td>
-                            <td class="border border-gray-400 px-4 py-2 ${bg_color} text-primary text-center">${invoice.client}</td>
-                            <td class="border border-gray-400 px-4 py-2 ${bg_color} text-primary text-center">${invoice.emitted_date}</td>
-                            <td class="border border-gray-400 px-4 py-2 ${bg_color} text-primary text-center">${invoice.expire_date || 'Sin vencimiento'}</td>
-                            <td class="border border-gray-400 px-4 py-2 text-center ${bg_color} text-primary">$${invoice.calc_total}</td>
-                            <td class="border border-gray-400 px-4 py-2 text-center ${bg_color}">
-                                <div class="flex justify-center space-x-2">
-                                    <a href="/facturas/${invoice.id}/" class="bg-[#e2926f] text-[#282c36] hover:bg-[#ff9b67] w-10 h-10 flex items-center justify-center rounded-full">
-                                        <span class="material-symbols-outlined text-lg">visibility</span>
-                                    </a>
-                                    <a href="/facturas/editar/${invoice.id}" class="bg-[#f4c542] text-[#282c36] hover:bg-[#f6d161] w-10 h-10 flex items-center justify-center rounded-full">
-                                        <span class="material-symbols-outlined text-lg">edit</span>
-                                    </a>
-                                    <a href="/facturas/eliminar/${invoice.id}" class="bg-[#e74c3c] text-white hover:bg-[#ff6b5c] w-10 h-10 flex items-center justify-center rounded-full">
-                                        <span class="material-symbols-outlined text-lg">delete</span>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>`;
-                    tableBody.innerHTML += row;
-                });
-            })
-            .catch(error => {
-                console.error("Error al aplicar los filtros:", error);
-            });
-    }    
+  // Función para obtener los clientes y llenar el select
+  function cargarClientes() {
+    fetch("/clientes/get_clients/")
+      .then((response) => response.json())
+      .then((clientes) => {
+        const select = document.getElementById("filtro-cliente");
+        // Recorrer la lista de clientes y crear las opciones del select
+        clientes.resultados.forEach((client) => {
+          const option = document.createElement("option");
+          option.value = client.id;
+          option.textContent = client.name;
+          select.appendChild(option);
+        });
+      })
+      .catch((error) => console.error("Error al cargar los clientes:", error));
+  }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("invoice-search").addEventListener("input", aplicarFiltros);
-    });
-    // Función para obtener los clientes y llenar el select
-    function cargarClientes() {
-        fetch('/clientes/get_clients/')
-            .then(response => response.json())
-            .then(clientes => {
-                const select = document.getElementById('filtro-cliente');
-                // Recorrer la lista de clientes y crear las opciones del select
-                clientes.resultados.forEach(client => {
-                    const option = document.createElement('option');
-                    option.value = client.id;
-                    option.textContent = client.name;
-                    select.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error al cargar los clientes:', error));
-    }
-
-    // Llamar a la función cuando se cargue la página
-    document.addEventListener('DOMContentLoaded', cargarClientes);
+  // Llamar a la función cuando se cargue la página
+  document.addEventListener("DOMContentLoaded", cargarClientes);
 </script>
 {% endblock %}
-

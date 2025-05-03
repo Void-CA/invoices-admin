@@ -1,0 +1,10 @@
+services:
+  web:
+    image: castilloari/vindell:latest # Imagen ya build con todo incluido
+    ports:
+      - "8000:8000"
+    environment:
+      - ALLOWED_HOSTS=*
+    volumes:
+      - ./pdf_output:/app/pdf_output # Solo si necesitas salida persistente
+    restart: always

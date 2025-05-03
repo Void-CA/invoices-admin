@@ -13,11 +13,31 @@ from datetime import datetime
 from .utils import *
 import requests
 
-def invoice_list(request, invoice_list = Invoice.objects.all()):
-    paginator = Paginator(invoice_list, 10)  # 10 facturas por página
+def invoice_list(request):
+    # Obtener filtros desde la URL
+    cliente = request.GET.get('cliente', '')
+    estado = request.GET.get('estado', '')
+
+    # Aplicar filtros al queryset base
+    invoice_list = Invoice.objects.all()
+    if cliente:
+        invoice_list = invoice_list.filter(cliente__icontains=cliente)
+    if estado:
+        invoice_list = invoice_list.filter(estado=estado)
+
+    # Paginación
+    paginator = Paginator(invoice_list, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'facturas/invoices_list.html', {'page_obj': page_obj})
+
+    # Pasar los filtros al template para que se mantengan
+    context = {
+        'page_obj': page_obj,
+        'cliente': cliente,
+        'estado': estado,
+        'get_params': request.GET.urlencode(),  # para reconstruir URLs
+    }
+    return render(request, 'facturas/invoices_list.html', context)
 
 def search_invoices(request):
     query = request.GET.get('q', '')
@@ -28,8 +48,8 @@ def search_invoices(request):
     cliente = request.GET.get('cliente', '')
     monto_min = request.GET.get('monto_min', '')
     monto_max = request.GET.get('monto_max', '')
-    page = request.GET.get('page', 1)
-    per_page = request.GET.get('per_page', 10)
+    page = int(request.GET.get('page', 1))
+    per_page = int(request.GET.get('per_page', 10))
 
     # Filtrar las facturas
     invoices = filter_invoices(query, fecha_inicio, fecha_fin, estado, tipo_factura, cliente, monto_min, monto_max)
@@ -38,26 +58,35 @@ def search_invoices(request):
     page_obj, paginator = paginate_invoices(invoices, page, per_page)
 
     # Convertir los datos en JSON
-    data = [
-        {
-            "id": invoice.id,
-            "print_number": invoice.print_number,
-            "client": invoice.client.name,
-            "calc_total": invoice.calc_total,
-            "emitted_date": invoice.emitted_date,
-            "expire_date": invoice.expire_date
+    data = {
+        "invoices": [
+            {
+                "id": invoice.id,
+                "print_number": invoice.print_number,
+                "client": invoice.client.name,
+                "calc_total": invoice.calc_total,
+                "emitted_date": invoice.emitted_date,
+                "expire_date": invoice.expire_date
+            }
+            for invoice in page_obj
+        ],
+        "pagination": {
+            "current_page": page_obj.number,
+            "total_pages": paginator.num_pages,
+            "has_previous": page_obj.has_previous(),
+            "has_next": page_obj.has_next(),
+            "previous_page": page_obj.previous_page_number() if page_obj.has_previous() else None,
+            "next_page": page_obj.next_page_number() if page_obj.has_next() else None,
         }
-        for invoice in page_obj
-    ]
+    }
 
-    return JsonResponse(data, safe=False)
-
+    return JsonResponse(data)
 
 def invoice_detail(request, invoice_id):  
     factura = get_object_or_404(Invoice, id=invoice_id)
     return render(request, 'facturas/invoice_detail.html', {'invoice': factura})
 
-
+ServiceFormSet = inlineformset_factory(Invoice, Service, fields=['specification', 'price'], extra=1, can_delete=True)
 def create_invoice(request):
     if request.method == 'POST':
         form = InvoiceForm(request.POST)
@@ -89,24 +118,50 @@ def create_invoice(request):
 
 
 
-
-ServiceFormSet = inlineformset_factory(Invoice, Service, fields=['specification', 'price'], extra=1, can_delete=True)
-
 def edit_invoice(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)
-    form = InvoiceForm(instance=invoice)
+    form = InvoiceForm(request.POST or None, instance=invoice)
+    formset = ServiceFormSet(request.POST or None, instance=invoice)
 
     if request.method == "POST":
-        form = InvoiceForm(request.POST, instance=invoice)
+        if form.is_valid() and formset.is_valid():
+            invoice = form.save()
+            services = formset.save(commit=False)
 
-        if form.is_valid():
-            form.save()
+            # Asignar la factura a cada servicio y guardar
+            for service in services:
+                service.invoice = invoice
+                service.save()
+
+            # Eliminar servicios eliminados en el formset
+            for service in formset.deleted_objects:
+                service.delete()
+
+            messages.success(request, "Factura actualizada con éxito.")
             return redirect('invoice_list')
+        else:
+            messages.error(request, "Hubo un error al actualizar la factura.")
+
+    # Estética del formset como en create_invoice
+    for form_i in formset:
+        form_i.fields['specification'].widget.attrs.update({
+            'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full',
+            'rows': 3,
+            'placeholder': 'Nombre del servicio'
+        })
+        form_i.fields['price'].widget.attrs.update({
+            'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full',
+            'start': 0,
+            'step': 0.01,
+            'placeholder': 'C$'
+        })
 
     return render(request, 'facturas/invoice_form.html', {
         'invoice_form': form,
+        'formset': formset,
         'invoice': invoice,
     })
+
 
 def delete_invoice(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)
