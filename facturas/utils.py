@@ -67,6 +67,17 @@ from django.template.loader import get_template
 from weasyprint import HTML
 
 def create_pdf(context, filename='factura_generada.pdf'):
+    """
+    Genera un PDF a partir de un contexto y lo guarda en una ruta específica.
+    Utiliza WeasyPrint para la generación del PDF y Django para el renderizado de la plantilla HTML.
+
+    Args:
+        context (dict): Diccionario que contiene el contexto para renderizar la plantilla.
+        filename (str, optional): Nombre del archivo en que se guardara el pdf. Defaults to 'factura_generada.pdf'.
+
+    Returns:
+        _type_: _description_
+    """
     # Usar el sistema de plantillas de Django para renderizar
     template = get_template('facturas/print_template.html')
 
