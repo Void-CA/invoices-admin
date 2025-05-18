@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.forms import modelformset_factory, inlineformset_factory, formset_factory
 from django.contrib import messages
@@ -193,7 +194,7 @@ def print_invoice(request, invoice_id):
             with open(pdf_path, 'rb') as pdf_file:
                 print("Preparando archivo para enviar...")
                 files = {'file': (filename, pdf_file, 'application/pdf')}
-                data = {'printer_name': "EPSON3E2859 (L3250 Series)"}
+                data = {'printer_name': settings.PRINTER_NAME}
 
                 print("Enviando solicitud al servicio de impresión...")
                 response = requests.post('http://host.docker.internal:5001/printing', files=files, data=data)
