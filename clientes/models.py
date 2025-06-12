@@ -11,7 +11,7 @@ class Client(models.Model):
         null=True, 
         validators=[RegexValidator(regex=r'^\d{7,15}$', message="Número inválido")]
     )
-    ruc = models.CharField(max_length=13, default="None")
+    ruc = models.CharField(max_length=20, default="None")
 
     def __str__(self):
         return self.name

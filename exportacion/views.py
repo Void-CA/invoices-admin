@@ -6,10 +6,17 @@ from facturas.models import Invoice
 from .export_helpers import export_to_csv, export_to_excel, export_to_pdf
 
 def export_invoices(request):
-    # Usamos la función filter_invoices para obtener el queryset filtrado
-    invoices = filter_invoices(request)
+    query = request.GET.get('q', '')
+    fecha_inicio = request.GET.get('fecha_inicio', '')
+    fecha_fin = request.GET.get('fecha_fin', '')
+    estado = request.GET.get('estado', '')
+    tipo_factura = request.GET.get('tipo_factura', '')
+    cliente = request.GET.get('cliente', '')
+    monto_min = request.GET.get('monto_min', '')
+    monto_max = request.GET.get('monto_max', '')
 
-    # Obtener el formato elegido (por defecto CSV)
+    invoices = filter_invoices(query, fecha_inicio, fecha_fin, estado, tipo_factura, cliente, monto_min, monto_max)
+
     formato = request.GET.get('formato', 'csv')
 
     if formato == 'csv':

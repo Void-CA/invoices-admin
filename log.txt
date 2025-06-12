@@ -1,0 +1,729 @@
+Iniciando Docker Compose... 
+'docker' is not recognized as an internal or external command,
+operable program or batch file.
+Iniciando Docker Compose... 
+'docker' is not recognized as an internal or external command,
+operable program or batch file.
+Iniciando Docker Compose... 
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [web internal] load build definition from Dockerfile
+#1 transferring dockerfile:
+#1 transferring dockerfile: 659B 0.6s done
+#1 DONE 1.8s
+
+#2 [web internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 6.3s
+
+#3 [web internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 74B 0.0s done
+#3 DONE 0.5s
+
+#4 [web 1/6] FROM docker.io/library/python:3.12-slim@sha256:e55523f127124e5edc03ba201e3dbbc85172a2ec40d8651ac752364b23dfd733
+#4 resolve docker.io/library/python:3.12-slim@sha256:e55523f127124e5edc03ba201e3dbbc85172a2ec40d8651ac752364b23dfd733
+#4 resolve docker.io/library/python:3.12-slim@sha256:e55523f127124e5edc03ba201e3dbbc85172a2ec40d8651ac752364b23dfd733 1.4s done
+#4 sha256:e55523f127124e5edc03ba201e3dbbc85172a2ec40d8651ac752364b23dfd733 9.13kB / 9.13kB done
+#4 sha256:85a16b09171c774647cf2c9f62027552de44a29386e8d09e76cc92a0bda66c22 1.75kB / 1.75kB done
+#4 sha256:87760eb43bfd3a69077f22c9746ab0095bb8677c359507ccf46e60f46b267dae 5.57kB / 5.57kB done
+#4 sha256:25244d620b7469e583336e7c7018b96cbfe7aa52bd295bd1c85178797030a520 0B / 3.51MB 0.6s
+#4 sha256:25244d620b7469e583336e7c7018b96cbfe7aa52bd295bd1c85178797030a520 1.05MB / 3.51MB 1.1s
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 0B / 28.23MB 1.1s
+#4 sha256:25244d620b7469e583336e7c7018b96cbfe7aa52bd295bd1c85178797030a520 2.10MB / 3.51MB 1.2s
+#4 sha256:25244d620b7469e583336e7c7018b96cbfe7aa52bd295bd1c85178797030a520 3.51MB / 3.51MB 1.4s
+#4 sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 0B / 13.66MB 1.4s
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 2.10MB / 28.23MB 1.6s
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 4.19MB / 28.23MB 2.1s
+#4 sha256:25244d620b7469e583336e7c7018b96cbfe7aa52bd295bd1c85178797030a520 3.51MB / 3.51MB 2.0s done
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 6.29MB / 28.23MB 2.4s
+#4 sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 1.05MB / 13.66MB 2.5s
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 8.39MB / 28.23MB 2.7s
+#4 sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 3.15MB / 13.66MB 2.7s
+#4 sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 4.19MB / 13.66MB 2.9s
+#4 sha256:d6413c75b31d1e291ea1b03e04cc390349f359145bbfe370f768d91c15e47a89 0B / 250B 2.9s
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 10.49MB / 28.23MB 3.0s
+#4 sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 5.24MB / 13.66MB 3.0s
+#4 sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 6.29MB / 13.66MB 3.1s
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 12.58MB / 28.23MB 3.2s
+#4 sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 7.34MB / 13.66MB 3.2s
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 14.68MB / 28.23MB 3.4s
+#4 sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 8.39MB / 13.66MB 3.4s
+#4 sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 9.44MB / 13.66MB 3.6s
+#4 ...
+
+#5 [web internal] load build context
+#5 transferring context: 267.88kB 5.3s done
+#5 DONE 6.1s
+
+#4 [web 1/6] FROM docker.io/library/python:3.12-slim@sha256:e55523f127124e5edc03ba201e3dbbc85172a2ec40d8651ac752364b23dfd733
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 16.78MB / 28.23MB 3.7s
+#4 sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 10.49MB / 13.66MB 3.7s
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 18.87MB / 28.23MB 3.9s
+#4 sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 12.58MB / 13.66MB 3.9s
+#4 sha256:d6413c75b31d1e291ea1b03e04cc390349f359145bbfe370f768d91c15e47a89 250B / 250B 3.9s
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 22.02MB / 28.23MB 4.1s
+#4 sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 13.66MB / 13.66MB 4.1s
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 25.17MB / 28.23MB 4.3s
+#4 sha256:d6413c75b31d1e291ea1b03e04cc390349f359145bbfe370f768d91c15e47a89 250B / 250B 4.1s done
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 28.23MB / 28.23MB 4.5s
+#4 sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 13.66MB / 13.66MB 4.6s done
+#4 sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 28.23MB / 28.23MB 5.6s done
+#4 extracting sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8
+#4 extracting sha256:dad67da3f26bce15939543965e09c4059533b025f707aad72ed3d3f3a09c66f8 5.0s done
+#4 extracting sha256:25244d620b7469e583336e7c7018b96cbfe7aa52bd295bd1c85178797030a520
+#4 extracting sha256:25244d620b7469e583336e7c7018b96cbfe7aa52bd295bd1c85178797030a520 1.0s done
+#4 extracting sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10
+#4 extracting sha256:ebb07cd170cc8bb945a29bb5d838d9572bbf28233b4a5c0b2ce678dbbcd59d10 2.0s done
+#4 extracting sha256:d6413c75b31d1e291ea1b03e04cc390349f359145bbfe370f768d91c15e47a89
+#4 extracting sha256:d6413c75b31d1e291ea1b03e04cc390349f359145bbfe370f768d91c15e47a89 done
+#4 DONE 24.7s
+
+#6 [web 2/6] WORKDIR /app
+#6 DONE 11.7s
+
+#7 [web 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     libpango-1.0-0 libpangoft2-1.0-0 gir1.2-harfbuzz-0.0     && apt-get clean && rm -rf /var/lib/apt/lists/*
+#7 3.759 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#7 3.943 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#7 4.017 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+#7 4.088 Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8793 kB]
+#7 4.824 Get:5 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [512 B]
+#7 4.824 Get:6 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [266 kB]
+#7 6.444 Fetched 9314 kB in 3s (3041 kB/s)
+#7 6.444 Reading package lists...
+#7 7.249 Reading package lists...
+#7 8.033 Building dependency tree...
+#7 8.193 Reading state information...
+#7 8.405 The following additional packages will be installed:
+#7 8.405   binutils binutils-common binutils-x86-64-linux-gnu bzip2 cpp cpp-12 dpkg-dev
+#7 8.405   fontconfig fontconfig-config fonts-dejavu-core g++ g++-12 gcc gcc-12
+#7 8.406   gir1.2-freedesktop gir1.2-glib-2.0 libasan8 libatomic1 libbinutils
+#7 8.406   libbrotli1 libc-dev-bin libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0
+#7 8.406   libctf0 libdatrie1 libdpkg-perl libexpat1 libfontconfig1 libfreetype6
+#7 8.406   libfribidi0 libgcc-12-dev libgdbm-compat4 libgirepository-1.0-1 libglib2.0-0
+#7 8.406   libgomp1 libgprofng0 libgraphite2-3 libharfbuzz0b libisl23 libitm1
+#7 8.407   libjansson4 liblsan0 libmpc3 libmpfr6 libnsl-dev libperl5.36 libpng16-16
+#7 8.407   libquadmath0 libstdc++-12-dev libthai-data libthai0 libtirpc-dev libtsan2
+#7 8.408   libubsan1 linux-libc-dev make patch perl perl-modules-5.36 rpcsvc-proto
+#7 8.408   xz-utils
+#7 8.411 Suggested packages:
+#7 8.411   binutils-doc bzip2-doc cpp-doc gcc-12-locales cpp-12-doc debian-keyring
+#7 8.411   g++-multilib g++-12-multilib gcc-12-doc gcc-multilib manpages-dev autoconf
+#7 8.411   automake libtool flex bison gdb gcc-doc gcc-12-multilib glibc-doc gnupg | sq
+#7 8.411   | sqop | pgpainless-cli sensible-utils git bzr low-memory-monitor
+#7 8.411   libstdc++-12-doc make-doc ed diffutils-doc perl-doc
+#7 8.411   libterm-readline-gnu-perl | libterm-readline-perl-perl
+#7 8.411   libtap-harness-archive-perl
+#7 8.411 Recommended packages:
+#7 8.411   fakeroot gnupg | sq | sqop | pgpainless-cli libalgorithm-merge-perl manpages
+#7 8.411   manpages-dev libc-devtools libfile-fcntllock-perl liblocale-gettext-perl
+#7 8.411   libglib2.0-data shared-mime-info xdg-user-dirs
+#7 8.821 The following NEW packages will be installed:
+#7 8.821   binutils binutils-common binutils-x86-64-linux-gnu build-essential bzip2 cpp
+#7 8.822   cpp-12 dpkg-dev fontconfig fontconfig-config fonts-dejavu-core g++ g++-12
+#7 8.822   gcc gcc-12 gir1.2-freedesktop gir1.2-glib-2.0 gir1.2-harfbuzz-0.0 libasan8
+#7 8.822   libatomic1 libbinutils libbrotli1 libc-dev-bin libc6-dev libcc1-0
+#7 8.822   libcrypt-dev libctf-nobfd0 libctf0 libdatrie1 libdpkg-perl libexpat1
+#7 8.822   libfontconfig1 libfreetype6 libfribidi0 libgcc-12-dev libgdbm-compat4
+#7 8.823   libgirepository-1.0-1 libglib2.0-0 libgomp1 libgprofng0 libgraphite2-3
+#7 8.823   libharfbuzz0b libisl23 libitm1 libjansson4 liblsan0 libmpc3 libmpfr6
+#7 8.823   libnsl-dev libpango-1.0-0 libpangoft2-1.0-0 libperl5.36 libpng16-16
+#7 8.824   libquadmath0 libstdc++-12-dev libthai-data libthai0 libtirpc-dev libtsan2
+#7 8.825   libubsan1 linux-libc-dev make patch perl perl-modules-5.36 rpcsvc-proto
+#7 8.825   xz-utils
+#7 8.998 0 upgraded, 67 newly installed, 0 to remove and 0 not upgraded.
+#7 8.998 Need to get 82.7 MB of archives.
+#7 8.998 After this operation, 333 MB of additional disk space will be used.
+#7 8.998 Get:1 http://deb.debian.org/debian bookworm/main amd64 perl-modules-5.36 all 5.36.0-7+deb12u2 [2815 kB]
+#7 9.571 Get:2 http://deb.debian.org/debian bookworm/main amd64 libgdbm-compat4 amd64 1.23-3 [48.2 kB]
+#7 9.578 Get:3 http://deb.debian.org/debian bookworm/main amd64 libperl5.36 amd64 5.36.0-7+deb12u2 [4207 kB]
+#7 9.798 Get:4 http://deb.debian.org/debian bookworm/main amd64 perl amd64 5.36.0-7+deb12u2 [239 kB]
+#7 9.810 Get:5 http://deb.debian.org/debian bookworm/main amd64 bzip2 amd64 1.0.8-5+b1 [49.8 kB]
+#7 9.863 Get:6 http://deb.debian.org/debian bookworm/main amd64 xz-utils amd64 5.4.1-1 [471 kB]
+#7 9.965 Get:7 http://deb.debian.org/debian bookworm/main amd64 binutils-common amd64 2.40-2 [2487 kB]
+#7 10.13 Get:8 http://deb.debian.org/debian bookworm/main amd64 libbinutils amd64 2.40-2 [572 kB]
+#7 10.24 Get:9 http://deb.debian.org/debian bookworm/main amd64 libctf-nobfd0 amd64 2.40-2 [153 kB]
+#7 10.25 Get:10 http://deb.debian.org/debian bookworm/main amd64 libctf0 amd64 2.40-2 [89.8 kB]
+#7 10.32 Get:11 http://deb.debian.org/debian bookworm/main amd64 libgprofng0 amd64 2.40-2 [812 kB]
+#7 10.36 Get:12 http://deb.debian.org/debian bookworm/main amd64 libjansson4 amd64 2.14-2 [40.8 kB]
+#7 10.43 Get:13 http://deb.debian.org/debian bookworm/main amd64 binutils-x86-64-linux-gnu amd64 2.40-2 [2246 kB]
+#7 10.56 Get:14 http://deb.debian.org/debian bookworm/main amd64 binutils amd64 2.40-2 [65.0 kB]
+#7 10.56 Get:15 http://deb.debian.org/debian bookworm/main amd64 libc-dev-bin amd64 2.36-9+deb12u10 [47.1 kB]
+#7 10.62 Get:16 http://deb.debian.org/debian-security bookworm-security/main amd64 linux-libc-dev amd64 6.1.140-1 [2145 kB]
+#7 10.74 Get:17 http://deb.debian.org/debian bookworm/main amd64 libcrypt-dev amd64 1:4.4.33-2 [118 kB]
+#7 10.74 Get:18 http://deb.debian.org/debian bookworm/main amd64 libtirpc-dev amd64 1.3.3+ds-1 [191 kB]
+#7 10.76 Get:19 http://deb.debian.org/debian bookworm/main amd64 libnsl-dev amd64 1.3.0-2 [66.4 kB]
+#7 10.76 Get:20 http://deb.debian.org/debian bookworm/main amd64 rpcsvc-proto amd64 1.4.3-1 [63.3 kB]
+#7 10.76 Get:21 http://deb.debian.org/debian bookworm/main amd64 libc6-dev amd64 2.36-9+deb12u10 [1903 kB]
+#7 10.88 Get:22 http://deb.debian.org/debian bookworm/main amd64 libisl23 amd64 0.25-1.1 [683 kB]
+#7 10.99 Get:23 http://deb.debian.org/debian bookworm/main amd64 libmpfr6 amd64 4.2.0-1 [701 kB]
+#7 11.03 Get:24 http://deb.debian.org/debian bookworm/main amd64 libmpc3 amd64 1.3.1-1 [51.5 kB]
+#7 11.09 Get:25 http://deb.debian.org/debian bookworm/main amd64 cpp-12 amd64 12.2.0-14+deb12u1 [9768 kB]
+#7 11.63 Get:26 http://deb.debian.org/debian bookworm/main amd64 cpp amd64 4:12.2.0-3 [6836 B]
+#7 11.63 Get:27 http://deb.debian.org/debian bookworm/main amd64 libcc1-0 amd64 12.2.0-14+deb12u1 [41.7 kB]
+#7 11.63 Get:28 http://deb.debian.org/debian bookworm/main amd64 libgomp1 amd64 12.2.0-14+deb12u1 [116 kB]
+#7 11.64 Get:29 http://deb.debian.org/debian bookworm/main amd64 libitm1 amd64 12.2.0-14+deb12u1 [26.1 kB]
+#7 11.64 Get:30 http://deb.debian.org/debian bookworm/main amd64 libatomic1 amd64 12.2.0-14+deb12u1 [9376 B]
+#7 11.66 Get:31 http://deb.debian.org/debian bookworm/main amd64 libasan8 amd64 12.2.0-14+deb12u1 [2193 kB]
+#7 11.82 Get:32 http://deb.debian.org/debian bookworm/main amd64 liblsan0 amd64 12.2.0-14+deb12u1 [969 kB]
+#7 11.93 Get:33 http://deb.debian.org/debian bookworm/main amd64 libtsan2 amd64 12.2.0-14+deb12u1 [2197 kB]
+#7 12.33 Get:34 http://deb.debian.org/debian bookworm/main amd64 libubsan1 amd64 12.2.0-14+deb12u1 [883 kB]
+#7 12.38 Get:35 http://deb.debian.org/debian bookworm/main amd64 libquadmath0 amd64 12.2.0-14+deb12u1 [145 kB]
+#7 12.39 Get:36 http://deb.debian.org/debian bookworm/main amd64 libgcc-12-dev amd64 12.2.0-14+deb12u1 [2437 kB]
+#7 12.71 Get:37 http://deb.debian.org/debian bookworm/main amd64 gcc-12 amd64 12.2.0-14+deb12u1 [19.3 MB]
+#7 14.21 Get:38 http://deb.debian.org/debian bookworm/main amd64 gcc amd64 4:12.2.0-3 [5216 B]
+#7 14.21 Get:39 http://deb.debian.org/debian bookworm/main amd64 libstdc++-12-dev amd64 12.2.0-14+deb12u1 [2047 kB]
+#7 14.34 Get:40 http://deb.debian.org/debian bookworm/main amd64 g++-12 amd64 12.2.0-14+deb12u1 [10.7 MB]
+#7 14.97 Get:41 http://deb.debian.org/debian bookworm/main amd64 g++ amd64 4:12.2.0-3 [1356 B]
+#7 14.97 Get:42 http://deb.debian.org/debian bookworm/main amd64 make amd64 4.3-4.1 [396 kB]
+#7 15.01 Get:43 http://deb.debian.org/debian bookworm/main amd64 libdpkg-perl all 1.21.22 [603 kB]
+#7 15.05 Get:44 http://deb.debian.org/debian bookworm/main amd64 patch amd64 2.7.6-7 [128 kB]
+#7 15.12 Get:45 http://deb.debian.org/debian bookworm/main amd64 dpkg-dev all 1.21.22 [1353 kB]
+#7 15.20 Get:46 http://deb.debian.org/debian bookworm/main amd64 build-essential amd64 12.9 [7704 B]
+#7 15.26 Get:47 http://deb.debian.org/debian bookworm/main amd64 libexpat1 amd64 2.5.0-1+deb12u1 [98.9 kB]
+#7 15.33 Get:48 http://deb.debian.org/debian bookworm/main amd64 libbrotli1 amd64 1.0.9-2+b6 [275 kB]
+#7 15.42 Get:49 http://deb.debian.org/debian bookworm/main amd64 libpng16-16 amd64 1.6.39-2 [276 kB]
+#7 15.44 Get:50 http://deb.debian.org/debian bookworm/main amd64 libfreetype6 amd64 2.12.1+dfsg-5+deb12u4 [398 kB]
+#7 15.53 Get:51 http://deb.debian.org/debian bookworm/main amd64 fonts-dejavu-core all 2.37-6 [1068 kB]
+#7 15.66 Get:52 http://deb.debian.org/debian bookworm/main amd64 fontconfig-config amd64 2.14.1-4 [315 kB]
+#7 15.75 Get:53 http://deb.debian.org/debian bookworm/main amd64 libfontconfig1 amd64 2.14.1-4 [386 kB]
+#7 15.86 Get:54 http://deb.debian.org/debian bookworm/main amd64 fontconfig amd64 2.14.1-4 [449 kB]
+#7 15.97 Get:55 http://deb.debian.org/debian bookworm/main amd64 libglib2.0-0 amd64 2.74.6-2+deb12u6 [1400 kB]
+#7 16.12 Get:56 http://deb.debian.org/debian bookworm/main amd64 libgirepository-1.0-1 amd64 1.74.0-3 [101 kB]
+#7 16.20 Get:57 http://deb.debian.org/debian bookworm/main amd64 gir1.2-glib-2.0 amd64 1.74.0-3 [159 kB]
+#7 16.21 Get:58 http://deb.debian.org/debian bookworm/main amd64 gir1.2-freedesktop amd64 1.74.0-3 [37.2 kB]
+#7 16.28 Get:59 http://deb.debian.org/debian bookworm/main amd64 gir1.2-harfbuzz-0.0 amd64 6.0.0+dfsg-3 [1579 kB]
+#7 16.45 Get:60 http://deb.debian.org/debian bookworm/main amd64 libdatrie1 amd64 0.2.13-2+b1 [43.3 kB]
+#7 16.52 Get:61 http://deb.debian.org/debian bookworm/main amd64 libfribidi0 amd64 1.0.8-2.1 [65.0 kB]
+#7 16.59 Get:62 http://deb.debian.org/debian bookworm/main amd64 libgraphite2-3 amd64 1.3.14-1 [81.2 kB]
+#7 16.69 Get:63 http://deb.debian.org/debian bookworm/main amd64 libharfbuzz0b amd64 6.0.0+dfsg-3 [1945 kB]
+#7 16.87 Get:64 http://deb.debian.org/debian bookworm/main amd64 libthai-data all 0.1.29-1 [176 kB]
+#7 16.89 Get:65 http://deb.debian.org/debian bookworm/main amd64 libthai0 amd64 0.1.29-1 [57.5 kB]
+#7 16.96 Get:66 http://deb.debian.org/debian bookworm/main amd64 libpango-1.0-0 amd64 1.50.12+ds-1 [212 kB]
+#7 16.97 Get:67 http://deb.debian.org/debian bookworm/main amd64 libpangoft2-1.0-0 amd64 1.50.12+ds-1 [47.4 kB]
+#7 17.45 debconf: delaying package configuration, since apt-utils is not installed
+#7 17.76 Fetched 82.7 MB in 8s (10.2 MB/s)
+#7 18.24 Selecting previously unselected package perl-modules-5.36.
+#7 18.24 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6686 files and directories currently installed.)
+#7 18.26 Preparing to unpack .../00-perl-modules-5.36_5.36.0-7+deb12u2_all.deb ...
+#7 18.48 Unpacking perl-modules-5.36 (5.36.0-7+deb12u2) ...
+#7 20.63 Selecting previously unselected package libgdbm-compat4:amd64.
+#7 20.64 Preparing to unpack .../01-libgdbm-compat4_1.23-3_amd64.deb ...
+#7 21.07 Unpacking libgdbm-compat4:amd64 (1.23-3) ...
+#7 22.59 Selecting previously unselected package libperl5.36:amd64.
+#7 22.60 Preparing to unpack .../02-libperl5.36_5.36.0-7+deb12u2_amd64.deb ...
+#7 22.88 Unpacking libperl5.36:amd64 (5.36.0-7+deb12u2) ...
+#7 25.26 Selecting previously unselected package perl.
+#7 25.26 Preparing to unpack .../03-perl_5.36.0-7+deb12u2_amd64.deb ...
+#7 25.50 Unpacking perl (5.36.0-7+deb12u2) ...
+#7 26.62 Selecting previously unselected package bzip2.
+#7 26.62 Preparing to unpack .../04-bzip2_1.0.8-5+b1_amd64.deb ...
+#7 26.83 Unpacking bzip2 (1.0.8-5+b1) ...
+#7 28.18 Selecting previously unselected package xz-utils.
+#7 28.19 Preparing to unpack .../05-xz-utils_5.4.1-1_amd64.deb ...
+#7 28.39 Unpacking xz-utils (5.4.1-1) ...
+#7 29.73 Selecting previously unselected package binutils-common:amd64.
+#7 29.73 Preparing to unpack .../06-binutils-common_2.40-2_amd64.deb ...
+#7 29.96 Unpacking binutils-common:amd64 (2.40-2) ...
+#7 31.62 Selecting previously unselected package libbinutils:amd64.
+#7 31.62 Preparing to unpack .../07-libbinutils_2.40-2_amd64.deb ...
+#7 31.92 Unpacking libbinutils:amd64 (2.40-2) ...
+#7 33.78 Selecting previously unselected package libctf-nobfd0:amd64.
+#7 33.78 Preparing to unpack .../08-libctf-nobfd0_2.40-2_amd64.deb ...
+#7 34.06 Unpacking libctf-nobfd0:amd64 (2.40-2) ...
+#7 35.93 Selecting previously unselected package libctf0:amd64.
+#7 35.93 Preparing to unpack .../09-libctf0_2.40-2_amd64.deb ...
+#7 36.24 Unpacking libctf0:amd64 (2.40-2) ...
+#7 37.78 Selecting previously unselected package libgprofng0:amd64.
+#7 37.78 Preparing to unpack .../10-libgprofng0_2.40-2_amd64.deb ...
+#7 38.05 Unpacking libgprofng0:amd64 (2.40-2) ...
+#7 41.92 Selecting previously unselected package libjansson4:amd64.
+#7 41.92 Preparing to unpack .../11-libjansson4_2.14-2_amd64.deb ...
+#7 42.20 Unpacking libjansson4:amd64 (2.14-2) ...
+#7 43.63 Selecting previously unselected package binutils-x86-64-linux-gnu.
+#7 43.63 Preparing to unpack .../12-binutils-x86-64-linux-gnu_2.40-2_amd64.deb ...
+#7 43.90 Unpacking binutils-x86-64-linux-gnu (2.40-2) ...
+#7 45.36 Selecting previously unselected package binutils.
+#7 45.36 Preparing to unpack .../13-binutils_2.40-2_amd64.deb ...
+#7 45.57 Unpacking binutils (2.40-2) ...
+#7 46.65 Selecting previously unselected package libc-dev-bin.
+#7 46.65 Preparing to unpack .../14-libc-dev-bin_2.36-9+deb12u10_amd64.deb ...
+#7 46.91 Unpacking libc-dev-bin (2.36-9+deb12u10) ...
+#7 48.09 Selecting previously unselected package linux-libc-dev:amd64.
+#7 48.09 Preparing to unpack .../15-linux-libc-dev_6.1.140-1_amd64.deb ...
+#7 48.34 Unpacking linux-libc-dev:amd64 (6.1.140-1) ...
+#7 50.18 Selecting previously unselected package libcrypt-dev:amd64.
+#7 50.18 Preparing to unpack .../16-libcrypt-dev_1%3a4.4.33-2_amd64.deb ...
+#7 50.39 Unpacking libcrypt-dev:amd64 (1:4.4.33-2) ...
+#7 51.50 Selecting previously unselected package libtirpc-dev:amd64.
+#7 51.50 Preparing to unpack .../17-libtirpc-dev_1.3.3+ds-1_amd64.deb ...
+#7 51.71 Unpacking libtirpc-dev:amd64 (1.3.3+ds-1) ...
+#7 52.84 Selecting previously unselected package libnsl-dev:amd64.
+#7 52.84 Preparing to unpack .../18-libnsl-dev_1.3.0-2_amd64.deb ...
+#7 53.05 Unpacking libnsl-dev:amd64 (1.3.0-2) ...
+#7 54.17 Selecting previously unselected package rpcsvc-proto.
+#7 54.17 Preparing to unpack .../19-rpcsvc-proto_1.4.3-1_amd64.deb ...
+#7 54.40 Unpacking rpcsvc-proto (1.4.3-1) ...
+#7 57.08 Selecting previously unselected package libc6-dev:amd64.
+#7 57.08 Preparing to unpack .../20-libc6-dev_2.36-9+deb12u10_amd64.deb ...
+#7 57.29 Unpacking libc6-dev:amd64 (2.36-9+deb12u10) ...
+#7 59.07 Selecting previously unselected package libisl23:amd64.
+#7 59.07 Preparing to unpack .../21-libisl23_0.25-1.1_amd64.deb ...
+#7 59.28 Unpacking libisl23:amd64 (0.25-1.1) ...
+#7 60.81 Selecting previously unselected package libmpfr6:amd64.
+#7 60.81 Preparing to unpack .../22-libmpfr6_4.2.0-1_amd64.deb ...
+#7 61.02 Unpacking libmpfr6:amd64 (4.2.0-1) ...
+#7 62.51 Selecting previously unselected package libmpc3:amd64.
+#7 62.51 Preparing to unpack .../23-libmpc3_1.3.1-1_amd64.deb ...
+#7 62.76 Unpacking libmpc3:amd64 (1.3.1-1) ...
+#7 63.83 Selecting previously unselected package cpp-12.
+#7 63.83 Preparing to unpack .../24-cpp-12_12.2.0-14+deb12u1_amd64.deb ...
+#7 64.05 Unpacking cpp-12 (12.2.0-14+deb12u1) ...
+#7 66.54 Selecting previously unselected package cpp.
+#7 66.54 Preparing to unpack .../25-cpp_4%3a12.2.0-3_amd64.deb ...
+#7 66.79 Unpacking cpp (4:12.2.0-3) ...
+#7 68.44 Selecting previously unselected package libcc1-0:amd64.
+#7 68.44 Preparing to unpack .../26-libcc1-0_12.2.0-14+deb12u1_amd64.deb ...
+#7 68.65 Unpacking libcc1-0:amd64 (12.2.0-14+deb12u1) ...
+#7 70.24 Selecting previously unselected package libgomp1:amd64.
+#7 70.25 Preparing to unpack .../27-libgomp1_12.2.0-14+deb12u1_amd64.deb ...
+#7 70.63 Unpacking libgomp1:amd64 (12.2.0-14+deb12u1) ...
+#7 71.92 Selecting previously unselected package libitm1:amd64.
+#7 71.92 Preparing to unpack .../28-libitm1_12.2.0-14+deb12u1_amd64.deb ...
+#7 72.11 Unpacking libitm1:amd64 (12.2.0-14+deb12u1) ...
+#7 73.63 Selecting previously unselected package libatomic1:amd64.
+#7 73.63 Preparing to unpack .../29-libatomic1_12.2.0-14+deb12u1_amd64.deb ...
+#7 73.97 Unpacking libatomic1:amd64 (12.2.0-14+deb12u1) ...
+#7 75.24 Selecting previously unselected package libasan8:amd64.
+#7 75.24 Preparing to unpack .../30-libasan8_12.2.0-14+deb12u1_amd64.deb ...
+#7 75.44 Unpacking libasan8:amd64 (12.2.0-14+deb12u1) ...
+#7 77.22 Selecting previously unselected package liblsan0:amd64.
+#7 77.22 Preparing to unpack .../31-liblsan0_12.2.0-14+deb12u1_amd64.deb ...
+#7 77.48 Unpacking liblsan0:amd64 (12.2.0-14+deb12u1) ...
+#7 78.87 Selecting previously unselected package libtsan2:amd64.
+#7 78.87 Preparing to unpack .../32-libtsan2_12.2.0-14+deb12u1_amd64.deb ...
+#7 79.10 Unpacking libtsan2:amd64 (12.2.0-14+deb12u1) ...
+#7 81.05 Selecting previously unselected package libubsan1:amd64.
+#7 81.06 Preparing to unpack .../33-libubsan1_12.2.0-14+deb12u1_amd64.deb ...
+#7 81.33 Unpacking libubsan1:amd64 (12.2.0-14+deb12u1) ...
+#7 83.19 Selecting previously unselected package libquadmath0:amd64.
+#7 83.19 Preparing to unpack .../34-libquadmath0_12.2.0-14+deb12u1_amd64.deb ...
+#7 83.45 Unpacking libquadmath0:amd64 (12.2.0-14+deb12u1) ...
+#7 84.56 Selecting previously unselected package libgcc-12-dev:amd64.
+#7 84.56 Preparing to unpack .../35-libgcc-12-dev_12.2.0-14+deb12u1_amd64.deb ...
+#7 84.88 Unpacking libgcc-12-dev:amd64 (12.2.0-14+deb12u1) ...
+#7 87.69 Selecting previously unselected package gcc-12.
+#7 87.70 Preparing to unpack .../36-gcc-12_12.2.0-14+deb12u1_amd64.deb ...
+#7 87.88 Unpacking gcc-12 (12.2.0-14+deb12u1) ...
+#7 90.45 Selecting previously unselected package gcc.
+#7 90.45 Preparing to unpack .../37-gcc_4%3a12.2.0-3_amd64.deb ...
+#7 90.67 Unpacking gcc (4:12.2.0-3) ...
+#7 91.97 Selecting previously unselected package libstdc++-12-dev:amd64.
+#7 91.97 Preparing to unpack .../38-libstdc++-12-dev_12.2.0-14+deb12u1_amd64.deb ...
+#7 92.19 Unpacking libstdc++-12-dev:amd64 (12.2.0-14+deb12u1) ...
+#7 93.79 Selecting previously unselected package g++-12.
+#7 93.79 Preparing to unpack .../39-g++-12_12.2.0-14+deb12u1_amd64.deb ...
+#7 94.00 Unpacking g++-12 (12.2.0-14+deb12u1) ...
+#7 96.36 Selecting previously unselected package g++.
+#7 96.36 Preparing to unpack .../40-g++_4%3a12.2.0-3_amd64.deb ...
+#7 96.62 Unpacking g++ (4:12.2.0-3) ...
+#7 97.65 Selecting previously unselected package make.
+#7 97.66 Preparing to unpack .../41-make_4.3-4.1_amd64.deb ...
+#7 97.89 Unpacking make (4.3-4.1) ...
+#7 99.28 Selecting previously unselected package libdpkg-perl.
+#7 99.28 Preparing to unpack .../42-libdpkg-perl_1.21.22_all.deb ...
+#7 99.49 Unpacking libdpkg-perl (1.21.22) ...
+#7 100.7 Selecting previously unselected package patch.
+#7 100.7 Preparing to unpack .../43-patch_2.7.6-7_amd64.deb ...
+#7 100.9 Unpacking patch (2.7.6-7) ...
+#7 103.2 Selecting previously unselected package dpkg-dev.
+#7 103.2 Preparing to unpack .../44-dpkg-dev_1.21.22_all.deb ...
+#7 103.5 Unpacking dpkg-dev (1.21.22) ...
+#7 104.6 Selecting previously unselected package build-essential.
+#7 104.6 Preparing to unpack .../45-build-essential_12.9_amd64.deb ...
+#7 104.8 Unpacking build-essential (12.9) ...
+#7 106.3 Selecting previously unselected package libexpat1:amd64.
+#7 106.3 Preparing to unpack .../46-libexpat1_2.5.0-1+deb12u1_amd64.deb ...
+#7 106.5 Unpacking libexpat1:amd64 (2.5.0-1+deb12u1) ...
+#7 107.8 Selecting previously unselected package libbrotli1:amd64.
+#7 107.8 Preparing to unpack .../47-libbrotli1_1.0.9-2+b6_amd64.deb ...
+#7 107.9 Unpacking libbrotli1:amd64 (1.0.9-2+b6) ...
+#7 109.2 Selecting previously unselected package libpng16-16:amd64.
+#7 109.2 Preparing to unpack .../48-libpng16-16_1.6.39-2_amd64.deb ...
+#7 109.4 Unpacking libpng16-16:amd64 (1.6.39-2) ...
+#7 110.9 Selecting previously unselected package libfreetype6:amd64.
+#7 110.9 Preparing to unpack .../49-libfreetype6_2.12.1+dfsg-5+deb12u4_amd64.deb ...
+#7 111.1 Unpacking libfreetype6:amd64 (2.12.1+dfsg-5+deb12u4) ...
+#7 112.4 Selecting previously unselected package fonts-dejavu-core.
+#7 112.4 Preparing to unpack .../50-fonts-dejavu-core_2.37-6_all.deb ...
+#7 112.6 Unpacking fonts-dejavu-core (2.37-6) ...
+#7 114.4 Selecting previously unselected package fontconfig-config.
+#7 114.4 Preparing to unpack .../51-fontconfig-config_2.14.1-4_amd64.deb ...
+#7 114.9 Unpacking fontconfig-config (2.14.1-4) ...
+#7 116.7 Selecting previously unselected package libfontconfig1:amd64.
+#7 116.7 Preparing to unpack .../52-libfontconfig1_2.14.1-4_amd64.deb ...
+#7 116.9 Unpacking libfontconfig1:amd64 (2.14.1-4) ...
+#7 121.9 Selecting previously unselected package fontconfig.
+#7 121.9 Preparing to unpack .../53-fontconfig_2.14.1-4_amd64.deb ...
+#7 122.1 Unpacking fontconfig (2.14.1-4) ...
+#7 124.0 Selecting previously unselected package libglib2.0-0:amd64.
+#7 124.0 Preparing to unpack .../54-libglib2.0-0_2.74.6-2+deb12u6_amd64.deb ...
+#7 124.2 Unpacking libglib2.0-0:amd64 (2.74.6-2+deb12u6) ...
+#7 126.2 Selecting previously unselected package libgirepository-1.0-1:amd64.
+#7 126.2 Preparing to unpack .../55-libgirepository-1.0-1_1.74.0-3_amd64.deb ...
+#7 126.4 Unpacking libgirepository-1.0-1:amd64 (1.74.0-3) ...
+#7 127.4 Selecting previously unselected package gir1.2-glib-2.0:amd64.
+#7 127.4 Preparing to unpack .../56-gir1.2-glib-2.0_1.74.0-3_amd64.deb ...
+#7 127.6 Unpacking gir1.2-glib-2.0:amd64 (1.74.0-3) ...
+#7 128.7 Selecting previously unselected package gir1.2-freedesktop:amd64.
+#7 128.7 Preparing to unpack .../57-gir1.2-freedesktop_1.74.0-3_amd64.deb ...
+#7 129.0 Unpacking gir1.2-freedesktop:amd64 (1.74.0-3) ...
+#7 130.0 Selecting previously unselected package gir1.2-harfbuzz-0.0:amd64.
+#7 130.0 Preparing to unpack .../58-gir1.2-harfbuzz-0.0_6.0.0+dfsg-3_amd64.deb ...
+#7 130.2 Unpacking gir1.2-harfbuzz-0.0:amd64 (6.0.0+dfsg-3) ...
+#7 131.7 Selecting previously unselected package libdatrie1:amd64.
+#7 131.7 Preparing to unpack .../59-libdatrie1_0.2.13-2+b1_amd64.deb ...
+#7 131.9 Unpacking libdatrie1:amd64 (0.2.13-2+b1) ...
+#7 136.8 Selecting previously unselected package libfribidi0:amd64.
+#7 136.8 Preparing to unpack .../60-libfribidi0_1.0.8-2.1_amd64.deb ...
+#7 137.0 Unpacking libfribidi0:amd64 (1.0.8-2.1) ...
+#7 138.3 Selecting previously unselected package libgraphite2-3:amd64.
+#7 138.3 Preparing to unpack .../61-libgraphite2-3_1.3.14-1_amd64.deb ...
+#7 138.5 Unpacking libgraphite2-3:amd64 (1.3.14-1) ...
+#7 139.8 Selecting previously unselected package libharfbuzz0b:amd64.
+#7 139.8 Preparing to unpack .../62-libharfbuzz0b_6.0.0+dfsg-3_amd64.deb ...
+#7 140.0 Unpacking libharfbuzz0b:amd64 (6.0.0+dfsg-3) ...
+#7 141.2 Selecting previously unselected package libthai-data.
+#7 141.2 Preparing to unpack .../63-libthai-data_0.1.29-1_all.deb ...
+#7 141.4 Unpacking libthai-data (0.1.29-1) ...
+#7 142.7 Selecting previously unselected package libthai0:amd64.
+#7 142.7 Preparing to unpack .../64-libthai0_0.1.29-1_amd64.deb ...
+#7 142.8 Unpacking libthai0:amd64 (0.1.29-1) ...
+#7 144.2 Selecting previously unselected package libpango-1.0-0:amd64.
+#7 144.2 Preparing to unpack .../65-libpango-1.0-0_1.50.12+ds-1_amd64.deb ...
+#7 144.5 Unpacking libpango-1.0-0:amd64 (1.50.12+ds-1) ...
+#7 145.8 Selecting previously unselected package libpangoft2-1.0-0:amd64.
+#7 145.8 Preparing to unpack .../66-libpangoft2-1.0-0_1.50.12+ds-1_amd64.deb ...
+#7 146.0 Unpacking libpangoft2-1.0-0:amd64 (1.50.12+ds-1) ...
+#7 147.1 Setting up libexpat1:amd64 (2.5.0-1+deb12u1) ...
+#7 147.8 Setting up libgraphite2-3:amd64 (1.3.14-1) ...
+#7 148.6 Setting up libdatrie1:amd64 (0.2.13-2+b1) ...
+#7 149.2 Setting up libglib2.0-0:amd64 (2.74.6-2+deb12u6) ...
+#7 149.6 No schema files found: doing nothing.
+#7 149.8 Setting up libbrotli1:amd64 (1.0.9-2+b6) ...
+#7 150.5 Setting up binutils-common:amd64 (2.40-2) ...
+#7 151.3 Setting up linux-libc-dev:amd64 (6.1.140-1) ...
+#7 152.1 Setting up libctf-nobfd0:amd64 (2.40-2) ...
+#7 153.0 Setting up libgomp1:amd64 (12.2.0-14+deb12u1) ...
+#7 153.9 Setting up bzip2 (1.0.8-5+b1) ...
+#7 154.9 Setting up libjansson4:amd64 (2.14-2) ...
+#7 155.6 Setting up perl-modules-5.36 (5.36.0-7+deb12u2) ...
+#7 156.3 Setting up libtirpc-dev:amd64 (1.3.3+ds-1) ...
+#7 157.1 Setting up rpcsvc-proto (1.4.3-1) ...
+#7 157.8 Setting up make (4.3-4.1) ...
+#7 158.5 Setting up libmpfr6:amd64 (4.2.0-1) ...
+#7 159.2 Setting up xz-utils (5.4.1-1) ...
+#7 159.7 update-alternatives: using /usr/bin/xz to provide /usr/bin/lzma (lzma) in auto mode
+#7 159.7 update-alternatives: warning: skip creation of /usr/share/man/man1/lzma.1.gz because associated file /usr/share/man/man1/xz.1.gz (of link group lzma) doesn't exist
+#7 159.7 update-alternatives: warning: skip creation of /usr/share/man/man1/unlzma.1.gz because associated file /usr/share/man/man1/unxz.1.gz (of link group lzma) doesn't exist
+#7 159.7 update-alternatives: warning: skip creation of /usr/share/man/man1/lzcat.1.gz because associated file /usr/share/man/man1/xzcat.1.gz (of link group lzma) doesn't exist
+#7 159.7 update-alternatives: warning: skip creation of /usr/share/man/man1/lzmore.1.gz because associated file /usr/share/man/man1/xzmore.1.gz (of link group lzma) doesn't exist
+#7 159.7 update-alternatives: warning: skip creation of /usr/share/man/man1/lzless.1.gz because associated file /usr/share/man/man1/xzless.1.gz (of link group lzma) doesn't exist
+#7 159.7 update-alternatives: warning: skip creation of /usr/share/man/man1/lzdiff.1.gz because associated file /usr/share/man/man1/xzdiff.1.gz (of link group lzma) doesn't exist
+#7 159.7 update-alternatives: warning: skip creation of /usr/share/man/man1/lzcmp.1.gz because associated file /usr/share/man/man1/xzcmp.1.gz (of link group lzma) doesn't exist
+#7 159.7 update-alternatives: warning: skip creation of /usr/share/man/man1/lzgrep.1.gz because associated file /usr/share/man/man1/xzgrep.1.gz (of link group lzma) doesn't exist
+#7 159.7 update-alternatives: warning: skip creation of /usr/share/man/man1/lzegrep.1.gz because associated file /usr/share/man/man1/xzegrep.1.gz (of link group lzma) doesn't exist
+#7 159.7 update-alternatives: warning: skip creation of /usr/share/man/man1/lzfgrep.1.gz because associated file /usr/share/man/man1/xzfgrep.1.gz (of link group lzma) doesn't exist
+#7 160.0 Setting up libfribidi0:amd64 (1.0.8-2.1) ...
+#7 160.7 Setting up libquadmath0:amd64 (12.2.0-14+deb12u1) ...
+#7 161.4 Setting up libpng16-16:amd64 (1.6.39-2) ...
+#7 162.3 Setting up libmpc3:amd64 (1.3.1-1) ...
+#7 163.1 Setting up libatomic1:amd64 (12.2.0-14+deb12u1) ...
+#7 165.4 Setting up patch (2.7.6-7) ...
+#7 166.9 Setting up fonts-dejavu-core (2.37-6) ...
+#7 175.1 Setting up libgdbm-compat4:amd64 (1.23-3) ...
+#7 176.1 Setting up libubsan1:amd64 (12.2.0-14+deb12u1) ...
+#7 178.4 Setting up libnsl-dev:amd64 (1.3.0-2) ...
+#7 180.0 Setting up libcrypt-dev:amd64 (1:4.4.33-2) ...
+#7 181.4 Setting up libasan8:amd64 (12.2.0-14+deb12u1) ...
+#7 182.6 Setting up libthai-data (0.1.29-1) ...
+#7 183.9 Setting up libgirepository-1.0-1:amd64 (1.74.0-3) ...
+#7 185.1 Setting up libtsan2:amd64 (12.2.0-14+deb12u1) ...
+#7 186.6 Setting up libbinutils:amd64 (2.40-2) ...
+#7 187.9 Setting up libisl23:amd64 (0.25-1.1) ...
+#7 189.0 Setting up libc-dev-bin (2.36-9+deb12u10) ...
+#7 190.1 Setting up libcc1-0:amd64 (12.2.0-14+deb12u1) ...
+#7 191.1 Setting up libperl5.36:amd64 (5.36.0-7+deb12u2) ...
+#7 192.0 Setting up liblsan0:amd64 (12.2.0-14+deb12u1) ...
+#7 193.0 Setting up libitm1:amd64 (12.2.0-14+deb12u1) ...
+#7 194.0 Setting up libctf0:amd64 (2.40-2) ...
+#7 194.6 Setting up cpp-12 (12.2.0-14+deb12u1) ...
+#7 195.6 Setting up fontconfig-config (2.14.1-4) ...
+#7 197.2 debconf: unable to initialize frontend: Dialog
+#7 197.2 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#7 197.2 debconf: falling back to frontend: Readline
+#7 197.2 debconf: unable to initialize frontend: Readline
+#7 197.2 debconf: (This frontend requires a controlling tty.)
+#7 197.2 debconf: falling back to frontend: Teletype
+#7 198.6 Setting up libthai0:amd64 (0.1.29-1) ...
+#7 199.8 Setting up perl (5.36.0-7+deb12u2) ...
+#7 201.1 Setting up libgprofng0:amd64 (2.40-2) ...
+#7 201.7 Setting up libfreetype6:amd64 (2.12.1+dfsg-5+deb12u4) ...
+#7 202.4 Setting up libgcc-12-dev:amd64 (12.2.0-14+deb12u1) ...
+#7 203.1 Setting up gir1.2-glib-2.0:amd64 (1.74.0-3) ...
+#7 203.8 Setting up libdpkg-perl (1.21.22) ...
+#7 204.7 Setting up cpp (4:12.2.0-3) ...
+#7 205.6 Setting up libc6-dev:amd64 (2.36-9+deb12u10) ...
+#7 206.5 Setting up libharfbuzz0b:amd64 (6.0.0+dfsg-3) ...
+#7 207.1 Setting up libfontconfig1:amd64 (2.14.1-4) ...
+#7 208.2 Setting up binutils-x86-64-linux-gnu (2.40-2) ...
+#7 209.4 Setting up fontconfig (2.14.1-4) ...
+#7 210.0 Regenerating fonts cache... done.
+#7 212.2 Setting up gir1.2-freedesktop:amd64 (1.74.0-3) ...
+#7 213.0 Setting up libstdc++-12-dev:amd64 (12.2.0-14+deb12u1) ...
+#7 213.6 Setting up libpango-1.0-0:amd64 (1.50.12+ds-1) ...
+#7 214.3 Setting up binutils (2.40-2) ...
+#7 215.0 Setting up gir1.2-harfbuzz-0.0:amd64 (6.0.0+dfsg-3) ...
+#7 215.8 Setting up dpkg-dev (1.21.22) ...
+#7 216.9 Setting up gcc-12 (12.2.0-14+deb12u1) ...
+#7 217.6 Setting up libpangoft2-1.0-0:amd64 (1.50.12+ds-1) ...
+#7 218.3 Setting up g++-12 (12.2.0-14+deb12u1) ...
+#7 218.9 Setting up gcc (4:12.2.0-3) ...
+#7 220.0 Setting up g++ (4:12.2.0-3) ...
+#7 220.4 update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode
+#7 220.7 Setting up build-essential (12.9) ...
+#7 221.6 Processing triggers for libc-bin (2.36-9+deb12u10) ...
+#7 DONE 223.6s
+
+#8 [web 4/6] COPY requirements.txt .
+#8 DONE 3.3s
+
+#9 [web 5/6] RUN pip install --no-cache-dir -r requirements.txt
+#9 6.695 Collecting Django (from -r requirements.txt (line 1))
+#9 7.097   Downloading django-5.2.3-py3-none-any.whl.metadata (4.1 kB)
+#9 7.272 Collecting plotly (from -r requirements.txt (line 2))
+#9 7.394   Downloading plotly-6.1.2-py3-none-any.whl.metadata (6.9 kB)
+#9 7.825 Collecting pandas (from -r requirements.txt (line 3))
+#9 7.903   Downloading pandas-2.3.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (91 kB)
+#9 8.487 Collecting reportlab (from -r requirements.txt (line 4))
+#9 8.597   Downloading reportlab-4.4.1-py3-none-any.whl.metadata (1.8 kB)
+#9 8.730 Collecting openpyxl (from -r requirements.txt (line 5))
+#9 8.805   Downloading openpyxl-3.1.5-py2.py3-none-any.whl.metadata (2.5 kB)
+#9 8.943 Collecting celery (from -r requirements.txt (line 6))
+#9 9.046   Downloading celery-5.5.3-py3-none-any.whl.metadata (22 kB)
+#9 9.198 Collecting gunicorn (from -r requirements.txt (line 7))
+#9 9.282   Downloading gunicorn-23.0.0-py3-none-any.whl.metadata (4.4 kB)
+#9 9.406 Collecting weasyprint (from -r requirements.txt (line 8))
+#9 9.487   Downloading weasyprint-65.1-py3-none-any.whl.metadata (3.7 kB)
+#9 9.591 Collecting python-decouple (from -r requirements.txt (line 9))
+#9 9.669   Downloading python_decouple-3.8-py3-none-any.whl.metadata (14 kB)
+#9 9.795 Collecting requests (from -r requirements.txt (line 10))
+#9 9.873   Downloading requests-2.32.4-py3-none-any.whl.metadata (4.9 kB)
+#9 10.04 Collecting asgiref>=3.8.1 (from Django->-r requirements.txt (line 1))
+#9 10.12   Downloading asgiref-3.8.1-py3-none-any.whl.metadata (9.3 kB)
+#9 10.26 Collecting sqlparse>=0.3.1 (from Django->-r requirements.txt (line 1))
+#9 10.37   Downloading sqlparse-0.5.3-py3-none-any.whl.metadata (3.9 kB)
+#9 10.55 Collecting narwhals>=1.15.1 (from plotly->-r requirements.txt (line 2))
+#9 10.63   Downloading narwhals-1.42.0-py3-none-any.whl.metadata (11 kB)
+#9 10.74 Collecting packaging (from plotly->-r requirements.txt (line 2))
+#9 10.82   Downloading packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+#9 11.30 Collecting numpy>=1.26.0 (from pandas->-r requirements.txt (line 3))
+#9 11.42   Downloading numpy-2.3.0-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (62 kB)
+#9 11.57 Collecting python-dateutil>=2.8.2 (from pandas->-r requirements.txt (line 3))
+#9 11.67   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+#9 11.83 Collecting pytz>=2020.1 (from pandas->-r requirements.txt (line 3))
+#9 11.91   Downloading pytz-2025.2-py2.py3-none-any.whl.metadata (22 kB)
+#9 12.01 Collecting tzdata>=2022.7 (from pandas->-r requirements.txt (line 3))
+#9 12.09   Downloading tzdata-2025.2-py2.py3-none-any.whl.metadata (1.4 kB)
+#9 12.51 Collecting pillow>=9.0.0 (from reportlab->-r requirements.txt (line 4))
+#9 12.59   Downloading pillow-11.2.1-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (8.9 kB)
+#9 12.69 Collecting chardet (from reportlab->-r requirements.txt (line 4))
+#9 12.77   Downloading chardet-5.2.0-py3-none-any.whl.metadata (3.4 kB)
+#9 12.86 Collecting et-xmlfile (from openpyxl->-r requirements.txt (line 5))
+#9 12.94   Downloading et_xmlfile-2.0.0-py3-none-any.whl.metadata (2.7 kB)
+#9 13.11 Collecting billiard<5.0,>=4.2.1 (from celery->-r requirements.txt (line 6))
+#9 13.19   Downloading billiard-4.2.1-py3-none-any.whl.metadata (4.4 kB)
+#9 13.34 Collecting kombu<5.6,>=5.5.2 (from celery->-r requirements.txt (line 6))
+#9 13.42   Downloading kombu-5.5.4-py3-none-any.whl.metadata (3.5 kB)
+#9 13.52 Collecting vine<6.0,>=5.1.0 (from celery->-r requirements.txt (line 6))
+#9 13.60   Downloading vine-5.1.0-py3-none-any.whl.metadata (2.7 kB)
+#9 13.70 Collecting click<9.0,>=8.1.2 (from celery->-r requirements.txt (line 6))
+#9 13.79   Downloading click-8.2.1-py3-none-any.whl.metadata (2.5 kB)
+#9 13.92 Collecting click-didyoumean>=0.3.0 (from celery->-r requirements.txt (line 6))
+#9 13.99   Downloading click_didyoumean-0.3.1-py3-none-any.whl.metadata (3.9 kB)
+#9 14.08 Collecting click-repl>=0.2.0 (from celery->-r requirements.txt (line 6))
+#9 14.15   Downloading click_repl-0.3.0-py3-none-any.whl.metadata (3.6 kB)
+#9 14.28 Collecting click-plugins>=1.1.1 (from celery->-r requirements.txt (line 6))
+#9 14.38   Downloading click_plugins-1.1.1-py2.py3-none-any.whl.metadata (6.4 kB)
+#9 14.55 Collecting pydyf>=0.11.0 (from weasyprint->-r requirements.txt (line 8))
+#9 14.63   Downloading pydyf-0.11.0-py3-none-any.whl.metadata (2.5 kB)
+#9 14.97 Collecting cffi>=0.6 (from weasyprint->-r requirements.txt (line 8))
+#9 15.17   Downloading cffi-1.17.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (1.5 kB)
+#9 15.25 Collecting tinyhtml5>=2.0.0b1 (from weasyprint->-r requirements.txt (line 8))
+#9 15.33   Downloading tinyhtml5-2.0.0-py3-none-any.whl.metadata (2.9 kB)
+#9 15.42 Collecting tinycss2>=1.4.0 (from weasyprint->-r requirements.txt (line 8))
+#9 15.49   Downloading tinycss2-1.4.0-py3-none-any.whl.metadata (3.0 kB)
+#9 15.59 Collecting cssselect2>=0.8.0 (from weasyprint->-r requirements.txt (line 8))
+#9 15.67   Downloading cssselect2-0.8.0-py3-none-any.whl.metadata (2.9 kB)
+#9 15.76 Collecting Pyphen>=0.9.1 (from weasyprint->-r requirements.txt (line 8))
+#9 15.85   Downloading pyphen-0.17.2-py3-none-any.whl.metadata (3.2 kB)
+#9 16.23 Collecting fonttools>=4.0.0 (from fonttools[woff]>=4.0.0->weasyprint->-r requirements.txt (line 8))
+#9 16.31   Downloading fonttools-4.58.2-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (106 kB)
+#9 16.60 Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 10))
+#9 16.68   Downloading charset_normalizer-3.4.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (35 kB)
+#9 16.78 Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 10))
+#9 16.86   Downloading idna-3.10-py3-none-any.whl.metadata (10 kB)
+#9 16.99 Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 10))
+#9 17.07   Downloading urllib3-2.4.0-py3-none-any.whl.metadata (6.5 kB)
+#9 17.19 Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 10))
+#9 17.26   Downloading certifi-2025.4.26-py3-none-any.whl.metadata (2.5 kB)
+#9 17.35 Collecting pycparser (from cffi>=0.6->weasyprint->-r requirements.txt (line 8))
+#9 17.43   Downloading pycparser-2.22-py3-none-any.whl.metadata (943 bytes)
+#9 17.60 Collecting prompt-toolkit>=3.0.36 (from click-repl>=0.2.0->celery->-r requirements.txt (line 6))
+#9 17.68   Downloading prompt_toolkit-3.0.51-py3-none-any.whl.metadata (6.4 kB)
+#9 17.77 Collecting webencodings (from cssselect2>=0.8.0->weasyprint->-r requirements.txt (line 8))
+#9 17.84   Downloading webencodings-0.5.1-py2.py3-none-any.whl.metadata (2.1 kB)
+#9 17.98 Collecting brotli>=1.0.1 (from fonttools[woff]>=4.0.0->weasyprint->-r requirements.txt (line 8))
+#9 18.06   Downloading Brotli-1.1.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.5 kB)
+#9 18.28 Collecting zopfli>=0.1.4 (from fonttools[woff]>=4.0.0->weasyprint->-r requirements.txt (line 8))
+#9 18.36   Downloading zopfli-0.2.3.post1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.9 kB)
+#9 18.46 Collecting amqp<6.0.0,>=5.1.1 (from kombu<5.6,>=5.5.2->celery->-r requirements.txt (line 6))
+#9 18.54   Downloading amqp-5.3.1-py3-none-any.whl.metadata (8.9 kB)
+#9 18.66 Collecting six>=1.5 (from python-dateutil>=2.8.2->pandas->-r requirements.txt (line 3))
+#9 18.74   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+#9 18.87 Collecting wcwidth (from prompt-toolkit>=3.0.36->click-repl>=0.2.0->celery->-r requirements.txt (line 6))
+#9 18.94   Downloading wcwidth-0.2.13-py2.py3-none-any.whl.metadata (14 kB)
+#9 19.04 Downloading django-5.2.3-py3-none-any.whl (8.3 MB)
+#9 19.69    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.3/8.3 MB 14.0 MB/s eta 0:00:00
+#9 19.76 Downloading plotly-6.1.2-py3-none-any.whl (16.3 MB)
+#9 20.68    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.3/16.3 MB 18.0 MB/s eta 0:00:00
+#9 20.75 Downloading pandas-2.3.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (12.0 MB)
+#9 21.41    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.0/12.0 MB 18.6 MB/s eta 0:00:00
+#9 21.51 Downloading reportlab-4.4.1-py3-none-any.whl (2.0 MB)
+#9 21.63    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 17.6 MB/s eta 0:00:00
+#9 21.70 Downloading openpyxl-3.1.5-py2.py3-none-any.whl (250 kB)
+#9 21.84 Downloading celery-5.5.3-py3-none-any.whl (438 kB)
+#9 21.94 Downloading gunicorn-23.0.0-py3-none-any.whl (85 kB)
+#9 22.03 Downloading weasyprint-65.1-py3-none-any.whl (298 kB)
+#9 22.14 Downloading python_decouple-3.8-py3-none-any.whl (9.9 kB)
+#9 22.22 Downloading requests-2.32.4-py3-none-any.whl (64 kB)
+#9 22.29 Downloading asgiref-3.8.1-py3-none-any.whl (23 kB)
+#9 22.37 Downloading billiard-4.2.1-py3-none-any.whl (86 kB)
+#9 22.48 Downloading certifi-2025.4.26-py3-none-any.whl (159 kB)
+#9 22.57 Downloading cffi-1.17.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (479 kB)
+#9 22.71 Downloading charset_normalizer-3.4.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (148 kB)
+#9 22.80 Downloading click-8.2.1-py3-none-any.whl (102 kB)
+#9 22.89 Downloading click_didyoumean-0.3.1-py3-none-any.whl (3.6 kB)
+#9 22.97 Downloading click_plugins-1.1.1-py2.py3-none-any.whl (7.5 kB)
+#9 23.04 Downloading click_repl-0.3.0-py3-none-any.whl (10 kB)
+#9 23.13 Downloading cssselect2-0.8.0-py3-none-any.whl (15 kB)
+#9 23.21 Downloading fonttools-4.58.2-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.9 MB)
+#9 23.48    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 18.5 MB/s eta 0:00:00
+#9 23.56 Downloading idna-3.10-py3-none-any.whl (70 kB)
+#9 23.64 Downloading kombu-5.5.4-py3-none-any.whl (210 kB)
+#9 23.74 Downloading vine-5.1.0-py3-none-any.whl (9.6 kB)
+#9 23.82 Downloading narwhals-1.42.0-py3-none-any.whl (359 kB)
+#9 23.92 Downloading numpy-2.3.0-cp312-cp312-manylinux_2_28_x86_64.whl (16.6 MB)
+#9 24.99    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.6/16.6 MB 15.7 MB/s eta 0:00:00
+#9 25.07 Downloading pillow-11.2.1-cp312-cp312-manylinux_2_28_x86_64.whl (4.6 MB)
+#9 25.33    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.6/4.6 MB 18.2 MB/s eta 0:00:00
+#9 25.41 Downloading pydyf-0.11.0-py3-none-any.whl (8.1 kB)
+#9 25.49 Downloading pyphen-0.17.2-py3-none-any.whl (2.1 MB)
+#9 25.61    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 19.1 MB/s eta 0:00:00
+#9 25.69 Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+#9 25.78 Downloading pytz-2025.2-py2.py3-none-any.whl (509 kB)
+#9 25.90 Downloading sqlparse-0.5.3-py3-none-any.whl (44 kB)
+#9 25.98 Downloading tinycss2-1.4.0-py3-none-any.whl (26 kB)
+#9 26.06 Downloading tinyhtml5-2.0.0-py3-none-any.whl (39 kB)
+#9 26.15 Downloading tzdata-2025.2-py2.py3-none-any.whl (347 kB)
+#9 26.25 Downloading urllib3-2.4.0-py3-none-any.whl (128 kB)
+#9 26.34 Downloading chardet-5.2.0-py3-none-any.whl (199 kB)
+#9 26.43 Downloading et_xmlfile-2.0.0-py3-none-any.whl (18 kB)
+#9 26.51 Downloading packaging-25.0-py3-none-any.whl (66 kB)
+#9 26.59 Downloading amqp-5.3.1-py3-none-any.whl (50 kB)
+#9 26.67 Downloading Brotli-1.1.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.9 MB)
+#9 26.83    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.9/2.9 MB 19.5 MB/s eta 0:00:00
+#9 26.91 Downloading prompt_toolkit-3.0.51-py3-none-any.whl (387 kB)
+#9 27.02 Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+#9 27.11 Downloading webencodings-0.5.1-py2.py3-none-any.whl (11 kB)
+#9 27.19 Downloading zopfli-0.2.3.post1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (851 kB)
+#9 27.32    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 851.1/851.1 kB 5.3 MB/s eta 0:00:00
+#9 27.41 Downloading pycparser-2.22-py3-none-any.whl (117 kB)
+#9 27.50 Downloading wcwidth-0.2.13-py2.py3-none-any.whl (34 kB)
+#9 28.75 Installing collected packages: webencodings, wcwidth, pytz, python-decouple, brotli, zopfli, vine, urllib3, tzdata, tinyhtml5, tinycss2, sqlparse, six, Pyphen, pydyf, pycparser, prompt-toolkit, pillow, packaging, numpy, narwhals, idna, fonttools, et-xmlfile, click, charset_normalizer, chardet, certifi, billiard, asgiref, requests, reportlab, python-dateutil, plotly, openpyxl, gunicorn, Django, cssselect2, click-repl, click-plugins, click-didyoumean, cffi, amqp, weasyprint, pandas, kombu, celery
+#9 85.44 Successfully installed Django-5.2.3 Pyphen-0.17.2 amqp-5.3.1 asgiref-3.8.1 billiard-4.2.1 brotli-1.1.0 celery-5.5.3 certifi-2025.4.26 cffi-1.17.1 chardet-5.2.0 charset_normalizer-3.4.2 click-8.2.1 click-didyoumean-0.3.1 click-plugins-1.1.1 click-repl-0.3.0 cssselect2-0.8.0 et-xmlfile-2.0.0 fonttools-4.58.2 gunicorn-23.0.0 idna-3.10 kombu-5.5.4 narwhals-1.42.0 numpy-2.3.0 openpyxl-3.1.5 packaging-25.0 pandas-2.3.0 pillow-11.2.1 plotly-6.1.2 prompt-toolkit-3.0.51 pycparser-2.22 pydyf-0.11.0 python-dateutil-2.9.0.post0 python-decouple-3.8 pytz-2025.2 reportlab-4.4.1 requests-2.32.4 six-1.17.0 sqlparse-0.5.3 tinycss2-1.4.0 tinyhtml5-2.0.0 tzdata-2025.2 urllib3-2.4.0 vine-5.1.0 wcwidth-0.2.13 weasyprint-65.1 webencodings-0.5.1 zopfli-0.2.3.post1
+#9 85.44 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#9 85.91 
+#9 85.91 [notice] A new release of pip is available: 25.0.1 -> 25.1.1
+#9 85.91 [notice] To update, run: pip install --upgrade pip
+#9 DONE 102.2s
+
+#10 [web 6/6] COPY . .
+#10 DONE 3.7s
+
+#11 [web] exporting to image
+#11 exporting layers
+#11 exporting layers 10.2s done
+#11 writing image sha256:1fbb946e4c74e887740e9d8cff6a1cec5f67e782b05a57ef98529a3c4be8100c
+#11 writing image sha256:1fbb946e4c74e887740e9d8cff6a1cec5f67e782b05a57ef98529a3c4be8100c 0.2s done
+#11 naming to docker.io/castilloari/vindell:dev
+#11 naming to docker.io/castilloari/vindell:dev 0.3s done
+#11 DONE 11.4s
+ Network vindell_default  Creating
+ Network vindell_default  Created
+ Container vindell-web-1  Creating
+ Container vindell-web-1  Created
+ Container vindell-web-1  Starting
+ Container vindell-web-1  Started
+Iniciando Docker Compose... 
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [web internal] load build definition from Dockerfile
+#1 transferring dockerfile:
+#1 transferring dockerfile: 659B 1.3s done
+#1 DONE 4.0s
+
+#2 [web internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 26.7s
+
+#3 [web internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 74B 0.1s done
+#3 DONE 3.8s
+
+#4 [web 1/6] FROM docker.io/library/python:3.12-slim@sha256:e55523f127124e5edc03ba201e3dbbc85172a2ec40d8651ac752364b23dfd733
+#4 DONE 0.0s
+
+#5 [web internal] load build context
+#5 transferring context: 13.20kB 1.4s
+#5 transferring context: 230.50kB 6.6s
+#5 transferring context: 306.52kB 16.0s
+#5 transferring context: 306.53kB 16.0s done
+#5 DONE 18.8s
+
+#6 [web 2/6] WORKDIR /app
+#6 CACHED
+
+#7 [web 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     libpango-1.0-0 libpangoft2-1.0-0 gir1.2-harfbuzz-0.0     && apt-get clean && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [web 4/6] COPY requirements.txt .
+#8 CACHED
+
+#9 [web 5/6] RUN pip install --no-cache-dir -r requirements.txt
+#9 CACHED
+
+#10 [web 6/6] COPY . .
+#10 DONE 43.1s
+
+#11 [web] exporting to image
+#11 exporting layers
+#11 exporting layers 4.5s done
+#11 writing image sha256:b709feb32ec1b72b495b6b0fe008e9cfde568df3f18cb35b8079a1482552ad16
+#11 writing image sha256:b709feb32ec1b72b495b6b0fe008e9cfde568df3f18cb35b8079a1482552ad16 1.0s done
+#11 naming to docker.io/castilloari/vindell:dev
+#11 naming to docker.io/castilloari/vindell:dev 1.9s done
+#11 DONE 12.7s
+ Container vindell-web-1  Recreate
+ Container vindell-web-1  Recreated
+ Container vindell-web-1  Starting
+ Container vindell-web-1  Started

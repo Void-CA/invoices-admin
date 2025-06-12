@@ -1,3 +1,4 @@
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -37,7 +38,7 @@
 
     .tabla-row {
       display: flex;
-      margin-bottom: 0.6cm; /* espaciado entre filas */
+      margin-bottom: 0.5cm; /* espaciado entre filas */
     }
 
     .col-cantidad {
@@ -48,7 +49,7 @@
 
     .col-descripcion {
       width: 11.5cm;
-      left: 0.1cm;
+      left: 0.3cm;
       top: 0.1cm;
       text-align: left;
     }
@@ -59,6 +60,7 @@
       top: 0.1cm;  
       width: 3.1cm;
       text-align: center;
+      font-size: 0.35cm;
     }
 
     .total {
@@ -77,7 +79,7 @@
   <div class="campo cliente">{{ client.name }}</div>
   <div class="campo direccion">{{ client.address }}</div>
   <div class="campo ruc">{{ client.ruc }}</div>
-  <div class="campo fecha">{{ client.date }}</div>
+  <div class="campo fecha">{{ date|date:"d/m/Y" }}</div>
 
   <!-- Contenido de tabla -->
   <div class="tabla-content">
@@ -85,14 +87,14 @@
       <div class="tabla-row">
         <div class="col-cantidad">{{ service.quantity }}</div>
         <div class="col-descripcion">{{ service.specification|linebreaksbr }}</div>
-        <div class="col-unitario">C${{ service.unit_price }}</div>
-        <div class="col-valor">C${{ service.subtotal }}</div>
+        <div class="col-unitario">C${{ service.price|floatformat:2|intcomma }}</div>
+        <div class="col-valor">C${{ service.subtotal|floatformat:2|intcomma }}</div>
       </div>
     {% endfor %}
   </div>
 
   <!-- Total -->
-  <div class="campo total">C${{ total }}</div>
+  <div class="campo total">C${{ total|floatformat:2|intcomma }}</div>
 
 </body>
 </html>

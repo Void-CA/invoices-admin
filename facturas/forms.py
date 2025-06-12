@@ -54,7 +54,7 @@ class InvoiceForm(forms.ModelForm):
     def clean_expire_date(self):
         emitted_date = self.cleaned_data.get('emitted_date')
         expire_date = self.cleaned_data.get('expire_date')
-    
+        
     
 
         if expire_date and emitted_date and expire_date < emitted_date:
