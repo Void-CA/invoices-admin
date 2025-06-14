@@ -81,4 +81,5 @@ class ServiceForm(forms.ModelForm):
                 'class': 'w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-orange-400 bg-gray-700 text-gray-200',
                 'placeholder': 'Precio',
             }),
+            'DELETE': forms.HiddenInput(),
         }

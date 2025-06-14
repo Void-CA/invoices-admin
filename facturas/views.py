@@ -159,10 +159,7 @@ def edit_invoice(request, invoice_id):
 
     # Configuración de estilos (opcional)
     for form_i in formset:
-        form_i.fields['specification'].widget.attrs.update({
-            'class': 'form-control',
-            'placeholder': 'Descripción del servicio'
-        })
+        form_i.fields['specification'].widget.attrs.update({'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full', 'rows': 3,'placeholder': 'Nombre del servicio'})
         form_i.fields['price'].widget.attrs.update({
             'class': 'form-control',
             'step': '0.01',

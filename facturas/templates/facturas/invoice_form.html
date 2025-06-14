@@ -68,7 +68,9 @@
                         {{ formset.management_form }}
                         {% for form in formset %}
                             {{ form.id }}
-                            {{ form.DELETE }}
+                            <div style="display:none">
+                                {{ form.DELETE }}
+                            </div>
     <div class="service-item grid grid-cols-3 gap-4 p-3 border rounded-lg shadow-md bg-gray-600">
         <div>
             <label class="text-sm text-gray-300" for="{{ form.specification.id_for_label }}">Descripción</label>
@@ -125,7 +127,11 @@
 
     </form>
     </div>
-
+    <style>
+    .hidden-delete-field {
+        display: none !important;
+    }
+</style>
     {% endblock %}
 
 
