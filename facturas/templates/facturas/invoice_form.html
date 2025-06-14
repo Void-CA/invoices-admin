@@ -6,6 +6,8 @@
 
     {% block form_content %}
     <div class="bg-gray-800 p-6 rounded-lg shadow-md max-w-8xl mx-auto">
+        <div id="debug-box" style="display:none;" class="bg-red-800 text-white p-2 rounded text-sm mb-4 whitespace-pre-wrap"></div>
+
         <form method="POST" class="space-y-6" x-data="invoiceForm()" x-init="init()">
             {% csrf_token %}
             {% if is_edit %}
@@ -63,21 +65,24 @@
                 <div class="bg-gray-700 p-4 rounded-lg shadow h-full min-h-[250px]">
                     <h2 class="text-lg font-semibold text-orange-500 mb-2">Servicios</h2>
                     <div id="servicios" class="space-y-2 max-h-[300px] overflow-y-auto p-2 border border-gray-600 rounded">
+                        {{ formset.management_form }}
                         {% for form in formset %}
+                            {{ form.id }}
+                            {{ form.DELETE }}
     <div class="service-item grid grid-cols-3 gap-4 p-3 border rounded-lg shadow-md bg-gray-600">
         <div>
-            <label class="text-sm text-gray-300">Descripción</label>
+            <label class="text-sm text-gray-300" for="{{ form.specification.id_for_label }}">Descripción</label>
             {{ form.specification }}
         </div>
         <div>
-            <label class="text-sm text-gray-300">Precio</label>
+            <label class="text-sm text-gray-300" for="{{ form.price.id_for_label }}">Precio</label>
             {{ form.price }}
         </div>
         <div class="flex items-center justify-between">
             <span class="text-lg font-semibold subtotal text-orange-400">0.00</span>
             <button id="remove-service" type="button" class="remove-service text-red-500 hover:text-red-700">✖</button>
         </div>
-        {{ form.DELETE }}  {# <-- Esto es fundamental para el borrado #}
+        
     </div>
 {% endfor %}
                     </div>
@@ -117,7 +122,6 @@
                 {% if is_edit %}Actualizar{% else %}Guardar{% endif %} Factura
             </button>
         </div>
-        {{ formset.management_form }}
 
     </form>
     </div>
@@ -126,112 +130,94 @@
 
 
     {% block scripts %}
-    <script>
-        function invoiceForm() {
-            return {
-                init() {
-                    this.updateTotals();
-                },
-                updateTotals() {
-                    let grandTotal = 0;
-                    const serviceItems = document.querySelectorAll(".service-item");
-                    
-                    serviceItems.forEach(item => {
-                        const priceInput = item.querySelector("input[name*='price']");
-                        const subtotalElement = item.querySelector(".subtotal");
-                        
-                        if (priceInput && subtotalElement) {
-                            const price = parseFloat(priceInput.value) || 0;
-                            subtotalElement.textContent = price.toFixed(2);
-                            grandTotal += price;
-                        }
-                    });
-                    
-                    document.getElementById("total").textContent = grandTotal.toFixed(2);
-                }
-            }
-        }
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const serviciosContainer = document.getElementById("servicios");
+    const addServiceBtn = document.getElementById("add-service");
+    const totalFormsInput = document.getElementById("id_services-TOTAL_FORMS");
+    const formPrefix = "services";
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const addServiceBtn = document.getElementById("add-service");
-            const serviciosContainer = document.getElementById("servicios");
-            const totalFormsInput = document.getElementById("id_services-TOTAL_FORMS");
-            const totalElement = document.getElementById("total");
+    function updateFormIndexes() {
+        const forms = serviciosContainer.querySelectorAll('.service-item:not([style*="display: none"])');
+        forms.forEach((form, index) => {
+            form.querySelectorAll('input, select, textarea').forEach(input => {
+                // Actualiza nombres e IDs
+                const name = input.name.replace(/services-\d+-/, `services-${index}-`);
+                input.name = name;
+                if (input.id) input.id = input.id.replace(/services-\d+-/, `services-${index}-`);
+            });
+        });
+        totalFormsInput.value = forms.length;
+    }
+
+    function addService() {
+        const totalForms = parseInt(totalFormsInput.value);
+        const template = document.querySelector('.service-item:last-of-type');
         
-            if (!totalFormsInput) {
-                console.error("❌ No se encontró el input de TOTAL_FORMS.");
-                return;
+        const newForm = template.cloneNode(true);
+        newForm.style.display = '';
+        
+        // Reemplazar todos los índices
+        newForm.innerHTML = newForm.innerHTML.replace(
+            /services-(\d+)-/g, 
+            `services-${totalForms}-`
+        );
+        
+        // Limpiar valores excepto DELETE
+        newForm.querySelectorAll('input:not([name$="-DELETE"]), textarea, select').forEach(input => {
+            if (!input.name.includes('-id')) input.value = '';
+        });
+
+        serviciosContainer.appendChild(newForm);
+        totalFormsInput.value = totalForms + 1;
+        updateTotals();
+    }
+
+    function removeService(button) {
+        const serviceItem = button.closest('.service-item');
+        const deleteInput = serviceItem.querySelector('input[name$="-DELETE"]');
+        
+        if (deleteInput) {
+            deleteInput.checked = true;
+            serviceItem.style.display = 'none';
+        } else {
+            serviceItem.remove();
+        }
+        
+        updateFormIndexes();
+        updateTotals();
+    }
+
+    function updateTotals() {
+        let total = 0;
+        document.querySelectorAll('.service-item:not([style*="display: none"])').forEach(item => {
+            const priceInput = item.querySelector('input[name*="-price"]');
+            const subtotalSpan = item.querySelector('.subtotal');
+            
+            if (priceInput && subtotalSpan) {
+                const price = parseFloat(priceInput.value) || 0;
+                subtotalSpan.textContent = price.toFixed(2);
+                total += price;
             }
+        });
         
-            addServiceBtn.addEventListener("click", function () {
-                let totalForms = parseInt(totalFormsInput.value);
-                const lastForm = serviciosContainer.querySelector(".service-item:last-child");
-        
-                if (!lastForm) {
-                    console.error("❌ No se encontró ningún formulario para clonar.");
-                    return;
-                }
-        
-                const newForm = lastForm.cloneNode(true);
-                newForm.innerHTML = newForm.innerHTML.replace(/services-(\d+)-/g, `services-${totalForms}-`);
-        
-                newForm.querySelectorAll("input, select, textarea").forEach(input => {
-                    input.value = "";
-                });
-        
-                serviciosContainer.appendChild(newForm);
-                totalFormsInput.value = totalForms + 1;
-        
-                updateTotals();
-            });
-        
-            // Manejo de eliminación de servicios
-            serviciosContainer.addEventListener("click", function (event) {
-                if (event.target.classList.contains("remove-service")) {
-                    const serviceItem = event.target.closest(".service-item");
-                    if (serviceItem) {
-                        // Busca el input DELETE dentro del formulario de servicio
-                        const deleteInput = serviceItem.querySelector("input[type='checkbox'][name$='-DELETE']");
-                        if (deleteInput) {
-                            deleteInput.checked = true;
-                            serviceItem.style.display = "none"; // Oculta visualmente
-                        } else {
-                            // Si no existe (form nuevo), sí puedes eliminar el nodo
-                            serviceItem.remove();
-                            // No reduzcas el contador TOTAL_FORMS aquí
-                        }
-                        updateTotals();
-                    }
-                }
-            });
-        
-            function updateTotals() {
-                let grandTotal = 0;
-                const serviceItems = serviciosContainer.querySelectorAll(".service-item");
-        
-                serviceItems.forEach(item => {
-                    const priceInput = item.querySelector("input[name*='price']");
-                    const subtotalElement = item.querySelector(".subtotal");
-        
-                    if (priceInput && subtotalElement) {
-                        const price = parseFloat(priceInput.value) || 0;
-                        subtotalElement.textContent = price.toFixed(2);
-                        grandTotal += price;
-                    }
-                });
-        
-                totalElement.textContent = grandTotal.toFixed(2);
-            }
-        
-            serviciosContainer.addEventListener("input", function (event) {
-                if (event.target.name.includes("price")) {
-                    updateTotals();
-                }
-            });
-        
-            updateTotals();
-        });        
-    </script>
-    {% endblock %}
+        document.getElementById('total').textContent = total.toFixed(2);
+    }
+
+    // Event listeners
+    addServiceBtn.addEventListener('click', addService);
+    serviciosContainer.addEventListener('click', e => {
+        if (e.target.classList.contains('remove-service')) removeService(e.target);
+    });
+    serviciosContainer.addEventListener('input', e => {
+        if (e.target.name && e.target.name.includes('-price')) updateTotals();
+    });
+
+    // Inicialización
+    updateFormIndexes();
+    updateTotals();
+});
+</script>
+{% endblock %}
 
 

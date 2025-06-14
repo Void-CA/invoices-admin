@@ -119,59 +119,54 @@ def create_invoice(request):
     })
 
 def edit_invoice(request, invoice_id):
-    invoice = get_object_or_404(Invoice, id=invoice_id)
+    invoice = get_object_or_404(Invoice, id=invoice_id)  # Mover esto AL PRINCIPIO
     
     if request.method == "POST":
-        form = InvoiceForm(request.POST, instance=invoice)
+        form = InvoiceForm(request.POST, instance=invoice)  # Ahora invoice está definido
         formset = ServiceFormSet(request.POST, instance=invoice, prefix='services')
         
         if form.is_valid() and formset.is_valid():
             try:
                 with transaction.atomic():
-                    # Guardar la factura
+                    # Guardar factura
                     invoice = form.save()
                     
-                    # Guardar los servicios
+                    # Guardar servicios
                     services = formset.save(commit=False)
                     for service in services:
                         service.invoice = invoice
                         service.save()
                     
-                    # Eliminar servicios marcados para eliminar
-                    for service in formset.deleted_objects:
-                        service.delete()
+                    # Eliminar servicios marcados
+                    for obj in formset.deleted_objects:
+                        obj.delete()
                     
                     messages.success(request, "Factura actualizada con éxito.")
                     return redirect('invoice_list')
+            
             except Exception as e:
-                messages.error(request, f"Error al guardar la factura: {str(e)}")
-                print(f"Error al guardar la factura: {str(e)}")  # Para debugging
-        else:
-            if form.errors:
-                print("Errores en el formulario:", form.errors)  # Para debugging
-                messages.error(request, f"Errores en el formulario: {form.errors}")
-            if formset.errors:
-                print("Errores en el formset:", formset.errors)  # Para debugging
-                messages.error(request, f"Errores en los servicios: {formset.errors}")
-            if formset.non_form_errors():
-                print("Errores no-form en el formset:", formset.non_form_errors())  # Para debugging
-                messages.error(request, f"Errores en los servicios: {formset.non_form_errors()}")
+                messages.error(request, f"Error al guardar: {str(e)}")
+                # Pasar el formset con errores de vuelta al template
+                return render(request, 'facturas/invoice_form.html', {
+                    'invoice_form': form,
+                    'formset': formset,
+                    'invoice': invoice,
+                    'is_edit': True,
+                })
     else:
         form = InvoiceForm(instance=invoice)
         formset = ServiceFormSet(instance=invoice, prefix='services')
 
-    # Estética del formset
+    # Configuración de estilos (opcional)
     for form_i in formset:
         form_i.fields['specification'].widget.attrs.update({
-            'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full',
-            'rows': 3,
-            'placeholder': 'Nombre del servicio'
+            'class': 'form-control',
+            'placeholder': 'Descripción del servicio'
         })
         form_i.fields['price'].widget.attrs.update({
-            'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full',
-            'start': 0,
-            'step': 0.01,
-            'placeholder': 'C$'
+            'class': 'form-control',
+            'step': '0.01',
+            'placeholder': 'Precio'
         })
 
     return render(request, 'facturas/invoice_form.html', {
