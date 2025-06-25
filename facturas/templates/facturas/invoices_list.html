@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block title %}Lista de Facturas{% endblock %}
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}Lista de Facturas{% endblock %}
 {%block content %}
 <div
   class="flex items-center justify-between gap-4 border-b-2 border-[#e67a39] pb-2"
@@ -78,7 +80,7 @@
         {{ invoice.expire_date|default:"Sin vencimiento" }}
       </td>
       <td class="border border-gray-400 px-4 py-2 text-center text-primary">
-        ${{ invoice.calc_total }}
+        C${{ invoice.calc_total|floatformat:2|intcomma }}
       </td>
       <td class="border border-gray-400 px-4 py-2 text-center">
         <div class="flex justify-center space-x-2">
@@ -314,8 +316,8 @@
                         <td class="border border-gray-400 px-4 py-2 ${bg_color} text-primary text-center">${
             invoice.expire_date || "Sin vencimiento"
           }</td>
-                        <td class="border border-gray-400 px-4 py-2 text-center ${bg_color} text-primary">$${
-            invoice.calc_total
+                        <td class="border border-gray-400 px-4 py-2 text-center ${bg_color} text-primary">C$${
+            parseFloat(invoice.calc_total).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
           }</td>
                         <td class="border border-gray-400 px-4 py-2 text-center ${bg_color}">
                             <div class="flex justify-center space-x-2">

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block title %}Detalle de Factura{% endblock %}
 
@@ -41,10 +42,6 @@
                 <dd class="text-gray-300">{{ invoice.expire_date }}</dd>
             </div>
             <div class="py-3 flex justify-between">
-                <dt class="text-orange-300 font-medium">Total:</dt>
-                <dd class="text-orange-300 font-bold text-lg">C${{ invoice.calc_total }}</dd>
-            </div>
-            <div class="py-3 flex justify-between">
                 <dt class="text-orange-300 font-medium">Estado:</dt>
                 <dd class="text-white px-3 py-1 rounded-full
                     {% if invoice.state == 'Pagada' %}
@@ -64,6 +61,10 @@
                 <dt class="text-orange-300 font-medium">Tipo de factura:</dt>
                 <dd class="text-gray-300">{{ invoice.invoice_type }}</dd>
             </div>
+            <div class="py-3 flex justify-between">
+                <dt class="text-orange-300 font-medium">Total:</dt>
+                <dd class="text-orange-300 font-bold text-lg">C${{ invoice.calc_total|floatformat:2|intcomma }}</dd>
+            </div>
         </dl>
     </div>
 
@@ -72,8 +73,8 @@
         {% for servicio in invoice.services.all %}
             <li class="flex justify-between bg-gray-800 px-4 py-2 rounded-md shadow-sm">
                 <span class="text-orange-300">{{ servicio.specification }}</span>
-                <span class="text-gray-300">{{ servicio.quantity }} x C${{ servicio.price }}</span>
-                <span class="text-white font-semibold">C${{ servicio.subtotal }}</span>
+                <span class="text-gray-300">{{ servicio.quantity }} x C${{ servicio.price|floatformat:2|intcomma }}</span>
+                <span class="text-white font-semibold">C${{ servicio.subtotal|floatformat:2|intcomma }}</span>
             </li>
         {% empty %}
             <li class="text-gray-500 italic">No hay servicios registrados.</li>

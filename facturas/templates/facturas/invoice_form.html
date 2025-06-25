@@ -202,12 +202,14 @@ document.addEventListener("DOMContentLoaded", function() {
         let total = 0;
         document.querySelectorAll('.service-item:not([style*="display: none"])').forEach(item => {
             const priceInput = item.querySelector('input[name*="-price"]');
+            const quantityInput = item.querySelector('input[name*="-quantity"]');
             const subtotalSpan = item.querySelector('.subtotal');
-            
-            if (priceInput && subtotalSpan) {
+
+            if (priceInput && quantityInput) {
                 const price = parseFloat(priceInput.value) || 0;
-                subtotalSpan.textContent = price.toFixed(2);
-                total += price;
+                const quantity = parseInt(quantityInput.value) || 0;
+                subtotalSpan.textContent = (price * quantity).toFixed(2);
+                total += price * quantity;
             }
         });
         
@@ -220,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (e.target.classList.contains('remove-service')) removeService(e.target);
     });
     serviciosContainer.addEventListener('input', e => {
-        if (e.target.name && e.target.name.includes('-price')) updateTotals();
+        if (e.target.name && (e.target.name.includes('-price') || e.target.name.includes('-quantity'))) updateTotals();
     });
 
     // Inicialización
