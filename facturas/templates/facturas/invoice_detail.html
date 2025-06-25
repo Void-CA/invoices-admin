@@ -72,7 +72,8 @@
         {% for servicio in invoice.services.all %}
             <li class="flex justify-between bg-gray-800 px-4 py-2 rounded-md shadow-sm">
                 <span class="text-orange-300">{{ servicio.specification }}</span>
-                <span class="text-white font-semibold">${{ servicio.price }}</span>
+                <span class="text-gray-300">{{ servicio.quantity }} x C${{ servicio.price }}</span>
+                <span class="text-white font-semibold">C${{ servicio.subtotal }}</span>
             </li>
         {% empty %}
             <li class="text-gray-500 italic">No hay servicios registrados.</li>

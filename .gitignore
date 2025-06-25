@@ -1,1 +1,4 @@
 .env
+.sqllite3
+__pycache__/
+*.pyc

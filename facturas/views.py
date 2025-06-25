@@ -88,7 +88,7 @@ def invoice_detail(request, invoice_id):
     factura = get_object_or_404(Invoice, id=invoice_id)
     return render(request, 'facturas/invoice_detail.html', {'invoice': factura})
 
-ServiceFormSet = inlineformset_factory(Invoice, Service, fields=['specification', 'price'], extra=1, can_delete=True)
+ServiceFormSet = inlineformset_factory(Invoice, Service, fields=['quantity', 'specification', 'price'], extra=1, can_delete=True)
 def create_invoice(request):
     if request.method == 'POST':
         form = InvoiceForm(request.POST)
@@ -110,6 +110,7 @@ def create_invoice(request):
         form = InvoiceForm()
         formset = ServiceFormSet(prefix='services')  # Usar prefijo 'services'
         for form_i in formset:
+            form_i.fields['quantity'].widget.attrs.update({'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full', 'start': 1, 'step': 1})
             form_i.fields['specification'].widget.attrs.update({'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full', 'rows': 3,'placeholder': 'Nombre del servicio'})
             form_i.fields['price'].widget.attrs.update({'class': 'bg-gray-100 border border-gray-300 rounded-md py-2 px-3 w-full', 'start': 0, 'step': 0.01, 'placeholder': 'C$'})
 

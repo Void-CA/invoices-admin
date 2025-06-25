@@ -71,7 +71,11 @@
                             <div style="display:none">
                                 {{ form.DELETE }}
                             </div>
-    <div class="service-item grid grid-cols-3 gap-4 p-3 border rounded-lg shadow-md bg-gray-600">
+    <div class="service-item grid grid-cols-4 gap-4 p-3 border rounded-lg shadow-md bg-gray-600">
+         <div>
+            <label class="text-sm text-gray-300" for="{{ form.quantity.id_for_label }}">Cantidad</label>
+            {{ form.quantity }}
+        </div>
         <div>
             <label class="text-sm text-gray-300" for="{{ form.specification.id_for_label }}">Descripción</label>
             {{ form.specification }}

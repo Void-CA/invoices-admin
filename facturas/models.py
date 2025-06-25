@@ -29,7 +29,7 @@ class Invoice(models.Model):
 
     @property
     def calc_total(self):
-        return sum(service.price for service in self.services.all())  # Usando related_name="services"
+        return sum(service.price * service.quantity for service in self.services.all())  # Usando related_name="services"
 
     def __str__(self):
         return f"Factura {self.id} - {self.client.name}"
